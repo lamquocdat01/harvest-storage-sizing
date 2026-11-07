@@ -1,24 +1,42 @@
 {
  "rule": "event = maximal run of consecutive frames with >= 1 detection box; datasets CDnet2014, LASIESTA, BMC",
+ "frame_order": "time; LASIESTA re-ordered by the number in the file name (amendment A1)",
  "detections_root": "D:\\Datasets\\_derived\\detections_cpu_yolo26s",
  "n_videos": 121,
- "n_events": 3713,
+ "n_events": 3170,
  "n_frames_total": 166589,
  "per_dataset_videos": {
   "CDnet2014": 53,
   "LASIESTA": 48,
   "BMC": 20
  },
- "event_corpus_40_csv_sha256": "6f135f9fa0383621da991b666c1fe2629604ca287ff0f9e08a77566f663721ac",
+ "per_dataset_events": {
+  "CDnet2014": 2516,
+  "LASIESTA": 393,
+  "BMC": 261
+ },
+ "event_corpus_40_csv_sha256": "299caebc690fb6f40c7de4be5b24cb334de2ffcc62cc01bc06f53221b59b39d3",
+ "F_D_hash": "917151434d622e98a95f85b3a38f1ad5f88e2185014f651eafb279924ba0fe23",
  "reference": {
   "path": "D:\\THS Programing\\09.05 Certifiable worst-case\\certifiable-frame-skipping\\data\\processed\\events_gated.csv",
   "sha256": "8fade8f15bbb4f09ec27cb25a355af92750c618017c04e4d5d7b1917bb7cf29d",
   "sha_expected": "8fade8f15bbb4f09ec27cb25a355af92750c618017c04e4d5d7b1917bb7cf29d",
   "sha_ok": true,
-  "n_events": 3713
+  "n_events": 3713,
+  "note": "earlier corpus on the dump index; its LASIESTA rows are not in time order"
  },
- "rows_identical_dataset_video_onset_duration": true,
- "F_D_hash_mine": "40f8afe9a4cc488127c03d6faedf7d0f9c2db45eb18e4cf3dc8f71c5cff48f4c",
- "F_D_hash_reference": "40f8afe9a4cc488127c03d6faedf7d0f9c2db45eb18e4cf3dc8f71c5cff48f4c",
- "F_D_identical": true
+ "vs_earlier_3713": {
+  "rows_identical_outside_LASIESTA": true,
+  "dump_index_rebuild_identical_to_reference": true,
+  "n_events_difference": -543
+ },
+ "vs_topic17_3170": {
+  "events_expected": {
+   "BMC": 261,
+   "CDnet2014": 2516,
+   "LASIESTA": 393
+  },
+  "events_match": true,
+  "F_D_identical": true
+ }
 }

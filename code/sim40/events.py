@@ -5,8 +5,13 @@ Rule (same extraction protocol as events_gated of the 09.05 pipeline, re-impleme
 Datasets kept: CDnet2014, LASIESTA, BMC (VIRAT clips are 500-frame truncation stubs -> excluded).
 Videos with no detection at all carry no event and are dropped.
 
+Frame order (amendment A1, prereg/AMENDMENT_LOG.md): the dump indexes frames by position in the text-sorted file
+list. LASIESTA names are not zero-padded (I_BS_01-1.bmp, -10, -100, ...), so its index is not time: frames are
+re-ordered by the number in the file name, and the onset is (true number - 1). CDnet2014 and BMC names are
+zero-padded (text order = time) and are read as dumped.
+
 Outputs: results/event_corpus_40.csv (dataset, video, n_frames, event_id, onset, duration)
-         results/corpus_rebuild_check.json (identity vs events_gated.csv, F_D hash)
+         results/corpus_rebuild_check.json (counts, F_D hash, comparison with the earlier 3,713 and the 3,170 corpus)
 
 Duration law helpers: phi(g) = E[min(g, D)], Psi(a) = E[min(1, a D)] = 1 - eps*(a).
 """
@@ -15,6 +20,7 @@ from __future__ import annotations
 import hashlib
 import json
 from functools import lru_cache
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -23,6 +29,24 @@ from . import config as cfg
 
 DATASETS = ("CDnet2014", "LASIESTA", "BMC")
 OUT_CSV = cfg.RES / "event_corpus_40.csv"
+# topic 17 (B0, 27-09-2026): the same correction, built there from frame_scores. READ ONLY, compared if present.
+TOPIC17_CORRECTED = Path(r"D:\PhD Program\02. Working\17_Sim2Real_Certification\results\events_durations_corrected.csv")
+TOPIC17_COUNTS = {"BMC": 261, "CDnet2014": 2516, "LASIESTA": 393}
+
+
+def lasiesta_frame_numbers(n):
+    """Frame number in the file name at each dump index: nums[i] is the number of the i-th text-sorted file,
+    for a sequence named <seq>-1 ... <seq>-n. Natural sort is the inverse of this map."""
+    return [int(s.split(".")[0]) for s in sorted(f"{k}.bmp" for k in range(1, n + 1))]
+
+
+def temporal_frames(dataset, frames):
+    """Frame records in time order, with `frame` on the 0-based time axis. Only LASIESTA is re-ordered."""
+    if dataset != "LASIESTA":
+        return frames
+    assert [rec["frame"] for rec in frames] == list(range(len(frames))), "LASIESTA dump index is not 0..n-1"
+    nums = lasiesta_frame_numbers(len(frames))
+    return sorted(({**rec, "frame": num - 1} for rec, num in zip(frames, nums)), key=lambda rec: rec["frame"])
 
 
 def _events_from_frames(frames):
@@ -39,14 +63,15 @@ def _events_from_frames(frames):
     return ev
 
 
-def build_corpus(root=cfg.DET):
+def build_corpus(root=cfg.DET, temporal=True):
+    """temporal=False keeps the dump index as time; it exists only to compare with the earlier 3,713-event corpus."""
     rows = []
     for ds in DATASETS:
         for f in sorted((root / ds).glob("*.json")):
             frames = json.loads(f.read_text(encoding="utf-8")).get("frames", [])
             if not frames:
                 continue
-            evs = _events_from_frames(frames)
+            evs = _events_from_frames(temporal_frames(ds, frames) if temporal else frames)
             if not evs:
                 continue
             stem = f.stem
@@ -65,27 +90,35 @@ def rebuild_and_check():
     ev = build_corpus()
     cfg.RES.mkdir(exist_ok=True)
     ev.to_csv(OUT_CSV, index=False, lineterminator="\n")
-    sha_out = hashlib.sha256(OUT_CSV.read_bytes()).hexdigest()
-    ref = pd.read_csv(cfg.LEGACY_EVENTS)
-    sha_ref = hashlib.sha256(cfg.LEGACY_EVENTS.read_bytes()).hexdigest()
-    a = ev[["dataset", "video", "onset", "duration"]].sort_values(["dataset", "video", "onset"]).reset_index(drop=True)
-    b = ref[["dataset", "video", "onset", "duration"]].sort_values(["dataset", "video", "onset"]).reset_index(drop=True)
-    rows_identical = bool(a.shape == b.shape and (a.values == b.values).all())
-    fd_mine, fd_ref = durations_hash(ev.duration), durations_hash(ref.duration)
+    keys = ["dataset", "video", "onset", "duration"]
+    sort = lambda d: d[keys].sort_values(keys[:3]).reset_index(drop=True)  # noqa: E731
+    same = lambda x, y: bool(x.shape == y.shape and (x.values == y.values).all())  # noqa: E731
     res = {
         "rule": "event = maximal run of consecutive frames with >= 1 detection box; datasets CDnet2014, LASIESTA, BMC",
+        "frame_order": "time; LASIESTA re-ordered by the number in the file name (amendment A1)",
         "detections_root": str(cfg.DET),
         "n_videos": int(ev.groupby(["dataset", "video"]).ngroups), "n_events": int(len(ev)),
         "n_frames_total": int(ev.drop_duplicates(["dataset", "video"]).n_frames.sum()),
         "per_dataset_videos": ev.drop_duplicates(["dataset", "video"]).dataset.value_counts().to_dict(),
-        "event_corpus_40_csv_sha256": sha_out,
-        "reference": {"path": str(cfg.LEGACY_EVENTS), "sha256": sha_ref, "sha_expected": cfg.LEGACY_EVENTS_SHA,
-                      "sha_ok": sha_ref == cfg.LEGACY_EVENTS_SHA, "n_events": int(len(ref))},
-        "rows_identical_dataset_video_onset_duration": rows_identical,
-        "F_D_hash_mine": fd_mine, "F_D_hash_reference": fd_ref, "F_D_identical": fd_mine == fd_ref,
+        "per_dataset_events": ev.dataset.value_counts().to_dict(),
+        "event_corpus_40_csv_sha256": hashlib.sha256(OUT_CSV.read_bytes()).hexdigest(),
+        "F_D_hash": durations_hash(ev.duration),
     }
-    assert res["n_videos"] == 121 and res["n_events"] == 3713, res
-    assert res["F_D_identical"] and rows_identical, "corpus rebuild differs from events_gated.csv"
+    if cfg.LEGACY_EVENTS.exists():   # earlier corpus, dump index as time; present only on the author's machine
+        ref = pd.read_csv(cfg.LEGACY_EVENTS)
+        sha_ref = hashlib.sha256(cfg.LEGACY_EVENTS.read_bytes()).hexdigest()
+        res["reference"] = {"path": str(cfg.LEGACY_EVENTS), "sha256": sha_ref, "sha_expected": cfg.LEGACY_EVENTS_SHA,
+                            "sha_ok": sha_ref == cfg.LEGACY_EVENTS_SHA, "n_events": int(len(ref)),
+                            "note": "earlier corpus on the dump index; its LASIESTA rows are not in time order"}
+        res["vs_earlier_3713"] = {
+            "rows_identical_outside_LASIESTA": same(sort(ev[ev.dataset != "LASIESTA"]), sort(ref[ref.dataset != "LASIESTA"])),
+            "dump_index_rebuild_identical_to_reference": same(sort(build_corpus(temporal=False)), sort(ref)),
+            "n_events_difference": int(len(ev) - len(ref))}
+    res["vs_topic17_3170"] = {"events_expected": TOPIC17_COUNTS,
+                              "events_match": res["per_dataset_events"] == TOPIC17_COUNTS}
+    if TOPIC17_CORRECTED.exists():   # the F_D hash is order-free, so it also compares the duration multiset
+        res["vs_topic17_3170"]["F_D_identical"] = durations_hash(pd.read_csv(TOPIC17_CORRECTED).duration) == res["F_D_hash"]
+    assert res["n_videos"] == 121, res     # the seeded video split depends on this list (amendment A1 sec. 2)
     (cfg.RES / "corpus_rebuild_check.json").write_text(json.dumps(res, indent=1))
     return ev, res
 
@@ -161,7 +194,7 @@ def corpus_law(ev=None):
 
 if __name__ == "__main__":
     _, r = rebuild_and_check()
-    print(json.dumps({k: r[k] for k in ("n_videos", "n_events", "F_D_identical", "rows_identical_dataset_video_onset_duration")}))
+    print(json.dumps({k: r.get(k) for k in ("n_videos", "n_events", "per_dataset_events", "vs_earlier_3713", "vs_topic17_3170")}))
 
 
 def video_split(ev=None, seed=42):

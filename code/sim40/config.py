@@ -21,10 +21,11 @@ DS = Path(os.environ.get("THS_DATASETS", r"D:\Datasets"))
 SAT = DS / "OpenMeteo_SatRad"
 ENH = DS / "EnHANTS" / "extracted"
 DET = DS / "_derived" / "detections_cpu_yolo26s"
-CKPT = DS / "_derived" / "40" / "grid_ckpt"   # large dumps off the Drive-synced folder (CLAUDE.md)
+CKPT = DS / "_derived" / "40" / "grid_ckpt_v2"   # large dumps off the Drive-synced folder (CLAUDE.md)
+#                                                  v2 = time-ordered LASIESTA (amendment A1); never mix with grid_ckpt
 
-# events_gated.csv of the 09.05 repo: READ ONLY, used only to assert that the corpus rebuilt
-# here (events.py) is identical. Never copied, never imported.
+# events_gated.csv of the 09.05 repo: READ ONLY, used only to compare with the corpus rebuilt here
+# (events.py; it carries the earlier LASIESTA frame index). Never copied, never imported.
 LEGACY_EVENTS = Path(r"D:\THS Programing\09.05 Certifiable worst-case\certifiable-frame-skipping"
                      r"\data\processed\events_gated.csv")
 LEGACY_EVENTS_SHA = "8fade8f15bbb4f09ec27cb25a355af92750c618017c04e4d5d7b1917bb7cf29d"
