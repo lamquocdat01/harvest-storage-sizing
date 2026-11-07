@@ -80,3 +80,48 @@ The v2 scoring is **not** a blind test.
 ### 8. Note on the earlier corpus count
 
 An earlier paper from the same pipeline reports a corpus of 3,713 events on the previous frame index. This topic uses the time-ordered corpus of 3,170 events.
+
+## A2 (07-11-2026): sandwich brackets and exact miss of the taut-string schedule
+
+*Written and hashed before any A2 code exists and before any A2 number is computed. Tag: `prereg-40-a2`. Sections A1.1–A1.8 above are unchanged. Decision source: CP_S3B item 4 (proposal = default, 07-11-2026), after the independent proof check `P0R/PROOF_CHECK_40.md` (S3b).*
+
+### 1. Reason (post hoc, disclosed)
+
+The proof check (S3b, items §1.11, §1.15, §5.4) found two reporting choices that do not match Theorem 3 (THEORY v2.1; Theorem 2b in v2.0):
+
+- C_LB is reported as the **upper** end of a bisection with 1 % relative tolerance, so it can exceed the true C_LB by up to 1 %;
+- C_TS is the upper end of a bisection whose test uses the **block surrogate** miss Σ_j (n/T) Ψ(a_j) with n = 600 slots per block, while D_max = 6,300 slots, so the surrogate is not the miss of any slot schedule.
+
+On v2 TEST 396 of 1,550 finite cells have C_LB/C_TS > 1 (max 1.0093), which the theorem forbids. This amendment is a change made **after** the v2 TEST results were seen. It does not replace the registered scoring.
+
+### 2. Definitions
+
+For each eps-sizing cell (site, season, r, ℓ̃, m) and target ε of the v2 `frontier` stage (TEST: 300 combinations × ε ∈ {0.45, 0.5, 0.55, 0.6, 0.66, 0.75}; cells with a_ε > a_bal stay infinite):
+
+- **C_LB_lo, C_LB_hi:** the lower and upper ends of the same bisection as v2 (`energy.C_for_amax`, test A(C) ≥ a_ε, relative tolerance 0.01). C_LB_lo has A(C_LB_lo) < a_ε, so C_LB ≥ C_LB_lo. C_LB_hi equals the v2 value.
+- **C_TS_sur_hi:** the v2 value (surrogate test).
+- **Realised schedule:** from the per-sub-step (on_frac_j, rate_j) of a run, the slot schedule with phase-continuous interleaving (Bresenham): the k-th activation is in the slot where the cumulative fluid activation count A(t) crosses k − φ, with fixed phase **φ = 0.5**, n_sub = 600 slots per sub-step, activations only in the on part of a sub-step, and the rate cap a_j ≤ 1 (at most one activation per slot).
+- **Exact miss:** Lemma 1 on the cyclic gaps of the realised schedule, miss = 1 − (1/T) Σ_i G(g_i) with G(g) = Σ_{k<g} P(D > k), clamped at D_max.
+- **Feasible C:** the realised taut-string schedule at C (`policies.taut`, unchanged) has **exact miss ≤ ε and no outage** (fluid on-fraction 1 in every sub-step, tolerance 10⁻⁹).
+- **C_TS_exact_hi:** the upper end of a bisection with relative tolerance 0.01 whose upper end is always a C verified feasible. Start: C_TS_sur_hi if it is feasible; otherwise multiply by 1.25 until feasible, up to the v2 search cap (50 × C\* of periodic K = 8); if none is feasible, ∞. Lower end: C_LB_lo (no policy in the class is feasible below C_LB). No monotonicity of the exact miss in C is assumed: the result is a verified feasible point, which is all Theorem 3(b) needs.
+
+Recorded per (cell, ε): C_LB_lo, C_LB_hi; C_TS_sur_hi with miss_exact and outage there; C_TS_exact_hi with outage there (must be 0); abs_exact_minus_sur = |miss_exact − miss_surrogate| at C_TS_exact_hi; C_per (v2).
+
+### 3. Pass rule of the amendment
+
+**PASS iff 0 cells have C_LB_lo > C_TS_exact_hi**, and the code tests pass: (t1) constant rate a with aT ∈ ℕ gives exact miss = ε\*(a) within 10⁻¹²; (t2) 5 random schedules agree with `metrics.replay_miss` within 3 standard errors; (t3) brute force over onsets and durations on small T agrees exactly. A cell with C_LB_lo > C_TS_exact_hi is reported verbatim as a code error or a gap in the theorem, and the A2 stage stops; nothing is edited to make it pass.
+
+### 4. Scoring
+
+- H4a–H4d keep their registered definitions and their registered verdicts (computed from C_LB_hi and C_TS_sur_hi). Those verdicts are what the paper reports as the pre-registered outcome.
+- An **A2 column** is printed next to them: H4a–H4c recomputed with C_TS_exact_hi in place of C_TS and C_LB_lo in place of C_LB, same thresholds; H4d recomputed on the same 6 bootstrap cells, the same 7-day block resamples (the seed-42 generator of `bootstrap.run_boot` replayed in its original order) and B_ts = 100, with the exact feasibility test. Because the H4d target equals the floor ε\*(1/8) exactly, where the exact miss of any non-periodic schedule sits on a knife edge, the A2 version of H4d uses ε\*(1/8) + 10⁻⁴; the share of resamples that is also feasible at ε\*(1/8) + 10⁻⁹ is reported.
+- A verdict that differs between the registered and the A2 column is printed with both values, in the main text if it concerns a headline number.
+- Tolerance 1 % as before. Seed 42. No other prediction, threshold or grid is changed.
+
+### 5. What will be run
+
+`P3R/run_a2_sizing.py --split test` (checkpoints in `$THS_DATASETS/_derived/40/a2_ckpt/`, one file per combination, resumable; never writes into `grid_ckpt_v2`; reads the v2 frontier checkpoints read-only), then its bootstrap part for H4d. Output `results/a2_sizing_test.json`; v2 files are not overwritten. TRAIN (`--split train`) only after the TRAIN rerun of A1 is complete. Code added: `code/sim40/miss_exact.py`, `code/sim40/tests/test_miss_exact.py`, `P3R/run_a2_sizing.py`; no existing module is changed.
+
+### 6. What the analyst had seen (disclosure)
+
+The proof check (`P0R/PROOF_CHECK_40.md`); the v2 cell with C_LB/C_TS = 1.0093 and the count of cells above 1; every v2 TEST number (`results/`, `P2R/DIFF_v1_v2_40.md`), including H4a–H4d v2 and the E1 median outage difference per_abarK − Kansal of −0.055. No exact-miss value of any schedule on the traces had been computed.
