@@ -1,0 +1,628 @@
+{
+ "amendment": "A3 section 5",
+ "node": {
+  "r": 14.3,
+  "l": 0.036,
+  "K": 8
+ },
+ "panel": "scaled on TRAIN months only",
+ "summary": {
+  "m0.25": {
+   "HCMC": {
+    "n": 4,
+    "median": 1.1571431034164443,
+    "p90": 2.2695964202201426,
+    "max": 2.2695964202201426,
+    "share_gt1": 0.75,
+    "n_inf": 0,
+    "median_is_inf": false,
+    "p90_is_inf": false
+   },
+   "Madrid": {
+    "n": 8,
+    "median": 0.5599262857022202,
+    "p90": 1.340760209905405,
+    "max": 1.340760209905405,
+    "share_gt1": 0.375,
+    "n_inf": 0,
+    "median_is_inf": false,
+    "p90_is_inf": false
+   },
+   "Uppsala": {
+    "n": 8,
+    "median": 2.1605849126330887,
+    "p90": null,
+    "max": null,
+    "share_gt1": 0.625,
+    "n_inf": 1,
+    "median_is_inf": false,
+    "p90_is_inf": true
+   },
+   "indoor": {
+    "n": 5,
+    "median": 1.0369677630573926,
+    "p90": 1.4146917815129574,
+    "max": 1.4146917815129574,
+    "share_gt1": 0.6,
+    "n_inf": 0,
+    "median_is_inf": false,
+    "p90_is_inf": false
+   },
+   "all": {
+    "n": 25,
+    "median": 1.0369677630573926,
+    "p90": 3.965492596275273,
+    "max": null,
+    "share_gt1": 0.56,
+    "n_inf": 1,
+    "median_is_inf": false,
+    "p90_is_inf": false
+   }
+  },
+  "m1.0": {
+   "HCMC": {
+    "n": 4,
+    "median": 1.0439435241605306,
+    "p90": 1.3867825512291971,
+    "max": 1.3867825512291971,
+    "share_gt1": 0.75,
+    "n_inf": 0,
+    "median_is_inf": false,
+    "p90_is_inf": false
+   },
+   "Madrid": {
+    "n": 8,
+    "median": 0.7768058392626684,
+    "p90": 1.35677114400139,
+    "max": 1.35677114400139,
+    "share_gt1": 0.25,
+    "n_inf": 0,
+    "median_is_inf": false,
+    "p90_is_inf": false
+   },
+   "Uppsala": {
+    "n": 8,
+    "median": 1.1756764785438254,
+    "p90": 4.749865950149128,
+    "max": 4.749865950149128,
+    "share_gt1": 0.5,
+    "n_inf": 0,
+    "median_is_inf": false,
+    "p90_is_inf": false
+   },
+   "indoor": {
+    "n": 5,
+    "median": 0.9273499554861682,
+    "p90": 1.5972273455676553,
+    "max": 1.5972273455676553,
+    "share_gt1": 0.4,
+    "n_inf": 0,
+    "median_is_inf": false,
+    "p90_is_inf": false
+   },
+   "all": {
+    "n": 25,
+    "median": 0.8973122207527503,
+    "p90": 1.6198329416973956,
+    "max": 4.749865950149128,
+    "share_gt1": 0.44,
+    "n_inf": 0,
+    "median_is_inf": false,
+    "p90_is_inf": false
+   }
+  }
+ },
+ "grid_per_cell_median": {
+  "n": 25,
+  "median": 0.963419458781599,
+  "p90": 2.7780586102302336,
+  "max": null,
+  "share_gt1": 0.48,
+  "n_inf": 1,
+  "median_is_inf": false,
+  "p90_is_inf": false
+ },
+ "excluded": [],
+ "rows": [
+  {
+   "site": "HCMC",
+   "season": "DJF",
+   "group": "HCMC",
+   "m": 0.25,
+   "C_TRAIN": 1698108.455771859,
+   "C_TEST": 3854020.8723653657,
+   "k": 2.2695964202201426,
+   "k_inf": false
+  },
+  {
+   "site": "HCMC",
+   "season": "DJF",
+   "group": "HCMC",
+   "m": 1.0,
+   "C_TRAIN": 1469000.0953919992,
+   "C_TEST": 2037183.7000436506,
+   "k": 1.3867825512291971,
+   "k_inf": false
+  },
+  {
+   "site": "HCMC",
+   "season": "MAM",
+   "group": "HCMC",
+   "m": 0.25,
+   "C_TRAIN": 2801442.3546026824,
+   "C_TEST": 2142572.7084473697,
+   "k": 0.7648105644319932,
+   "k_inf": false
+  },
+  {
+   "site": "HCMC",
+   "season": "MAM",
+   "group": "HCMC",
+   "m": 1.0,
+   "C_TRAIN": 1584369.879065919,
+   "C_TEST": 1325161.103844437,
+   "k": 0.836396299471244,
+   "k_inf": false
+  },
+  {
+   "site": "HCMC",
+   "season": "JJA",
+   "group": "HCMC",
+   "m": 0.25,
+   "C_TRAIN": 2393956.568048279,
+   "C_TEST": 2439726.5864148913,
+   "k": 1.019118984436684,
+   "k_inf": false
+  },
+  {
+   "site": "HCMC",
+   "season": "JJA",
+   "group": "HCMC",
+   "m": 1.0,
+   "C_TRAIN": 1474498.7706399143,
+   "C_TEST": 1595894.1477553726,
+   "k": 1.0823299276558733,
+   "k_inf": false
+  },
+  {
+   "site": "HCMC",
+   "season": "SON",
+   "group": "HCMC",
+   "m": 0.25,
+   "C_TRAIN": 3319638.752014431,
+   "C_TEST": 4299487.301805335,
+   "k": 1.295167222396205,
+   "k_inf": false
+  },
+  {
+   "site": "HCMC",
+   "season": "SON",
+   "group": "HCMC",
+   "m": 1.0,
+   "C_TRAIN": 1989155.6939940334,
+   "C_TEST": 2000209.6722074032,
+   "k": 1.0055571206651877,
+   "k_inf": false
+  },
+  {
+   "site": "Madrid-MSG",
+   "season": "DJF",
+   "group": "Madrid",
+   "m": 0.25,
+   "C_TRAIN": 5710377.026240959,
+   "C_TEST": 7227662.6812983705,
+   "k": 1.2657067384666567,
+   "k_inf": false
+  },
+  {
+   "site": "Madrid-MSG",
+   "season": "DJF",
+   "group": "Madrid",
+   "m": 1.0,
+   "C_TRAIN": 2946452.40675928,
+   "C_TEST": 1947992.9415329166,
+   "k": 0.6611316500698069,
+   "k_inf": false
+  },
+  {
+   "site": "Madrid-MSG",
+   "season": "MAM",
+   "group": "Madrid",
+   "m": 0.25,
+   "C_TRAIN": 23185846.43275221,
+   "C_TEST": 4063839.393411073,
+   "k": 0.1752724191112779,
+   "k_inf": false
+  },
+  {
+   "site": "Madrid-MSG",
+   "season": "MAM",
+   "group": "Madrid",
+   "m": 1.0,
+   "C_TRAIN": 9502666.69096442,
+   "C_TEST": 2258630.7070075516,
+   "k": 0.23768388184709913,
+   "k_inf": false
+  },
+  {
+   "site": "Madrid-MSG",
+   "season": "JJA",
+   "group": "Madrid",
+   "m": 0.25,
+   "C_TRAIN": 1748940.2419320114,
+   "C_TEST": 2344909.4858847735,
+   "k": 1.340760209905405,
+   "k_inf": false
+  },
+  {
+   "site": "Madrid-MSG",
+   "season": "JJA",
+   "group": "Madrid",
+   "m": 1.0,
+   "C_TRAIN": 1165387.0278095633,
+   "C_TEST": 1581163.490925561,
+   "k": 1.35677114400139,
+   "k_inf": false
+  },
+  {
+   "site": "Madrid-MSG",
+   "season": "SON",
+   "group": "Madrid",
+   "m": 0.25,
+   "C_TRAIN": 18246792.624240126,
+   "C_TEST": 5726949.86402193,
+   "k": 0.31386063194546904,
+   "k_inf": false
+  },
+  {
+   "site": "Madrid-MSG",
+   "season": "SON",
+   "group": "Madrid",
+   "m": 1.0,
+   "C_TRAIN": 4581860.229441392,
+   "C_TEST": 4111359.177658762,
+   "k": 0.8973122207527503,
+   "k_inf": false
+  },
+  {
+   "site": "Madrid-SARAH3",
+   "season": "DJF",
+   "group": "Madrid",
+   "m": 0.25,
+   "C_TRAIN": 5153737.874604228,
+   "C_TEST": 4006120.0705809696,
+   "k": 0.7773232104647178,
+   "k_inf": false
+  },
+  {
+   "site": "Madrid-SARAH3",
+   "season": "DJF",
+   "group": "Madrid",
+   "m": 1.0,
+   "C_TRAIN": 2815199.605480804,
+   "C_TEST": 1774646.7569429234,
+   "k": 0.6303804367860566,
+   "k_inf": false
+  },
+  {
+   "site": "Madrid-SARAH3",
+   "season": "MAM",
+   "group": "Madrid",
+   "m": 0.25,
+   "C_TRAIN": 22445856.348932985,
+   "C_TEST": 4339760.023767929,
+   "k": 0.1933434820353481,
+   "k_inf": false
+  },
+  {
+   "site": "Madrid-SARAH3",
+   "season": "MAM",
+   "group": "Madrid",
+   "m": 1.0,
+   "C_TRAIN": 8870727.688123751,
+   "C_TEST": 2486517.262729159,
+   "k": 0.28030589486566493,
+   "k_inf": false
+  },
+  {
+   "site": "Madrid-SARAH3",
+   "season": "JJA",
+   "group": "Madrid",
+   "m": 0.25,
+   "C_TRAIN": 1752196.9842916906,
+   "C_TEST": 2143411.934442836,
+   "k": 1.2232711011709052,
+   "k_inf": false
+  },
+  {
+   "site": "Madrid-SARAH3",
+   "season": "JJA",
+   "group": "Madrid",
+   "m": 1.0,
+   "C_TRAIN": 1098276.0129917592,
+   "C_TEST": 1352503.3634454191,
+   "k": 1.231478560440496,
+   "k_inf": false
+  },
+  {
+   "site": "Madrid-SARAH3",
+   "season": "SON",
+   "group": "Madrid",
+   "m": 0.25,
+   "C_TRAIN": 16434337.64144333,
+   "C_TEST": 5629243.169791213,
+   "k": 0.3425293609397227,
+   "k_inf": false
+  },
+  {
+   "site": "Madrid-SARAH3",
+   "season": "SON",
+   "group": "Madrid",
+   "m": 1.0,
+   "C_TRAIN": 4432135.692138243,
+   "C_TEST": 3955592.5886383085,
+   "k": 0.8924800284555299,
+   "k_inf": false
+  },
+  {
+   "site": "Uppsala-MSG",
+   "season": "DJF",
+   "group": "Uppsala",
+   "m": 0.25,
+   "C_TRAIN": 4564118.226946644,
+   "C_TEST": 18098977.03748194,
+   "k": 3.965492596275273,
+   "k_inf": false
+  },
+  {
+   "site": "Uppsala-MSG",
+   "season": "DJF",
+   "group": "Uppsala",
+   "m": 1.0,
+   "C_TRAIN": 1868527.8535031124,
+   "C_TEST": 2972128.0818389533,
+   "k": 1.5906255163747296,
+   "k_inf": false
+  },
+  {
+   "site": "Uppsala-MSG",
+   "season": "MAM",
+   "group": "Uppsala",
+   "m": 0.25,
+   "C_TRAIN": 13834882.286973596,
+   "C_TEST": 5959776.298501286,
+   "k": 0.43077896688089545,
+   "k_inf": false
+  },
+  {
+   "site": "Uppsala-MSG",
+   "season": "MAM",
+   "group": "Uppsala",
+   "m": 1.0,
+   "C_TRAIN": 2496419.760436301,
+   "C_TEST": 1899095.0153018713,
+   "k": 0.7607274407129213,
+   "k_inf": false
+  },
+  {
+   "site": "Uppsala-MSG",
+   "season": "JJA",
+   "group": "Uppsala",
+   "m": 0.25,
+   "C_TRAIN": 2883750.1190403467,
+   "C_TEST": 6309498.56046941,
+   "k": 2.187949128743888,
+   "k_inf": false
+  },
+  {
+   "site": "Uppsala-MSG",
+   "season": "JJA",
+   "group": "Uppsala",
+   "m": 1.0,
+   "C_TRAIN": 1353781.8427214578,
+   "C_TEST": 2192900.42471202,
+   "k": 1.6198329416973956,
+   "k_inf": false
+  },
+  {
+   "site": "Uppsala-MSG",
+   "season": "SON",
+   "group": "Uppsala",
+   "m": 0.25,
+   "C_TRAIN": 43967284.753044434,
+   "C_TEST": 12027108.3032877,
+   "k": 0.273546760297835,
+   "k_inf": false
+  },
+  {
+   "site": "Uppsala-MSG",
+   "season": "SON",
+   "group": "Uppsala",
+   "m": 1.0,
+   "C_TRAIN": 27702349.281666297,
+   "C_TEST": 3476154.392597134,
+   "k": 0.12548229600504276,
+   "k_inf": false
+  },
+  {
+   "site": "Uppsala-SARAH3",
+   "season": "DJF",
+   "group": "Uppsala",
+   "m": 0.25,
+   "C_TRAIN": 7290809.771738413,
+   "C_TEST": 34036830.18865065,
+   "k": 4.668456763278703,
+   "k_inf": false
+  },
+  {
+   "site": "Uppsala-SARAH3",
+   "season": "DJF",
+   "group": "Uppsala",
+   "m": 1.0,
+   "C_TRAIN": 4209011.5723077925,
+   "C_TEST": 19992240.75108843,
+   "k": 4.749865950149128,
+   "k_inf": false
+  },
+  {
+   "site": "Uppsala-SARAH3",
+   "season": "MAM",
+   "group": "Uppsala",
+   "m": 0.25,
+   "C_TRAIN": 16921551.985184412,
+   "C_TEST": 9250941.796920765,
+   "k": 0.5466958234694066,
+   "k_inf": false
+  },
+  {
+   "site": "Uppsala-SARAH3",
+   "season": "MAM",
+   "group": "Uppsala",
+   "m": 1.0,
+   "C_TRAIN": 7114529.370876419,
+   "C_TEST": 4981428.412540722,
+   "k": 0.7001768005811287,
+   "k_inf": false
+  },
+  {
+   "site": "Uppsala-SARAH3",
+   "season": "JJA",
+   "group": "Uppsala",
+   "m": 0.25,
+   "C_TRAIN": 3159579.3446107386,
+   "C_TEST": 6740080.050227958,
+   "k": 2.1332206965222893,
+   "k_inf": false
+  },
+  {
+   "site": "Uppsala-SARAH3",
+   "season": "JJA",
+   "group": "Uppsala",
+   "m": 1.0,
+   "C_TRAIN": 1237348.3723662787,
+   "C_TEST": 2740632.8492780207,
+   "k": 2.2149241963578072,
+   "k_inf": false
+  },
+  {
+   "site": "Uppsala-SARAH3",
+   "season": "SON",
+   "group": "Uppsala",
+   "m": 0.25,
+   "C_TRAIN": 51506540.820155144,
+   "C_TEST": null,
+   "k": null,
+   "k_inf": true
+  },
+  {
+   "site": "Uppsala-SARAH3",
+   "season": "SON",
+   "group": "Uppsala",
+   "m": 1.0,
+   "C_TRAIN": 39700962.22675072,
+   "C_TEST": 10429255.863437299,
+   "k": 0.2626952919647376,
+   "k_inf": false
+  },
+  {
+   "site": "SetupB",
+   "season": "ALL",
+   "group": "indoor",
+   "m": 0.25,
+   "C_TRAIN": 8945223.343415368,
+   "C_TEST": 12654733.94772758,
+   "k": 1.4146917815129574,
+   "k_inf": false
+  },
+  {
+   "site": "SetupB",
+   "season": "ALL",
+   "group": "indoor",
+   "m": 1.0,
+   "C_TRAIN": 7423887.768030274,
+   "C_TEST": 8788281.776206661,
+   "k": 1.1837842988483636,
+   "k_inf": false
+  },
+  {
+   "site": "SetupC",
+   "season": "ALL",
+   "group": "indoor",
+   "m": 0.25,
+   "C_TRAIN": 82819550.2541403,
+   "C_TEST": 62297175.31685044,
+   "k": 0.7522037384371825,
+   "k_inf": false
+  },
+  {
+   "site": "SetupC",
+   "season": "ALL",
+   "group": "indoor",
+   "m": 1.0,
+   "C_TRAIN": 31851122.66479962,
+   "C_TEST": 29537137.185386408,
+   "k": 0.9273499554861682,
+   "k_inf": false
+  },
+  {
+   "site": "SetupD",
+   "season": "ALL",
+   "group": "indoor",
+   "m": 0.25,
+   "C_TRAIN": 51407706.5435324,
+   "C_TEST": 53308134.45835768,
+   "k": 1.0369677630573926,
+   "k_inf": false
+  },
+  {
+   "site": "SetupD",
+   "season": "ALL",
+   "group": "indoor",
+   "m": 1.0,
+   "C_TRAIN": 31705435.056612123,
+   "C_TEST": 24931130.558119107,
+   "k": 0.7863361759144117,
+   "k_inf": false
+  },
+  {
+   "site": "SetupE",
+   "season": "ALL",
+   "group": "indoor",
+   "m": 0.25,
+   "C_TRAIN": 8126093.216562155,
+   "C_TEST": 10759121.277432704,
+   "k": 1.324021395115682,
+   "k_inf": false
+  },
+  {
+   "site": "SetupE",
+   "season": "ALL",
+   "group": "indoor",
+   "m": 1.0,
+   "C_TRAIN": 4979192.874598849,
+   "C_TEST": 7952903.018164902,
+   "k": 1.5972273455676553,
+   "k_inf": false
+  },
+  {
+   "site": "SetupF",
+   "season": "ALL",
+   "group": "indoor",
+   "m": 0.25,
+   "C_TRAIN": 9901207.56761022,
+   "C_TEST": 9059925.233957674,
+   "k": 0.9150323505584684,
+   "k_inf": false
+  },
+  {
+   "site": "SetupF",
+   "season": "ALL",
+   "group": "indoor",
+   "m": 1.0,
+   "C_TRAIN": 7936937.266758072,
+   "C_TEST": 6947010.92586078,
+   "k": 0.8752760280664738,
+   "k_inf": false
+  }
+ ]
+}

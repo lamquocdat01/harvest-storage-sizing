@@ -1,0 +1,129 @@
+\documentclass[10pt]{article}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx,booktabs,array,url}
+\usepackage{float}
+\usepackage[hidelinks]{hyperref}
+\input{numbers.tex}
+\input{numbers_a2.tex}
+\input{numbers_v3.tex}
+\input{numbers_a3.tex}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\lt}{\tilde{\ell}}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thesection}{S\arabic{section}}
+\title{Supplementary Material for\\``Miss Floors and Storage Sizing for Energy-Harvesting Sensing Nodes with Events of Random Duration''}
+\author{Dat Lam Quoc}
+\date{}
+\begin{document}
+\maketitle
+Results are numbered as in the main paper. Every number in this supplement is generated from the result files of the repository (\repoURL); file names are given in the captions. Tables S1--S4 concern the two amendments and the exploratory check, Table S13 positions the paper against related work, and Tables S14--S17 hold amendment A3 and the TRAIN rerun; the remaining tables and figures are the pre-registered stages.
+
+\input{supp_p3r_tables.tex}
+
+\section{Data correction (amendment A1)}
+The detection dump of the event corpus stores LASIESTA frames in the text order of their file names, which are not zero-padded (\texttt{1.bmp}, \texttt{10.bmp}, \texttt{100.bmp}, \ldots). An earlier build of the corpus cut LASIESTA events on that order, which tears long tracks into short pieces. The corrected build orders LASIESTA frames by the number in the file name; CDnet~2014 and BMC are unchanged row for row. The correction was frozen as amendment A1 (SHA-256 and the git tag \texttt{prereg-40-a1}) before any corrected result existed. Its checks: the pooled ground-truth hit rate of LASIESTA detections is \AoneHit{} under the corrected order (\AoneHitIdx{} on the earlier index); CDnet and BMC rows are identical; the train/test video lists are unchanged.
+
+One clause of check A1-5(a), ``clearly above the $\pm1$-frame offsets'', was not met as written by the hit rate (\AoneHit{} at offset 0 against at most \AoneHitPm{} at $\pm1$): a binary hit barely changes between consecutive frames. The mean best intersection-over-union peaks at offset 0 (\AoneIoUz{} against \AoneIoUm{} and \AoneIoUp) and is higher at 0 in \AoneSeqM{} and \AoneSeqP{} of \AoneNseq{} sequences. This graded measure was chosen after the hit-rate result was seen; the choice is disclosed in a note frozen before any simulation (\texttt{prereg/A1\_NOTE\_01\_gt\_offset.md}). Table~S2 gives the duration law before and after the correction and Table~S1 the predictions on both versions; the main text reports the corrected version only.
+
+The corpus of our earlier article (IoT-J 2026, cited in the main paper) is this earlier build: its LASIESTA events were cut on the text order of the file names. The correction raises the mean duration $\E[D]$ from \VoneED{} to \ED{} frames and the floor $\eps^*(1/8)$ from \VoneEpsEight{} to \epsKeight{}; Table~S2 lists the other statistics of the duration law.
+
+\section{Lemma 4: proof and check}
+\textbf{Setting.} Let $L\le U$ on $\{0,\dots,J\}$ with $L_0=U_0=0$ and $L_J=U_J$, and let $\tilde L_j=\max_{i\le j}L_i$, $\tilde U_j=\min_{i\ge j}U_i$, assumed $\tilde L\le\tilde U$. Every non-decreasing $Y$ with $L\le Y\le U$ lies in $[\tilde L,\tilde U]$, since $Y_j\ge Y_i\ge L_i$ for $i\le j$ and $Y_j\le Y_i\le U_i$ for $i\ge j$. Let $Y^*$ be the unique minimiser of $\sum_j(\Delta Y_j)^2$ over $\mathcal{T}=\{Y:\tilde L\le Y\le\tilde U,\ Y_0=0,\ Y_J=U_J\}$, which is convex.
+
+\textbf{Contact property.} For $0<j<J$ the partial derivative is $2(\Delta Y^*_j-\Delta Y^*_{j+1})$. By the optimality conditions, if $\tilde L_j<Y^*_j<\tilde U_j$ then $\Delta Y^*_j=\Delta Y^*_{j+1}$; at an upper contact ($\tilde L_j<Y^*_j=\tilde U_j$), $\Delta Y^*_j\le\Delta Y^*_{j+1}$; at a lower contact ($\tilde L_j=Y^*_j<\tilde U_j$), $\Delta Y^*_j\ge\Delta Y^*_{j+1}$. The slope of $Y^*$ therefore increases only where $Y^*$ touches $\tilde U$ and decreases only where it touches $\tilde L$; where $\tilde L_j=\tilde U_j$ every feasible path passes through the same point.
+
+\textbf{Optimality for every convex $f$.} Let $f$ be convex, $\lambda_j=f'_+(\Delta Y^*_j)$ (non-decreasing in its argument), $Y\in\mathcal{T}$ and $Z=Y-Y^*$, so $Z_0=Z_J=0$. By the supporting-line inequality and summation by parts,
+\[\sum_jf(\Delta Y_j)-\sum_jf(\Delta Y^*_j)\ \ge\ \sum_j\lambda_j\Delta Z_j\ =\ \sum_{j=1}^{J-1}(\lambda_j-\lambda_{j+1})Z_j .\]
+A term is non-zero only where the slope of $Y^*$ changes. Where it increases, $\lambda_j-\lambda_{j+1}\le0$ and $Y^*_j=\tilde U_j\ge Y_j$, so $Z_j\le0$; where it decreases, $\lambda_j-\lambda_{j+1}\ge0$ and $Y^*_j=\tilde L_j\le Y_j$, so $Z_j\ge0$. Every term is non-negative. Taking $f=-\Psi$ gives Lemma~4 for every concave $\Psi$. Taking $f(x)=(-x)^+$ and the non-decreasing feasible path $\tilde L$ shows $Y^*$ is non-decreasing; $f(x)=(x-\kappa)^+$ shows that $Y^*$ respects an increment cap $\kappa$ whenever some feasible path does. $\square$
+
+\textbf{Relation to the cited works.} The energy-tunnel papers~[Tutuncuoglu and Yener, IEEE TWC 2012; Yang and Ulukus, IEEE TCOM 2012] establish the tightest-string structure for throughput with a strictly concave power--rate function, with a finite battery (two-sided tunnel) in the first and a one-sided harvesting curve in the second. Neither statement covers the monotone hull needed when idle consumption makes the lower bound non-monotone, a piecewise-linear $\Psi$, or the rate cap; hence the direct proof above.
+
+\textbf{Check on trace cells.} On \LfourN{} TEST cells (Madrid-MSG DJF, Uppsala-MSG DJF, Ho Chi Minh City SON; $r=15$, $\lt=0.04$, $m=0.25$, $C=C^*_{\mathrm{per}}(8)/2$) the taut string computed by the code is feasible and non-decreasing, changes slope only at contacts of the right side, and has a larger $\sum\Psi$ and a smaller $\sum(x-c)^+$ ($c\in\{0.02,0.05,0.1,0.2,0.5\}$) than four other feasible paths: \LfourOK{} (\texttt{checks/lemma4\_check.json}).
+
+\section{Exact miss and the sizing brackets (amendment A2)}
+The block objective of Remark~1 of the main paper evaluates each 1-min sub-step of $n=600$ slots as if it were run alone, which is exact only for blocks much longer than the longest event (\Dmax{} slots). A2 therefore measures the exact miss of the realised slot schedule. The schedule places the $k$-th activation in the slot where the cumulative fluid activation count crosses $k-\phi$, with fixed phase $\phi=0.5$ and at most one activation per slot. Within a sub-step of rate $a_j$ consecutive activations are $\lfloor1/a_j\rfloor$ or $\lfloor1/a_j\rfloor+1$ slots apart, so Lemma~1 is evaluated in time linear in the number of sub-steps. The code is tested against $\eps^*(a)$ for constant rates ($10^{-12}$), against event replay (3 standard errors) and against a brute-force count over onsets and durations on small horizons (exact).
+
+$C_{\mathrm{LB}}$ is reported as the lower end of its bisection (a capacity at which the activation budget is still below $a_\eps$) and $C_{\mathrm{TS}}$ as a capacity verified feasible: exact miss $\le\eps$ and no outage. Over \AiiNcells{} cells (\AiiNfinite{} finite), \AiiNviol{} cells have $C_{\mathrm{LB}}>C_{\mathrm{TS}}$ (A2 pass: \AiiPass); the largest ratio is \AiiMaxLBTS{} and the median \AiiMedLBTS. The exact and block misses of the taut string at $C_{\mathrm{TS}}$ differ by a median of \AiiAbsMed{}, 90th percentile \AiiAbsPninety{} and maximum \AiiAbsMax. In \AiiNsurBad{} cells the capacity found with the block objective is not verified feasible: in \AiiNsurBadMiss{} of them the exact miss exceeds $\eps$, and in \AiiNsurBadOut{} the realised slot schedule has an outage. The verified capacity is then up to \AiiTSbadMax{} times larger (median \AiiTSbadMed). Table~S3 places the A2 verdicts of H4a--H4d next to the registered ones. A2 was written and tagged (\texttt{prereg-40-a2}) after the proof check and after the registered results were seen, and before any exact miss on the traces was computed.
+
+\section{Exploratory: the Kansal-style controller}
+Table~S4 summarises the per-case check (\texttt{checks/KANSAL\_CHECK\_40.csv}). In the K2 check the analytic miss of periodic operation is computed at the rate rounded to $10^{-6}$; against the unrounded rate it differs by at most \KcKtwoMaxRound, and by 0 against the rounded rate. The 100\,\% in K3 is close to automatic and is not used as evidence: periodic operation at $a_K$ enters outage in every case of the E1 comparison. The reading rests on K1 and on the \KcNnoOut{} cases without periodic outage.
+\begin{figure}[H]\centering
+\includegraphics[width=0.6\textwidth]{figures/F6p_throttle_kansal_amax_test.pdf}
+\caption{Miss relative to blackout against capacity (medians over the TEST cases in which periodic $K=8$ has outages). Exploratory (post-test) analysis.}
+\end{figure}
+\begin{figure}[H]\centering
+\includegraphics[width=0.6\textwidth]{figures/F7_kansal_obs_vs_pred_test.pdf}
+\caption{Observed Kansal--blackout miss difference against the difference of the two floors of Theorem~1 at the measured mean activations; points above the dashed line gain less than the floors suggest. Exploratory (post-test) analysis.}
+\end{figure}
+
+\section{Further figures of the pre-registered stages}
+\begin{figure}[H]\centering
+\includegraphics[width=0.6\textwidth]{figures/F4_gate_map_test.pdf}
+\caption{Median outage of a gate run at $C^*_{\mathrm{per}}(8)$ against the rate ratio $\rho$ and the cue cost $c$ ($r=15$, $\lt=0.04$, $m=0.25$; TEST). The staircase is the analytic boundary $c^*(\rho)$ of Proposition~2 on cell edges; the dashed line marks an ideal presence gate.}
+\end{figure}
+\begin{figure}[H]\centering
+\includegraphics[width=0.6\textwidth]{figures/F1_frontier_K_Cstar_test.pdf}
+\caption{Storage need of periodic operation against the period $K$ in days of demand ($r=15$, $\lt=0.04$, $m=0.25$; TEST months), winter (DJF) and summer (JJA).}
+\end{figure}
+\begin{figure}[H]\centering
+\includegraphics[width=0.6\textwidth]{figures/F6_throttle_vs_blackout_test.pdf}
+\caption{Miss relative to blackout (periodic $K=8$) for two throttling variants and the Kansal-style controller ($r=15$, $\lt=0.04$, $m=0.25$; TEST; medians per capacity bin).}
+\end{figure}
+
+\section{Machine checks and simulation details}
+\textbf{Theorem 1.} 10{,}000 random event-independent schedules (periodic, Bernoulli, burst, diurnal) against the real $F_D$: no violation; periodic $K=1,\dots,64$ and five non-integer periods attain the floor to within $10^{-12}$; a schedule with gaps $\{3,17\}$ has a miss strictly above it.
+
+\textbf{Storage dynamics.} The simulator uses 1-min sub-steps of $n=600$ slots with constant harvest and rate inside a sub-step, where storage is monotone, so every constraint is checked exactly at sub-step boundaries. The granularity of one activation (cost $r-1$ at once) is covered by adding $r-1$ to fluid storage needs; checked against slot-level simulation at 10\,fps. Cyclic steady state: the cycle is repeated from full storage until the storage at its end equals that at its start ($10^{-6}$ relative, at most 60 cycles).
+
+\textbf{Lemma 3.} The main text uses the fluid relaxation only. As evidence, the integer greedy equals exhaustive search over $\{0,1\}^T$ ($T\le14$) in 150 random cases; no integer-level optimality claim is made.
+
+\section{Tables of the pre-registered stages}
+\input{supp_tables.tex}
+
+\section{Positioning against related work}
+Table~\ref{tab:s_related} positions the paper against the closest works cited in Section~II of the main paper.
+\begin{table}[H]\centering
+\caption{Positioning (\checkmark: yes; $\circ$: partly; --: no, or not stated in the work; n.s.: not stated)}\label{tab:s_related}
+\footnotesize\setlength{\tabcolsep}{2pt}
+\begin{tabular}{@{}lccccccl@{}}\toprule
+Work & Energy & Events with & Finite & Closed-form & Sizing for & Real & Objective\\
+ & model & duration & $C$ & bound & a target & traces & \\\midrule
+Moser et al.\ (RTS 2007) & det.\ curve & -- & \checkmark & \checkmark & $\eps=0$ only & \checkmark & deadlines\\
+Kansal et al.\ (TECS 2007) & $(\rho,\sigma)$ envelope & -- & \checkmark & \checkmark & $\eps=0$ only & \checkmark & neutrality\\
+Zhang et al.\ (TWC 2013) & Markov & -- & \checkmark & \checkmark & \checkmark & -- & event loss, delay\\
+Tunc and Akar (PEVA 2017) & Markov fluid & -- & \checkmark & \checkmark & $\circ$ & -- & loss, latency\\
+Jaggi et al.\ (WINET 2009) & stochastic & $\circ$ & asymptotic & $\circ$ & -- & -- & event capture\\
+Ren et al.\ (TPDS 2014) & stochastic & n.s. & n.s. & -- & -- & -- & event capture\\
+Ren and Cheng (PPNA 2015) & stochastic & n.s. & \checkmark & -- & -- & -- & event capture\\
+Yau et al.\ (TOSN 2010) & none & \checkmark & -- & \checkmark & -- & -- & monitoring\\
+P and Deepak (MCAP 2026) & stochastic & -- & \checkmark & \checkmark & -- & -- & blocking, depletion\\
+Yan et al.\ (IoT-J 2024) & stochastic & -- & \checkmark & \checkmark & $\circ$ & -- & throughput\\
+Tutuncuoglu, Yener (TWC 2012) & deterministic & -- & \checkmark & offline opt.\ & -- & -- & throughput\\
+Solar base stations (TGCN 2025) & predicted solar & -- & \checkmark & -- & \checkmark & n.s. & energy outage\\
+Self-sustainability (TGCN 2025) & stochastic & -- & n.s. & n.s. & -- & -- & operating time\\
+Our earlier article (IoT-J 2026) & affine, no storage & \checkmark & -- & \checkmark & -- & \checkmark & latency, miss\\
+This work & det.\ trace & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & event miss\\\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Post-hoc sizing sensitivities (amendment A3) and the TRAIN rerun}
+Amendment A3 was written, hashed and tagged (\texttt{prereg-40-a3}) after every TEST result was seen and before any A3 quantity was computed. It adds three descriptive quantities requested by review and changes no prediction, threshold or verdict.
+
+\textbf{Worst-spell sensitivity (Table~S14).} On the full-year cells of the reference node ($r=14.3$, $\lt=0.036$, $K=8$, $m=0.25$), the run of $L$ consecutive days with the smallest net income is removed from the cyclic day index, the remaining days are concatenated and $C^*$ is recomputed with the panel unchanged. $L=7$ days is the primary length, the block length of the registered bootstrap; $L=1$ and $L=3$ are secondary. Over the \AiiiWn{} cells the ratio has median \AiiiWAllMed{} (range \AiiiWAllMin--\AiiiWAllMax).
+
+\textbf{Per-cell ranges (Table~S15).} For each sizing rule and each cell, the table gives the median, minimum and maximum of $C^*$ over the rule across the $(r,\lt,m)$ combinations of the cell (TEST).
+
+\textbf{Train-to-test margin (Table~S16).} The panel is scaled on the TRAIN months only and kept for the TEST months, and $k=C_{\mathrm{TEST}}/C_{\mathrm{TRAIN}}$ for periodic operation at $a=1/8$. Over the \AiiiKn{} cells at $m=0.25$, $k$ has median \AiiiKMed{} and 90th percentile \AiiiKNinety; in \AiiiKInf{} of the cells the TRAIN panel cannot sustain the rate on the TEST months at any capacity. At $m=1$ the median is \AiiiKMedMone{} and the 90th percentile \AiiiKNinetyMone{} (\AiiiKInfMone{} infinite).
+
+\textbf{TRAIN rerun (Table~S17).} Amendment A1 reruns TRAIN on the corrected corpus as a sensitivity analysis only; no number of the paper comes from it and no threshold was moved. \TrainPass{} of \TrainNall{} predictions pass on TRAIN and \TrainNsame{} have the same verdict as on TEST (different: \TrainDiff). Under amendment A2 on TRAIN, \AiiTrainViol{} cells have $C_{\mathrm{LB}}>C_{\mathrm{TS}}$ (largest ratio \AiiTrainMax).
+
+\input{supp_a3_tables.tex}
+
+\section{Pre-registration and code}
+PREREG v1 (H1--H7) is frozen by SHA-256 and the git tag \texttt{prereg-40-v1}; the exploratory appendix v1.1 (E1--E3) is a separate commit registered after TEST and before the exploratory stage was run. Amendments A1 (data correction), A2 (sizing brackets) and A3 (post-hoc sensitivities) are frozen in \texttt{prereg/AMENDMENT\_LOG.md} with the tags \texttt{prereg-40-a1}, \texttt{prereg-40-a2} and \texttt{prereg-40-a3}. TRAIN was explored with an earlier two-pass cyclic simulation; the frozen code iterates to the cyclic steady state, which affects only policies in energy deficit.
+\end{document}
