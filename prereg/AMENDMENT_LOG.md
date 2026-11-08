@@ -125,3 +125,58 @@ Recorded per (cell, ε): C_LB_lo, C_LB_hi; C_TS_sur_hi with miss_exact and outag
 ### 6. What the analyst had seen (disclosure)
 
 The proof check (`P0R/PROOF_CHECK_40.md`); the v2 cell with C_LB/C_TS = 1.0093 and the count of cells above 1; every v2 TEST number (`results/`, `P2R/DIFF_v1_v2_40.md`), including H4a–H4d v2 and the E1 median outage difference per_abarK − Kansal of −0.055. No exact-miss value of any schedule on the traces had been computed.
+
+## A3 (08-11-2026): post-hoc sizing sensitivities requested by review
+
+*Written and hashed before any A3 code exists and before any A3 number is computed. Tag: `prereg-40-a3`. Sections A1 and A2 above are unchanged. Decision source: CP0R2 item 4 and the S6 review (`P3R/R2_REVIEW_40.md`, items M6, M7, M8).*
+
+### 1. Status: post hoc, descriptive
+
+A3 adds three descriptive quantities after every v2 TEST result was seen. It has no pass criterion. It changes no prediction, threshold, grid, seed, verdict or earlier number. H1–H7, E1–E3 and the A2 column keep the verdicts already reported. No A3 quantity may be used to re-score anything.
+
+### 2. Common definitions
+
+- Reference node: r = 14.3, leakage l = 0.036, K = 8, activation rate a = 1/8 (the node of Table IV, `code/sim40/sizing.py`).
+- Cells: the 25 cells of `traces.cells()` (5 outdoor site–product series × 4 seasons, plus 5 indoor setups).
+- C\* is `energy.C_periodic(h, 600, r, l, a)` on the 1-min sub-step series.
+- Days are 1440 sub-steps from the start of the cell series; a final partial day is dropped, as in `run_grid.baselines`.
+- Medians and percentiles over cells count each of the 25 cells once. p90 is the smallest cell value with at least 90 % of the cells at or below it. An infinite value counts as larger than every finite value.
+
+### 3. (a) Worst-spell sensitivity (review item M6)
+
+Split `all` (the full-year cells of Table IV), m = 0.25 and m = 1.0, panel scaled once on the whole cell by `traces.scale_panel`.
+
+For window length L days, the net income of day d is the sum over its sub-steps of (h − e), with e = 1 + l + a(r − 1). The worst window is the run of L consecutive days, on the cyclic day index, with the smallest total net income (first such run on ties). It is deleted, the remaining days are concatenated in order, and C\* is recomputed on the shorter cycle with the panel scale unchanged.
+
+- Primary: L = 7 days, the block length of the registered block bootstrap.
+- Secondary: L = 1 and L = 3 days.
+- Reported per cell: C\*, C\* without the worst window, and their ratio. Over cells: median, minimum and maximum of the ratio per site group.
+
+### 4. (b) Per-cell ranges of the sizing rules (review item M7)
+
+Read-only, from `results/summary_test.json`, field `main.baselines` (1,600 combinations, split test). No simulation.
+
+For each ratio C\*/C_avgday, C\*/C_buchli_daily, C\*/C_kansal_mean and C\*/C_3day, and each cell: the median, minimum and maximum over the 64 (r, l, m) combinations with a finite value. Then per site group (HCMC 4 cells, Madrid 8, Uppsala 8, indoor 5): the minimum and maximum of the per-cell medians.
+
+### 5. (c) Train-to-test margin factor (review item M8)
+
+The panel is scaled on the TRAIN months only (`traces.scale_panel` applied to the TRAIN series), and the same scale is applied to the TEST months, because a designer has no TEST data. C_TRAIN = C\* on the scaled TRAIN series and C_TEST = C\* on the scaled TEST series of the same cell. The margin factor is
+
+k = C_TEST / C_TRAIN.
+
+- If C_TRAIN is infinite the cell is excluded and counted. If C_TEST is infinite (the TRAIN panel cannot sustain a = 1/8 on the TEST months at any capacity), k is infinite and the cell is kept and counted.
+- Primary: the reference node at m = 0.25, over the 25 cells: median, p90 and maximum of k, the share with k > 1, and the number with k infinite.
+- Secondary: the same at m = 1.0; and over the full grid of `R_LEVELS` × `L_LEVELS` × `M_LEVELS`, with each cell counted through its median over the grid so that the effective sample stays 25.
+- Deterministic; no seed is used.
+
+### 6. What will be run
+
+`code/sim40/a3_sensitivity.py`, after the TRAIN rerun of A1 and A2-TRAIN have finished, inside the 08:00–23:00 window with at least 7 GB of free RAM, as one process. Output: `results/a3_worst_spell.json`, `results/a3_per_cell_ranges.json`, `results/a3_margin_k.json`. Existing result files are not overwritten and `grid_ckpt_v2` is not written. Code added: that module only; no existing module changes.
+
+### 7. Reporting
+
+The paper labels all A3 numbers as post hoc and descriptive, in the sizing section and in Threats to Validity. A value that is unfavourable to the paper's sizing rule is reported as computed.
+
+### 8. What the analyst had seen (disclosure)
+
+Every v2 TEST number and every A2 TEST number, including Table IV, the block-bootstrap sensitivity (Tables S9–S10), the group-level medians of the sizing rules, and E3 (a constant rate sized on TRAIN had outages in about half of the TEST cases). None of the three A3 quantities had been computed: no C\* with a window removed, no per-cell summary of the rule ratios and no C_TEST/C_TRAIN.
