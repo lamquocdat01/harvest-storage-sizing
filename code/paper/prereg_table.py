@@ -16,6 +16,8 @@ import re
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 PREREG = ROOT / "P1" / "PREREG_40.md"
+if not PREREG.exists():                  # repository layout (code/sync_repo.py): prereg/
+    PREREG = ROOT / "prereg" / "PREREG_40.md"
 
 # key -> (abridged criterion in LaTeX, theorem numbers of PREREG mapped to this paper's labels)
 CRIT = {

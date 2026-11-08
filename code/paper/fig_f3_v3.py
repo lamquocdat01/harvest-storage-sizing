@@ -52,7 +52,7 @@ def main(dst):
     h_, l_ = axs[0].get_legend_handles_labels()
     fig.legend(h_, l_, frameon=False, fontsize=6, loc="upper center", bbox_to_anchor=(0.5, -0.08), ncol=3)
     dst.mkdir(parents=True, exist_ok=True)
-    fig.savefig(dst / f"{NAME}.pdf", bbox_inches="tight")
+    fig.savefig(dst / f"{NAME}.pdf", bbox_inches="tight", metadata={"CreationDate": None})   # reproducible bytes
     plt.close(fig)
     print("Fig. 2 (v3 labels) written to", dst / f"{NAME}.pdf")
 
