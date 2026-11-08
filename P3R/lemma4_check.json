@@ -1,0 +1,182 @@
+[
+ {
+  "site": "Madrid-MSG",
+  "season": "DJF",
+  "C": 8033994.303520298,
+  "J": 84960,
+  "feasible": true,
+  "non_decreasing": true,
+  "n_slope_increases": 8,
+  "n_slope_decreases": 4,
+  "increase_only_at_upper": true,
+  "decrease_only_at_lower": true,
+  "sum_psi_taut": 40533.02196222851,
+  "alternatives": {
+   "mix0.1": {
+    "feasible": true,
+    "sum_psi_taut_minus_alt": 23347.4042577147,
+    "convex_alt_minus_taut": [
+     1159.0882529563023,
+     3005.378950358365,
+     6250.681581602743,
+     9116.35058865493,
+     6869.32768303612
+    ]
+   },
+   "mix0.5": {
+    "feasible": true,
+    "sum_psi_taut_minus_alt": 21997.55403765608,
+    "convex_alt_minus_taut": [
+     1140.1968638187827,
+     2888.2454907065658,
+     5881.680616410718,
+     8356.489686160305,
+     6240.408403876537
+    ]
+   },
+   "mix0.9": {
+    "feasible": true,
+    "sum_psi_taut_minus_alt": 22954.048879483096,
+    "convex_alt_minus_taut": [
+     1158.8294860690821,
+     3003.2033063941926,
+     6248.714616267474,
+     9063.768688998945,
+     6622.881775381827
+    ]
+   },
+   "random_monotone": {
+    "feasible": true,
+    "sum_psi_taut_minus_alt": 39789.010288448284,
+    "convex_alt_minus_taut": [
+     1683.8159593834225,
+     4209.630495111092,
+     8388.381916719774,
+     12844.11320221232,
+     14479.68408882092
+    ]
+   }
+  },
+  "optimal_vs_alternatives": true
+ },
+ {
+  "site": "Uppsala-MSG",
+  "season": "DJF",
+  "C": 21412298.51016187,
+  "J": 84960,
+  "feasible": true,
+  "non_decreasing": true,
+  "n_slope_increases": 7,
+  "n_slope_decreases": 2,
+  "increase_only_at_upper": true,
+  "decrease_only_at_lower": true,
+  "sum_psi_taut": 38493.59403241025,
+  "alternatives": {
+   "mix0.1": {
+    "feasible": true,
+    "sum_psi_taut_minus_alt": 27251.93324648447,
+    "convex_alt_minus_taut": [
+     1370.8811232099724,
+     3464.2177541008223,
+     5650.573284986165,
+     8129.414934821687,
+     9556.168516168087
+    ]
+   },
+   "mix0.5": {
+    "feasible": true,
+    "sum_psi_taut_minus_alt": 26175.857166326197,
+    "convex_alt_minus_taut": [
+     1366.612572211321,
+     3429.763105671951,
+     5497.28616101968,
+     7708.663577460147,
+     8879.900618006595
+    ]
+   },
+   "mix0.9": {
+    "feasible": true,
+    "sum_psi_taut_minus_alt": 26900.26746494108,
+    "convex_alt_minus_taut": [
+     1375.8553410024724,
+     3482.900901998284,
+     5697.148322670793,
+     8188.682926742056,
+     9338.86092435709
+    ]
+   },
+   "random_monotone": {
+    "feasible": true,
+    "sum_psi_taut_minus_alt": 38101.835788323624,
+    "convex_alt_minus_taut": [
+     1691.102150117882,
+     4227.831298629648,
+     7046.322650304635,
+     10611.04503470233,
+     14657.187374834464
+    ]
+   }
+  },
+  "optimal_vs_alternatives": true
+ },
+ {
+  "site": "HCMC",
+  "season": "SON",
+  "C": 2457761.235479571,
+  "J": 44640,
+  "feasible": true,
+  "non_decreasing": true,
+  "n_slope_increases": 9,
+  "n_slope_decreases": 24,
+  "increase_only_at_upper": true,
+  "decrease_only_at_lower": true,
+  "sum_psi_taut": 21376.91130007448,
+  "alternatives": {
+   "mix0.1": {
+    "feasible": true,
+    "sum_psi_taut_minus_alt": 10876.24591942733,
+    "convex_alt_minus_taut": [
+     554.5812299139589,
+     1465.041889485472,
+     2999.374699760078,
+     4717.9069229403485,
+     2844.788829141199
+    ]
+   },
+   "mix0.5": {
+    "feasible": true,
+    "sum_psi_taut_minus_alt": 10198.345774566274,
+    "convex_alt_minus_taut": [
+     537.4169269580052,
+     1382.302062183022,
+     2758.546212429623,
+     4297.997947188717,
+     2661.596163294899
+    ]
+   },
+   "mix0.9": {
+    "feasible": true,
+    "sum_psi_taut_minus_alt": 10681.38276776176,
+    "convex_alt_minus_taut": [
+     553.5568492182047,
+     1456.7480581316531,
+     2974.6183944105474,
+     4660.4084158769665,
+     2720.4405791077475
+    ]
+   },
+   "random_monotone": {
+    "feasible": true,
+    "sum_psi_taut_minus_alt": 20620.63774730253,
+    "convex_alt_minus_taut": [
+     876.9289204677953,
+     2192.4716986914364,
+     4271.451335051812,
+     6959.0653147906705,
+     7425.106670458324
+    ]
+   }
+  },
+  "optimal_vs_alternatives": true
+ }
+]

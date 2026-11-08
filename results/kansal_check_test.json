@@ -1,0 +1,265 @@
+{
+ "source": "D:\\Datasets\\_derived\\40\\grid_ckpt_v2\\exploratory_q2\\test",
+ "n_cases_all": 6000,
+ "n_cases_E1": 4686,
+ "K1": {
+  "pass": true,
+  "n_fail_all": 0,
+  "n_fail_E1": 0,
+  "analytic_fail": 0,
+  "min_margin_in_SE": -1.2387217954665215
+ },
+ "K2": {
+  "n_cases_pi_per_0": 114,
+  "pass_literal": false,
+  "pass": true,
+  "pass_note": "pass = floor part checked against eps*(round(a_K, 6)), the rate the analytic miss is computed at (metrics.rate_histogram rounds rates to 1e-6); pass_literal = against eps*(a_K) unrounded",
+  "n_floor_mismatch_literal": 104,
+  "n_floor_mismatch_rounding_aware": 0,
+  "n_kansal_wins_beyond_3SE": 0,
+  "max_abs_floor_mismatch": 6.568122630223883e-07
+ },
+ "K3": {
+  "n_kansal_wins_gt_0.005": 2905,
+  "share_with_pi_per_gt0": 1.0,
+  "eps_gap_real_minus_aK_all_E1": {
+   "n": 4686,
+   "min": 0.002033453250233075,
+   "p25": 0.03667477402271163,
+   "median": 0.060424880377105916,
+   "p75": 0.08462492345892703,
+   "max": 0.17473167191053107
+  },
+  "eps_gap_real_minus_aK_wins": {
+   "n": 2905,
+   "min": 0.002427445924191307,
+   "p25": 0.05079192626500584,
+   "median": 0.07157068850098192,
+   "p75": 0.09329543819268538,
+   "max": 0.17473167191053107
+  },
+  "median_d_wins": -0.027300000000000102,
+  "kansal_minus_P1floor_per_wins": {
+   "n": 2905,
+   "min": -0.10927812435408002,
+   "p25": -0.040412219262603744,
+   "median": -0.026973697133832353,
+   "p75": -0.015039801104885786,
+   "max": -0.0008249063645435761
+  },
+  "n_wins_kansal_below_per_replay": 2905
+ },
+ "outage": {
+  "median_pi_per_minus_pi_K_E1": -0.05457625694850293,
+  "share_pi_K_gt_pi_per_E1": 0.7232180964575331,
+  "median_pi_per_E1": 0.2510605141754052,
+  "median_pi_K_E1": 0.3007907526884681
+ },
+ "rates": {
+  "median_a_K_over_a_per_real_E1": 1.3352213619825568,
+  "max_abs_a_per_real_minus_aK_1_minus_pi": 2.7755575615628914e-16
+ },
+ "median_d_replay_E1": -0.012295,
+ "layers_25": {
+  "HCMC DJF": {
+   "n": 174,
+   "median_d": -0.018654999999999977,
+   "median_pi_per": 0.2622113202885426,
+   "median_pi_K": 0.3625388668388058,
+   "share_win": 0.7011494252873564,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "HCMC JJA": {
+   "n": 174,
+   "median_d": -0.022570000000000034,
+   "median_pi_per": 0.2762952494391645,
+   "median_pi_K": 0.3781708115376188,
+   "share_win": 0.764367816091954,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "HCMC MAM": {
+   "n": 174,
+   "median_d": -0.026420000000000055,
+   "median_pi_per": 0.2737517392404672,
+   "median_pi_K": 0.3722055835839743,
+   "share_win": 0.7758620689655172,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "HCMC SON": {
+   "n": 180,
+   "median_d": -0.016245000000000065,
+   "median_pi_per": 0.25214703969240254,
+   "median_pi_K": 0.34143559293209547,
+   "share_win": 0.7055555555555556,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "Madrid-MSG DJF": {
+   "n": 192,
+   "median_d": -0.016515000000000002,
+   "median_pi_per": 0.20795620626289074,
+   "median_pi_K": 0.2918002532316222,
+   "share_win": 0.640625,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "Madrid-MSG JJA": {
+   "n": 168,
+   "median_d": -0.02864,
+   "median_pi_per": 0.26609421606808364,
+   "median_pi_K": 0.3447471860696911,
+   "share_win": 0.8809523809523809,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "Madrid-MSG MAM": {
+   "n": 186,
+   "median_d": -0.015454999999999941,
+   "median_pi_per": 0.22713625501533125,
+   "median_pi_K": 0.3017409846838116,
+   "share_win": 0.6881720430107527,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "Madrid-MSG SON": {
+   "n": 186,
+   "median_d": -0.020405000000000006,
+   "median_pi_per": 0.22372814802837188,
+   "median_pi_K": 0.32016005098998573,
+   "share_win": 0.7526881720430108,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "Madrid-SARAH3 DJF": {
+   "n": 186,
+   "median_d": -0.018550000000000066,
+   "median_pi_per": 0.21106205393796384,
+   "median_pi_K": 0.3084760084828925,
+   "share_win": 0.6451612903225806,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "Madrid-SARAH3 JJA": {
+   "n": 168,
+   "median_d": -0.028669999999999973,
+   "median_pi_per": 0.2678927310482015,
+   "median_pi_K": 0.3446077874117867,
+   "share_win": 0.8511904761904762,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "Madrid-SARAH3 MAM": {
+   "n": 186,
+   "median_d": -0.010815000000000075,
+   "median_pi_per": 0.21300379422351462,
+   "median_pi_K": 0.29100988868178657,
+   "share_win": 0.6182795698924731,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "Madrid-SARAH3 SON": {
+   "n": 186,
+   "median_d": -0.01821000000000006,
+   "median_pi_per": 0.21831184297395767,
+   "median_pi_K": 0.3173077636289448,
+   "share_win": 0.7204301075268817,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "SetupB ALL": {
+   "n": 204,
+   "median_d": -0.011165000000000036,
+   "median_pi_per": 0.2717699924605467,
+   "median_pi_K": 0.34899588066668724,
+   "share_win": 0.6078431372549019,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "SetupC ALL": {
+   "n": 204,
+   "median_d": -0.012760000000000049,
+   "median_pi_per": 0.2510077663949085,
+   "median_pi_K": 0.1281718784274482,
+   "share_win": 0.6323529411764706,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "SetupD ALL": {
+   "n": 204,
+   "median_d": 0.004325000000000023,
+   "median_pi_per": 0.23318415094496708,
+   "median_pi_K": 0.1899854787240587,
+   "share_win": 0.36764705882352944,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "SetupE ALL": {
+   "n": 192,
+   "median_d": 0.016444999999999987,
+   "median_pi_per": 0.24448992058117908,
+   "median_pi_K": 0.38707544965170476,
+   "share_win": 0.109375,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "SetupF ALL": {
+   "n": 192,
+   "median_d": 0.015240000000000031,
+   "median_pi_per": 0.18854595196484863,
+   "median_pi_K": 0.33555364858749187,
+   "share_win": 0.09375,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "Uppsala-MSG DJF": {
+   "n": 204,
+   "median_d": -0.013450000000000017,
+   "median_pi_per": 0.2972081465768861,
+   "median_pi_K": 0.13029357769597893,
+   "share_win": 0.5882352941176471,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "Uppsala-MSG JJA": {
+   "n": 186,
+   "median_d": -0.012919999999999932,
+   "median_pi_per": 0.2019502922486578,
+   "median_pi_K": 0.27363796384464306,
+   "share_win": 0.7311827956989247,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "Uppsala-MSG MAM": {
+   "n": 186,
+   "median_d": -0.015550000000000008,
+   "median_pi_per": 0.21644632364991367,
+   "median_pi_K": 0.2756852300736448,
+   "share_win": 0.7365591397849462,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "Uppsala-MSG SON": {
+   "n": 180,
+   "median_d": -0.022220000000000018,
+   "median_pi_per": 0.257843852686704,
+   "median_pi_K": 0.34420821412653074,
+   "share_win": 0.7277777777777777,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "Uppsala-SARAH3 DJF": {
+   "n": 204,
+   "median_d": 0.00024999999999997247,
+   "median_pi_per": 0.3309471284732144,
+   "median_pi_K": 0.23075574805333132,
+   "share_win": 0.4411764705882353,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "Uppsala-SARAH3 JJA": {
+   "n": 186,
+   "median_d": -0.010734999999999995,
+   "median_pi_per": 0.19204177664259753,
+   "median_pi_K": 0.2658710168460693,
+   "share_win": 0.6774193548387096,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "Uppsala-SARAH3 MAM": {
+   "n": 192,
+   "median_d": -0.012610000000000066,
+   "median_pi_per": 0.17118536288273029,
+   "median_pi_K": 0.241653257775155,
+   "share_win": 0.609375,
+   "share_win_with_pi_per_gt0": 1.0
+  },
+  "Uppsala-SARAH3 SON": {
+   "n": 192,
+   "median_d": -0.011365000000000014,
+   "median_pi_per": 0.2069069236663444,
+   "median_pi_K": 0.28652311730454094,
+   "share_win": 0.5885416666666666,
+   "share_win_with_pi_per_gt0": 1.0
+  }
+ }
+}

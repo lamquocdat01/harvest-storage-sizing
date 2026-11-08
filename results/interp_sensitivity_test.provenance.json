@@ -1,0 +1,24 @@
+{
+ "file": "results/interp_sensitivity_test.json",
+ "sha256": "1473d93942c1634c2d4331abf955f4813caf5e587d0f53b20396977092040e1d",
+ "generated": "2026-11-08T11:42 ICT (P3R2, Viec 3.3)",
+ "command": "cd code && python -m sim40.interp_sensitivity",
+ "generator": {
+  "path": "code/sim40/interp_sensitivity.py",
+  "sha256": "be3b5461daa112db68a396a073e54b255e6086426bddf79369ca78f4a5dc021e"
+ },
+ "duration_law": {
+  "corpus": "results/event_corpus_40.csv (v2, amendment A1, 3,170 events), TEST videos",
+  "sha256": "299caebc690fb6f40c7de4be5b24cb334de2ffcc62cc01bc06f53221b59b39d3"
+ },
+ "validation_v1": {
+  "command": "cd code && python -m sim40.interp_sensitivity --law-csv ../results/_v1_corpus3713/event_corpus_40.csv --out <scratch>/interp_v1_check.json",
+  "v1_corpus_sha256": "6f135f9fa0383621da991b666c1fe2629604ca287ff0f9e08a77566f663721ac",
+  "reference": "results/_v1_corpus3713/interp_sensitivity_test.json (09-10-2026, no generator in the repository at the time)",
+  "reference_sha256": "9fa3411a958b47a1c05d043cacdc095195b42e08b7ee6ad6fcba7b3657857de4",
+  "regenerated_sha256": "9fa3411a958b47a1c05d043cacdc095195b42e08b7ee6ad6fcba7b3657857de4",
+  "result": "byte-identical (max relative difference 0.0)"
+ },
+ "replaced": "the previous results/interp_sensitivity_test.json was the v1 file (sha256 9fa3411a...57de4), identical to the frozen copy in results/_v1_corpus3713/",
+ "note": "Cstar_per8, outage_at_half and rel_diff_Cstar depend on energy only and are identical to v1 (checked); only miss_per8_at_half changes with the corrected duration law."
+}

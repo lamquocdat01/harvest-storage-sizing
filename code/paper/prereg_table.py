@@ -47,7 +47,10 @@ CRIT = {
     "H7": r"Class-A node: HCMC $C^*<1$\,kJ in all 4 seasons; $>2$\,kJ in $\ge2$ Madrid and $\ge2$ Uppsala seasons; "
           r"$<44$\,kJ and $>45$\,J in 100\,\%; $C_{\mathrm{TS}}/C^*<0.6$ in $\ge80$\,\%",
 }
-FAIL_KIND = {"H4a": "favourable", "H7": "magnitude"}
+FAIL_KIND = {"H4a": "favourable", "H7": "magnitude", "H3a": "magnitude"}   # H3a: FAIL on the corrected corpus (A1)
+# build options (defaults = the earlier builds; build_v2.py sets H3A_DEC = 3 and CAPTION_EXTRA, CP2R #2)
+H3A_DEC = 2
+CAPTION_EXTRA = ""
 # numbers in CRIT that are not thresholds (theorem/paper labels, sign conventions, quantity names)
 NOT_THRESHOLD: set[str] = set()
 
@@ -113,7 +116,7 @@ def observed(SC):
                 f"{eu['Uppsala']['median']:.2f}, max {eu['Madrid']['max']:.2f}, {eu['Uppsala']['max']:.2f}; "
                 f"{_p(e['indoor_share_gt1'])}")
     a = SC["H3a"]
-    o["H3a"] = f"{_p(a['share_gt0'])} of {_t(a['n'])}; {_rng(a['medians_K8'].values())}"
+    o["H3a"] = f"{_p(a['share_gt0'])} of {_t(a['n'])}; {_rng(a['medians_K8'].values(), H3A_DEC)}"
     b = SC["H3b"]
     o["H3b"] = f"{_p(b['share_lt0'])} of {_t(b['n'])}; {_rng(b['medians_K8'].values())}"
     c = SC["H3c"]
@@ -152,7 +155,7 @@ def table(SC):
     assert set(keys) == set(CRIT), (sorted(keys), sorted(CRIT))
     L = [r"\begin{table*}[!t]\centering\caption{Pre-registered predictions (PREREG v1, frozen before TEST) and "
          r"their outcome on TEST. Criteria are abridged from the frozen text with every threshold kept; theorem "
-         r"numbers refer to this paper. Scalar details are in the supplement}\label{tab:prereg}",
+         r"numbers refer to this paper. Scalar details are in the supplement" + CAPTION_EXTRA + r"}\label{tab:prereg}",
          r"\footnotesize\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{1.05}",
          # column widths overridable per template (\preregCritW, \preregObsW); defaults = IoT-J layout
          r"\providecommand{\preregCritW}{0.50\textwidth}\providecommand{\preregObsW}{0.335\textwidth}",
