@@ -1,0 +1,267 @@
+{
+ "split": "train",
+ "prereg": "P1/PREREG_40.md v1 (tag prereg-40-v1)",
+ "H1": {
+  "verdict": "PASS",
+  "familywise": {
+   "T1_any_policy": 0,
+   "P2prime_blackout": 0,
+   "T2_energy_floor": 0
+  },
+  "analytic": 0,
+  "n": {
+   "T1_any_policy": 327520,
+   "P2prime_blackout": 192837,
+   "T2_energy_floor": 114904,
+   "T2_energy_floor_analytic": 114904
+  }
+ },
+ "H2a": {
+  "verdict": "PASS",
+  "share_in_band": 1.0,
+  "n": 1600
+ },
+ "H2b": {
+  "verdict": "PASS",
+  "share_lt1": 1.0,
+  "n": 1600
+ },
+ "H2c": {
+  "verdict": "PASS",
+  "share_gt1": 1.0,
+  "n": 1600,
+  "medians": {
+   "HCMC": 1.4142185137014431,
+   "Madrid": 3.5710166206525606,
+   "indoor": 11.536718513317322,
+   "Uppsala": 3.683154596680317
+  },
+  "medians_product": {
+   "HCMC": 1.4142185137014431,
+   "Madrid-MSG": 3.7161523907219376,
+   "Madrid-SARAH3": 3.502914965133325,
+   "SetupB": 11.536718513317322,
+   "SetupC": 53.446462828480634,
+   "SetupD": 34.10880865057597,
+   "SetupE": 5.167802228382879,
+   "SetupF": 6.141850709438653,
+   "Uppsala-MSG": 2.797744063079712,
+   "Uppsala-SARAH3": 5.638290942628137
+  },
+  "max_outdoor": 40.4412978950484,
+  "max_indoor": 76.09501092374651
+ },
+ "H2d": {
+  "verdict": "PASS",
+  "share_gt1": 1.0,
+  "n": 1440,
+  "medians": {
+   "HCMC": 2.8330967989303835,
+   "Madrid": 1.3782284313914952,
+   "indoor": 1.15152389884703,
+   "Uppsala": 1.3271466264933283
+  },
+  "medians_product": {
+   "HCMC": 2.8330967989303835,
+   "Madrid-MSG": 1.3646799713533315,
+   "Madrid-SARAH3": 1.3917770065450523,
+   "SetupB": 1.1563778016713968,
+   "SetupC": 1.0238418874290827,
+   "SetupD": 1.0356039793851588,
+   "SetupE": 1.2688465694292161,
+   "SetupF": 1.1853255854829856,
+   "Uppsala-MSG": 1.6013891195102181,
+   "Uppsala-SARAH3": 1.2529236748591006
+  }
+ },
+ "H2e": {
+  "verdict": "PASS",
+  "HCMC_share_lt1": 1.0,
+  "HCMC_max": 0.474607303189494,
+  "europe": {
+   "Madrid": {
+    "median": 0.6959451046730404,
+    "max": 3.314863732905701
+   },
+   "Uppsala": {
+    "median": 0.8348432503861232,
+    "max": 7.363851623335388
+   }
+  },
+  "indoor_share_gt1": 0.9
+ },
+ "H3a": {
+  "verdict": "FAIL",
+  "share_gt0": 1.0,
+  "n": 1200,
+  "medians_K8": {
+   "HCMC": 0.17737942781847904,
+   "Madrid": 0.18229907510977228,
+   "indoor": 0.19478593553126938,
+   "Uppsala": 0.19575380195250813
+  },
+  "min": 0.06563032332503071
+ },
+ "H3b": {
+  "verdict": "PASS",
+  "share_lt0": 0.9980952380952381,
+  "n": 1050,
+  "medians_K8": {
+   "HCMC": 0.27424158963631795,
+   "Madrid": 0.1868118180221851,
+   "indoor": 0.2983023165729008,
+   "Uppsala": 0.19718063789248824
+  }
+ },
+ "H3c": {
+  "verdict": "PASS",
+  "n_cells": 25,
+  "B": 1000,
+  "n_rej_dmiss": 25,
+  "n_rej_dC": 25,
+  "holm_tests": 56,
+  "not_rejected": []
+ },
+ "H4a": {
+  "verdict": "PASS",
+  "share_lt1": 1.0,
+  "n": 1623,
+  "medians": {
+   "0.5": {
+    "HCMC": 0.307734375,
+    "Madrid": 0.298857421875,
+    "indoor": 0.27814453125000005,
+    "Uppsala": 0.277158203125
+   },
+   "0.6": {
+    "HCMC": 0.339296875,
+    "Madrid": 0.21403320312500002,
+    "indoor": 0.23080078125,
+    "Uppsala": 0.273212890625
+   }
+  }
+ },
+ "H4b": {
+  "verdict": "PASS",
+  "share_le_1_02": 1.0,
+  "n": 1650,
+  "max": 1.0093475382455506
+ },
+ "H4c": {
+  "verdict": "PASS",
+  "medians_eps_ge_0_6": {
+   "0.6": {
+    "HCMC": 0.9664587209476903,
+    "Madrid": 0.9976212613011219,
+    "indoor": 0.981809192301955,
+    "Uppsala": 0.945608990104596
+   },
+   "0.66": {
+    "HCMC": 0.9995460185729448,
+    "Madrid": 1.0000458466406457,
+    "indoor": 0.9984423924627994,
+    "Uppsala": 0.9950874287857221
+   },
+   "0.75": {
+    "HCMC": 1.0009524788238897,
+    "Madrid": 1.0003990970869352,
+    "indoor": 0.9991055167997481,
+    "Uppsala": 0.9984892617447518
+   }
+  },
+  "medians_eps_0_45": {
+   "HCMC": 0.4953441088408569,
+   "Madrid": 0.4097670263884934,
+   "indoor": 0.5242947844537291,
+   "Uppsala": 0.3857372553356193
+  }
+ },
+ "H4d": {
+  "verdict": "PASS",
+  "B_ts": 100,
+  "cells": {
+   "HCMC SON": [
+    0.25447265625,
+    true
+   ],
+   "Madrid-MSG DJF": [
+    0.22093750000000004,
+    true
+   ],
+   "Madrid-SARAH3 DJF": [
+    0.24263671874999995,
+    true
+   ],
+   "Uppsala-MSG DJF": [
+    0.30181640624999995,
+    true
+   ],
+   "Uppsala-SARAH3 DJF": [
+    0.30970703125,
+    true
+   ],
+   "SetupC ALL": [
+    0.04463134765625,
+    true
+   ]
+  }
+ },
+ "H5a": {
+  "verdict": "PASS",
+  "n": 4668,
+  "share_within_0_03": 1.0,
+  "share_better_gt_0_03": 0.0,
+  "median": 0.0009700000000000264
+ },
+ "H5b": {
+  "verdict": "PASS",
+  "share_gt0": 0.934018851756641,
+  "median": 0.01822999999999997
+ },
+ "H5c": {
+  "verdict": "PASS",
+  "medians_best_minus_blackout": {
+   "HCMC": 0.0021200000000000663,
+   "Madrid": 0.0011549999999999616,
+   "indoor": -0.0002749999999999697,
+   "Uppsala": 0.0007050000000000667
+  }
+ },
+ "H6": {
+  "verdict": "PASS",
+  "agree": 3000,
+  "n": 3000,
+  "monotone_share": 1.0,
+  "pairs": 5025
+ },
+ "H7": {
+  "verdict": "PASS",
+  "HCMC_Cstar_J": [
+   421.13089703142106,
+   694.7577039414653,
+   593.7012288759731,
+   823.2704104995789
+  ],
+  "seasons_gt_2kJ_pooled": {
+   "Madrid": 2,
+   "Uppsala": 2
+  },
+  "seasons_gt_2kJ_product": {
+   "Madrid-MSG": 2,
+   "Madrid-SARAH3": 2,
+   "Uppsala-MSG": 2,
+   "Uppsala-SARAH3": 2
+  },
+  "max_J": 20544.028522407716,
+  "min_J": 421.13089703142106,
+  "TS_over_Cstar_lt_0_6_share": 1.0,
+  "n": 25,
+  "TS_infinite": []
+ },
+ "tally": {
+  "PASS": 17,
+  "FAIL": [
+   "H3a"
+  ]
+ }
+}
