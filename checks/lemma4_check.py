@@ -90,7 +90,7 @@ def main():
         res["optimal_vs_alternatives"] = bool(allok)
         out.append(res)
         print(site, sea, feas, mono, up_ok, lo_ok, allok, flush=True)
-    (TOPIC / "P3R" / "lemma4_check.json").write_text(json.dumps(out, indent=1, default=float), encoding="utf-8")
+    (pathlib.Path(__file__).resolve().parent / "lemma4_check.json").write_text(json.dumps(out, indent=1, default=float), encoding="utf-8")
 
 
 if __name__ == "__main__":

@@ -24,6 +24,8 @@ import numpy as np
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 RES = ROOT / "results"
 V1 = RES / "_v1_corpus3713"
+# folder of the P3R check scripts and their outputs: P3R/ in the topic folder, checks/ in the repository (P0R2 m6)
+CHK = ROOT / "checks" if (ROOT / "checks").exists() else ROOT / "P3R"
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 
 MAC: dict[str, str] = {}
@@ -147,7 +149,7 @@ def kansal():
     put("KcKtwoMaxRound", "$" + f"{K['K2']['max_abs_floor_mismatch']:.1e}".replace("e-0", r"\times10^{-") + "}$", s)
     # extras computed from the per-case table (realised-rate ratio in the wins; no-outage cases)
     import csv
-    R = list(csv.DictReader(open(ROOT / "P3R" / "KANSAL_CHECK_40.csv", encoding="utf-8")))
+    R = list(csv.DictReader(open(CHK / "KANSAL_CHECK_40.csv", encoding="utf-8")))
     fl = lambda r, k: float(r[k])  # noqa: E731
     win = [r for r in R if r["E1_population"] == "True" and fl(r, "d_replay") < -0.005]
     put("KcRateRatio", f(float(np.median([fl(r, "a_K") / fl(r, "a_per_real") for r in win])), 2),
@@ -216,7 +218,7 @@ def a1():
 
 
 def lemma4():
-    L = J(ROOT / "P3R" / "lemma4_check.json")
+    L = J(CHK / "lemma4_check.json")
     if not L:
         pend(("LfourN", "LfourOK"), "Lemma 4 check")
         return None

@@ -1,0 +1,35 @@
+% related_work.tex (manuscript v3, P0R2): hand-written prose, no measured numbers. Statements about cited works
+% are limited to what each source states (P0R/A8_TABLE_40.md, P3R/R16_READ_40.md, lit/). Table S13 of the supplement
+% holds the positioning table. The paragraph on our earlier article moved here from the procedure section (S6 m2).
+Table~S13 of the supplement positions the paper against the closest works; Table~\ref{tab:new} separates it from our earlier article.
+
+\emph{Sizing targets continuity or a point-event loss.} The storage condition for a node that never empties its storage is classical: Moser et al.~\cite{moser2007rts} give it for energy curves, and Kansal et al.~\cite{kansal2007} give the energy-neutral sizing condition for a $(\rho,\sigma)$ harvest envelope. Prediction-based duty cycling~\cite{buchli2014sensys} and learned energy management of batteryless nodes~\cite{ahn2023iotj} address operation rather than the event-miss trade-off. Design practice sizes harvester and storage for energy balance~\cite{kuaban2025iwcmc}, and an IoT feasibility model asks whether a use case can be powered at all~\cite{vanleemput2023iotj}. Closest to our objective, Zhang et al.~\cite{zhang2013twc} design a harvesting sensor node for a target event-loss probability, and Deng et al.~\cite{deng2022arxiv} and Tunc and Akar~\cite{tunc2017peva} size the battery for an outage or loss target; all three model point events or packets in a queue under Markov recharge.
+
+\emph{Event-capture analysis assumes stochastic recharge.} Kar et al.~\cite{kar2006ton} bound network-wide capture with the concavity argument of Corollary~\ref{cor:jensen}. Jaggi et al.~\cite{jaggi2009wn} and Ren et al.~\cite{ren2014tpds,ren2015p2p} derive activation policies for correlated or renewal events; the capacity results of~\cite{jaggi2009wn} hold for an infinite energy bucket, with finite capacity as an asymptotic correction. Ren and Cheng~\cite{ren2015p2p} already maximise capture under a finite capacitor and an activation cost for Poisson events; Lemma~\ref{lem:greedy} is that activation budget in fluid form, and Theorem~\ref{thm:energy} adds the duration term. Quality of monitoring~\cite{yau2010tosn} and patrolling~\cite{lin2013opre} supply the gap decomposition without energy, and learned wake-up policies for IoT event reporting model the harvest as random~\cite{ruizguirola2026iotj}. Closed forms with finite storage exist for point arrivals: energy-outage probability with Bernoulli energy arrivals~\cite{ballestrin2026cl}, blocking and depletion of a finite fluid queue~\cite{deepak2026mcap}, and depletion bounds under storage constraints~\cite{yan2024iotj}.
+
+\emph{Offline-optimal schedules optimise throughput.} Offline-optimal transmission with a finite battery~\cite{tutuncuoglu2012twc,yang2012tcom} maximises throughput rather than event capture, and IoT work bounds age of information under stochastic harvest~\cite{lei2025iotj,botirov2026iotj}. We use the energy-tunnel construction for $C_{\mathrm{TS}}$ and prove the variant we need (Lemma~\ref{lem:taut}).
+
+\emph{Intermittent IoT systems are evaluated by measurement.} Batteryless cameras~\cite{desai2022camaroptera} show the hardware side. REACT~\cite{williams2024react} argues that a fixed buffer chosen at design time fits poorly, on the same EnHANTs traces we use, and self-sustainability studies use measured indoor light~\cite{mayer2024iotj}. Our bounds apply, on a measured trace, to every event-independent design that never enters outage before it is built, and the traces check them.
+
+\emph{Relation to our earlier article.} Theorem~\ref{thm:floor}(i) is restated from our earlier article on frame skipping~\cite[Thms.~4--5]{deep3_jiot2026}, and the event corpus and the affine energy model follow it. That article has no storage, no harvest and no sizing; every result of Section~\ref{sec:energy} and the trace evaluation are new here (Table~\ref{tab:new}). It used a build of the same corpus with \VoneNev{} events in which LASIESTA frames were in text order; this paper uses the time-ordered corpus of \nEv{} events (Section~\ref{sec:setup}; supplement, Section~S1).
+
+\begin{table}[!t]\centering
+\caption{Restated from our earlier article~\cite{deep3_jiot2026} and new here}\label{tab:new}
+\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.41\columnwidth}>{\raggedright\arraybackslash}p{0.36\columnwidth}>{\raggedright\arraybackslash}p{0.18\columnwidth}@{}}\toprule
+Result & Status & In~\cite{deep3_jiot2026}\\\midrule
+Lemma~\ref{lem:gap} (gap decomposition) & Restated & classical\\
+Theorem~\ref{thm:floor}(i) (floor $\eps^*(a)$) & Restated & Thms.~4--5\\
+Theorem~\ref{thm:floor}(ii) (equality iff gaps $\{g,g+1\}$) & New & periodic case\\
+Corollary~\ref{cor:jensen} (spread beats burst) & Quantified & qualitative\\
+Lemma~\ref{lem:moser} (storage never empties) & Restated & --\\
+Lemma~\ref{lem:taut} (taut string) & Variant; proof in the supplement & --\\
+Lemma~\ref{lem:greedy} (activation budget) & Known for Poisson events~\cite{ren2015p2p}; fluid, idle-feasible form here & --\\
+Theorem~\ref{thm:energy} (energy floor) & New for events with duration & --\\
+Proposition~\ref{prop:blackout} (blackout) & New term & --\\
+Theorem~\ref{thm:sizing} (sizing sandwich) & New & --\\
+Remark~\ref{rem:blk} (block objective) & Conditional; not checked & --\\
+Proposition~\ref{prop:gate} (gate boundary) & Elementary & other quantity\\
+Evaluation with harvest and storage & New & video only\\\bottomrule
+\end{tabular}
+\end{table}
