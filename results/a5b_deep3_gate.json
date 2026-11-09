@@ -1,0 +1,1354 @@
+{
+ "amendment": "A5b",
+ "note": "Rows adopted from the 27-09-2026 audit after the rerun comparison below; hardware energy measurements of [14] are not corpus-dependent and were not rerun.",
+ "rerun_vs_audit": {
+  "run_old": {
+   "files": {
+    "a1_results.json": {
+     "values": 234,
+     "differ": 0,
+     "first": []
+    },
+    "a2_results.json": {
+     "values": 125,
+     "differ": 0,
+     "first": []
+    },
+    "a4_results.json": {
+     "values": 143,
+     "differ": 0,
+     "first": []
+    },
+    "a5_results.json": {
+     "values": 265,
+     "differ": 1,
+     "first": [
+      [
+       "/protocol/source",
+       "'D:\\\\PhD Program\\\\02. Working\\\\17_Sim2Real_Certification\\\\code\\\\b0_impact\\\\deep3\\\\run_old\\\\data\\\\processed\\\\events_gated.csv' vs 'D:\\\\Datasets\\\\_derived\\\\40\\\\deep3_rerun\\\\run_old\\\\data\\\\processed\\\\events_gated.csv'"
+      ]
+     ]
+    },
+    "a6_results.json": {
+     "values": 625,
+     "differ": 1,
+     "first": [
+      [
+       "/protocol/source",
+       "'D:\\\\PhD Program\\\\02. Working\\\\17_Sim2Real_Certification\\\\code\\\\b0_impact\\\\deep3\\\\run_old\\\\data\\\\processed\\\\frame_scores.parquet' vs 'D:\\\\Datasets\\\\_derived\\\\40\\\\deep3_rerun\\\\run_old\\\\data\\\\processed\\\\frame_scores.parquet'"
+      ]
+     ]
+    },
+    "b1_results.json": {
+     "values": 280,
+     "differ": 0,
+     "first": []
+    },
+    "b2_results.json": {
+     "values": 344,
+     "differ": 0,
+     "first": []
+    }
+   },
+   "n_values": 2016,
+   "n_diff": 2,
+   "not_produced": []
+  },
+  "run_corr": {
+   "files": {
+    "a1_results.json": {
+     "values": 234,
+     "differ": 0,
+     "first": []
+    },
+    "a2_results.json": {
+     "values": 125,
+     "differ": 0,
+     "first": []
+    },
+    "a4_results.json": {
+     "values": 143,
+     "differ": 0,
+     "first": []
+    },
+    "a5_results.json": {
+     "values": 265,
+     "differ": 1,
+     "first": [
+      [
+       "/protocol/source",
+       "'D:\\\\PhD Program\\\\02. Working\\\\17_Sim2Real_Certification\\\\code\\\\b0_impact\\\\deep3\\\\run_corr\\\\data\\\\processed\\\\events_gated.csv' vs 'D:\\\\Datasets\\\\_derived\\\\40\\\\deep3_rerun\\\\run_corr\\\\data\\\\processed\\\\events_gated.csv'"
+      ]
+     ]
+    },
+    "a6_results.json": {
+     "values": 625,
+     "differ": 1,
+     "first": [
+      [
+       "/protocol/source",
+       "'D:\\\\PhD Program\\\\02. Working\\\\17_Sim2Real_Certification\\\\code\\\\b0_impact\\\\deep3\\\\run_corr\\\\data\\\\processed\\\\frame_scores.parquet' vs 'D:\\\\Datasets\\\\_derived\\\\40\\\\deep3_rerun\\\\run_corr\\\\data\\\\processed\\\\frame_scores.parquet'"
+      ]
+     ]
+    },
+    "b1_results.json": {
+     "values": 280,
+     "differ": 0,
+     "first": []
+    },
+    "b2_results.json": {
+     "values": 344,
+     "differ": 0,
+     "first": []
+    }
+   },
+   "n_values": 2016,
+   "n_diff": 2,
+   "not_produced": []
+  }
+ },
+ "n_rows": 67,
+ "n_claim_changes": 9,
+ "rows": [
+  {
+   "quantity": "Số sự kiện gộp (Setup; Table S1 pooled n; \\rnEvents)",
+   "printed": 3713,
+   "reproduced_old": 3713,
+   "corrected": 3170,
+   "claim_changes": false,
+   "note": "Sửa: LASIESTA 936 -> 393. 121 video không đổi.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "Table S1 LASIESTA: E[D]",
+   "printed": 15.5,
+   "reproduced_old": 15.5,
+   "corrected": 36.9,
+   "claim_changes": false,
+   "note": "Giá trị trung bình tăng vì các run bị băm nhỏ bởi thứ tự text được nối lại.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "Table S1 LASIESTA: median",
+   "printed": 10,
+   "reproduced_old": 10.0,
+   "corrected": 2.0,
+   "claim_changes": false,
+   "note": "LASIESTA median 10 -> 2 (median 10 cũ là artefact của thứ tự text -1,-10,-100...).",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "Table S1 LASIESTA: CV",
+   "printed": 4.41,
+   "reproduced_old": 4.41,
+   "corrected": 3.12,
+   "claim_changes": false,
+   "note": "Vẫn heavy-tailed (CV>1.5).",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "Table S1 LASIESTA: KS vs Exp bác bỏ",
+   "printed": "rej.",
+   "reproduced_old": true,
+   "corrected": true,
+   "claim_changes": false,
+   "note": "p_KS sửa = 2.0e-154",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Table S1 ALL: E[D]",
+   "printed": 34.0,
+   "reproduced_old": 34.0,
+   "corrected": 39.9,
+   "claim_changes": false,
+   "note": "Giá trị trung bình tăng vì các run bị băm nhỏ bởi thứ tự text được nối lại.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "Table S1 ALL: median",
+   "printed": 2,
+   "reproduced_old": 2.0,
+   "corrected": 2.0,
+   "claim_changes": false,
+   "note": "",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "Table S1 ALL: CV",
+   "printed": 5.86,
+   "reproduced_old": 5.86,
+   "corrected": 5.42,
+   "claim_changes": false,
+   "note": "Vẫn heavy-tailed (CV>1.5).",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "Table S1 ALL: KS vs Exp bác bỏ",
+   "printed": "rej.",
+   "reproduced_old": true,
+   "corrected": true,
+   "claim_changes": false,
+   "note": "p_KS sửa = 0.0e+00",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Table S1 CDnet2014 (n, E[D], med, CV)",
+   "printed": "không đổi",
+   "reproduced_old": [
+    2516,
+    32.9,
+    2.0,
+    6.39
+   ],
+   "corrected": [
+    2516,
+    32.9,
+    2.0,
+    6.39
+   ],
+   "claim_changes": false,
+   "note": "Không bị ảnh hưởng.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Table S1 BMC (n, E[D], med, CV)",
+   "printed": "không đổi",
+   "reproduced_old": [
+    261,
+    111.7,
+    4.0,
+    3.07
+   ],
+   "corrected": [
+    261,
+    111.7,
+    4.0,
+    3.07
+   ],
+   "claim_changes": false,
+   "note": "Không bị ảnh hưởng.",
+   "is_gate_row": true,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "F_D gộp: 'median D=2, mean 34.0, maximum 6,300, CV≈5.9'",
+   "printed": [
+    2,
+    34.0,
+    6300,
+    5.9
+   ],
+   "reproduced_old": [
+    2.0,
+    34.0,
+    6300,
+    5.9
+   ],
+   "corrected": [
+    2.0,
+    39.9,
+    6300,
+    5.4
+   ],
+   "claim_changes": false,
+   "note": "mean 34.0 -> 39.9, CV 5.9 -> 5.4; kết luận heavy-tailed giữ nguyên.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Prop. exp (exponential) đánh giá thấp miss tại R=5: '≈6× (0.07 vs 0.41)'",
+   "printed": [
+    0.07,
+    0.41,
+    6
+   ],
+   "reproduced_old": [
+    0.07,
+    0.407,
+    5.82
+   ],
+   "corrected": [
+    0.06,
+    0.472,
+    7.84
+   ],
+   "claim_changes": false,
+   "note": "≈6× -> ≈8× (0.06 vs 0.47). Kết luận định tính mạnh hơn.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Latency D≥R dưới periodic: mean (Fig. S2) và χ² không bác bỏ",
+   "printed": [
+    1.955,
+    "not rejected"
+   ],
+   "reproduced_old": [
+    1.953,
+    "not rejected"
+   ],
+   "corrected": [
+    1.897,
+    "rejected"
+   ],
+   "claim_changes": true,
+   "note": "KHÔNG TÁI LẬP ĐƯỢC 1.955 trên 3.713: bản 3.713 cho 1.953 (n_long=1466); 1.955 đến từ CSV 3.723 còn 10 stub VIRAT (n_long=1476, mean=1.955, đã kiểm lại). Trên 3.170 (seed 42, run_all nguyên bản): mean 1.897, n_long=948, χ² p=0.038 -> BỊ BÁC BỎ ở 5%. Lưu ý: mô phỏng rút pha đều theo cấu trúc, nên đây là dao động Monte-Carlo một lần rút (type-I), không phải vi phạm lý thuyết; nhưng câu 'χ² not rejected' in trong bài sẽ sai nếu chạy lại đúng protocol.",
+   "is_gate_row": true,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Miss formula khớp mô phỏng 'within 0.010 across R∈{2..64}'",
+   "printed": 0.01,
+   "reproduced_old": 0.0112,
+   "corrected": 0.0111,
+   "claim_changes": false,
+   "note": "KHÔNG TÁI LẬP ĐƯỢC trên 3.713: max|diff|=0.0112 (R=4) > 0.010; con số in (0.0101) đến từ CSV 3.723 có stub. Bản sửa 0.0111 (R=32). Lỗi có sẵn từ trước, không do bug LASIESTA.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "Số sự kiện D≥R (leak paragraph) '1,476'",
+   "printed": 1476,
+   "reproduced_old": 1466,
+   "corrected": 948,
+   "claim_changes": false,
+   "note": "KHÔNG TÁI LẬP ĐƯỢC trên 3.713: 1.466 (1.476 = 1.466 + 10 stub VIRAT D=500). Bản sửa: 948.",
+   "is_gate_row": true,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "E[(1−D/R)+] tại R=5 (miss formula)",
+   "printed": 0.4073,
+   "reproduced_old": 0.4073,
+   "corrected": 0.4719,
+   "claim_changes": false,
+   "note": "Tăng 0.064 tuyệt đối (+16%).",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "F_D(R−1)=F_D(4) (trần full-sync) và mức tăng",
+   "printed": [
+    0.605,
+    "+49%"
+   ],
+   "reproduced_old": [
+    0.6052,
+    "+49%"
+   ],
+   "corrected": [
+    0.7009,
+    "+49%"
+   ],
+   "claim_changes": false,
+   "note": "0.605 -> 0.701; tỉ lệ tăng vẫn +49% (trùng hợp).",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "MC randomized-phase refresh trên dòng đồng bộ (A1, seed 7, 20.000 run)",
+   "printed": [
+    0.408,
+    0.407
+   ],
+   "reproduced_old": [
+    0.4076,
+    0.4073
+   ],
+   "corrected": [
+    0.4723,
+    0.4719
+   ],
+   "claim_changes": false,
+   "note": "0.408/0.407 -> 0.472/0.472; kết luận 'restores the formula' giữ.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Miss mô phỏng periodic trên onset thật vs công thức",
+   "printed": [
+    0.4099,
+    0.4073
+   ],
+   "reproduced_old": [
+    0.4099,
+    0.4073
+   ],
+   "corrected": [
+    0.4757,
+    0.4719
+   ],
+   "claim_changes": false,
+   "note": "0.4099/0.4073 -> 0.4757/0.4719. Onset LASIESTA sửa = số khung thật − 1 (0-based, cùng quy ước BMC).",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Số video có ≥5 sự kiện (\\rnNvid)",
+   "printed": 75,
+   "reproduced_old": 75,
+   "corrected": 55,
+   "claim_changes": false,
+   "note": "75 -> 55 (LASIESTA mất nhiều video vì còn ít sự kiện).",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "Coverage per-video, m=1 (Prop. 3 Hoeffding độc lập)",
+   "printed": 88.0,
+   "reproduced_old": 88.0,
+   "corrected": 87.3,
+   "claim_changes": false,
+   "note": "Vẫn < 95% danh nghĩa -> động cơ cho Sec. V-B giữ nguyên.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "Coverage per-video, m=R=5 (Prop. S4)",
+   "printed": 97.3,
+   "reproduced_old": 97.3,
+   "corrected": 100.0,
+   "claim_changes": false,
+   "note": "Vẫn ≥95%.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "Coverage fixed phase tại m chặt = 2 (\\rnCovFixTwo)",
+   "printed": 92.0,
+   "reproduced_old": 92.0,
+   "corrected": 92.7,
+   "claim_changes": false,
+   "note": "",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "Table S3 cột fixed phase m=3,4",
+   "printed": [
+    94.7,
+    96.0
+   ],
+   "reproduced_old": [
+    94.7,
+    96.0
+   ],
+   "corrected": [
+    96.4,
+    100.0
+   ],
+   "claim_changes": false,
+   "note": "Đạt ≥95% từ m=3 (cũ: từ m=4). Câu '≥95% for every m≥R' vẫn đúng.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Table S3 cột randomized phase m=1,2,3,4,5",
+   "printed": [
+    90.9,
+    94.8,
+    97.5,
+    99.4,
+    100.0
+   ],
+   "reproduced_old": [
+    90.9,
+    94.8,
+    97.5,
+    99.4,
+    100.0
+   ],
+   "corrected": [
+    91.3,
+    97.2,
+    99.5,
+    100.0,
+    100.0
+   ],
+   "claim_changes": true,
+   "note": "Câu S1:46-47 'above the fixed-phase value at every m' SAI tại m=4 trên dữ liệu sửa (99.97% < 100%) và bằng nhau ở m≥5 (ở bản cũ cũng bằng nhau ở m≥6) — chỉ là diễn đạt, cần sửa thành 'at least'.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Coverage cấu hình jittered (không OPEN biên) m=1, 2, 5",
+   "printed": [
+    88.4,
+    92.8,
+    98.3
+   ],
+   "reproduced_old": [
+    88.4,
+    92.8,
+    98.3
+   ],
+   "corrected": [
+    89.2,
+    94.5,
+    100.0
+   ],
+   "claim_changes": false,
+   "note": "Chênh với fixed-phase thành ~1.9 điểm (m=1,2): 'within about a point' hơi lỏng.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Coverage re-centre per-video (\\rnCovRandPvOne)",
+   "printed": 100.0,
+   "reproduced_old": 100.0,
+   "corrected": 100.0,
+   "claim_changes": false,
+   "note": "",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "Miss randomized-phase: tâm giải tích & thực hiện (\\rnMissRandFormula, \\rnMissRand)",
+   "printed": [
+    0.3012,
+    0.301
+   ],
+   "reproduced_old": [
+    0.3012,
+    0.3012
+   ],
+   "corrected": [
+    0.3521,
+    0.3521
+   ],
+   "claim_changes": false,
+   "note": "",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Miss jittered giải tích (\\rnMissJitFormula)",
+   "printed": 0.4269,
+   "reproduced_old": 0.4269,
+   "corrected": 0.4993,
+   "claim_changes": false,
+   "note": "",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "Cấu trúc: khoảng cách onset tối thiểu / số onset tối đa trong 1 khối / m chặt",
+   "printed": [
+    2,
+    3,
+    2
+   ],
+   "reproduced_old": [
+    2,
+    3,
+    2
+   ],
+   "corrected": [
+    2,
+    3,
+    2
+   ],
+   "claim_changes": false,
+   "note": "Không đổi — lập luận cấu trúc (Corollary S4') đứng vững.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Autocorrelation chỉ báo miss: lag 1; lag đầu tiên |ac|<0.05; m_eff",
+   "printed": [
+    0.06,
+    3
+   ],
+   "reproduced_old": [
+    0.06,
+    2
+   ],
+   "corrected": [
+    0.03,
+    1
+   ],
+   "claim_changes": false,
+   "note": "Bản cũ: |ac|<0.05 thực ra đã từ lag 2 (m_eff=2), 'từ lag 3' vẫn là câu đúng. Bản sửa: 0.025 ở lag 1, <0.05 ở mọi lag (m_eff=1). Phụ thuộc còn yếu hơn — kết luận 'weak and short-range' mạnh thêm.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Autocorr log-duration lag 1 (\\rnAcDurOne)",
+   "printed": 0.2,
+   "reproduced_old": 0.2,
+   "corrected": 0.15,
+   "claim_changes": false,
+   "note": "",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "MI: bit ở lag 1; lag đầu tiên không phân biệt được 0; p tại lag đó",
+   "printed": [
+    0.034,
+    3,
+    0.4
+   ],
+   "reproduced_old": [
+    0.034,
+    3,
+    0.402
+   ],
+   "corrected": [
+    0.009,
+    2,
+    0.077
+   ],
+   "claim_changes": true,
+   "note": "Lag 3 -> 2 (p=0.077). NHƯNG trên dữ liệu sửa MI ở lag 4 lại có ý nghĩa (p=0.024) -> câu 'indistinguishable from zero from lag 2' không còn đúng cho mọi lag ≥2 (10 lag kiểm định, có thể do đa kiểm định). Cột MI và dấu † của Table S3 đổi (xem hàng Table S3 MI).",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Table S3 cột MI tại lag m (bits) và dấu †",
+   "printed": "0.0337,0.0261,0.0160†,0.0192†,0.0151†,0.0135†,0.0128†,0.0122†",
+   "reproduced_old": "0.0337,0.0261,0.0160†,0.0192†,0.0151†,0.0135†,0.0128†,0.0122†",
+   "corrected": "0.0090,0.0071†,0.0032†,0.0079,0.0042†,0.0038†,0.0033†,0.0037†",
+   "claim_changes": true,
+   "note": "Trên dữ liệu sửa: † xuất hiện từ m=2, m=4 KHÔNG có †.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Block-permutation test, thống kê số run tại L=R=5: quan sát / null / p",
+   "printed": [
+    1442,
+    1468,
+    0.016
+   ],
+   "reproduced_old": [
+    1442,
+    1468,
+    0.016
+   ],
+   "corrected": [
+    1394,
+    1411,
+    0.119
+   ],
+   "claim_changes": true,
+   "note": "ĐỔI KẾT LUẬN: p=0.016 -> 0.119, test KHÔNG còn bác bỏ R-dependence. Câu 'still rejects R-dependence' (main) và đoạn 'We report this rather than suppress it ... do not establish R-dependence' (supp) sai trên dữ liệu sửa: phát hiện 'bất ngờ' của vòng R1 là artefact của thứ tự LASIESTA bị xáo. Ở L=1,2,3 vẫn có ý nghĩa (p=0.023/0.033/0.046).",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Block-permutation: min p của D_max qua các L (\\rnDmaxPmin)",
+   "printed": 0.09,
+   "reproduced_old": 0.093,
+   "corrected": 0.5825,
+   "claim_changes": false,
+   "note": "Vẫn không có ý nghĩa ở mọi L (mạnh hơn).",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "Fleet budget Prop. S5: missed / expected / budget",
+   "printed": [
+    1522,
+    null,
+    2270
+   ],
+   "reproduced_old": [
+    1522,
+    1512.4,
+    2270.0
+   ],
+   "corrected": [
+    1508,
+    1495.8,
+    2235.5
+   ],
+   "claim_changes": false,
+   "note": "Vẫn trong budget với biên rộng (1508 ≤ 2235.5). 'expected' không in trong bài.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "p̂ (merge gap ≤3) và 1−p̂",
+   "printed": [
+    0.972,
+    0.028
+   ],
+   "reproduced_old": [
+    0.972,
+    0.0278
+   ],
+   "corrected": [
+    0.976,
+    0.024
+   ],
+   "claim_changes": false,
+   "note": "0.972 -> 0.976. Lưu ý: A6/make_numbers mã hoá cứng p=0.972 trong lưới k-table; với p̂=0.976 các k không đổi.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Số gap và % gap dài đúng 1",
+   "printed": [
+    3592,
+    53.6
+   ],
+   "reproduced_old": [
+    3592,
+    53.6
+   ],
+   "corrected": [
+    3049,
+    47.0
+   ],
+   "claim_changes": true,
+   "note": "53.6% -> 47.0%: câu 'corroborating the reading of D_min=1 events as flicker' dựa trên đa số gap dài 1 — giờ dưới 50%. Luận cứ độc lập ở lag 1 bị bác bỏ vẫn đúng (0.470 ≪ p̂).",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Số sự kiện vật lý sau merge (\\rnPhysEvents)",
+   "printed": 697,
+   "reproduced_old": 697,
+   "corrected": 694,
+   "claim_changes": false,
+   "note": "",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "ρ̂ tại lag R và CI 95%",
+   "printed": [
+    0.21,
+    0.188,
+    0.232
+   ],
+   "reproduced_old": [
+    0.2101,
+    0.1877,
+    0.2324
+   ],
+   "corrected": [
+    0.2563,
+    0.2364,
+    0.2777
+   ],
+   "claim_changes": false,
+   "note": "0.210 -> 0.256; CI không chồng lấn bản cũ.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "ρ̂/(1−p̂) (\\rnRhoRatio)",
+   "printed": 7.6,
+   "reproduced_old": 7.6,
+   "corrected": 10.7,
+   "claim_changes": false,
+   "note": "",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "ρ̂(1) và P(FN|OK) tại lag R",
+   "printed": [
+    0.278,
+    0.019
+   ],
+   "reproduced_old": [
+    0.2783,
+    0.0191
+   ],
+   "corrected": [
+    0.3197,
+    0.0147
+   ],
+   "claim_changes": false,
+   "note": "",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "k(η,p,ρ): 95% -> k=1 mọi ρ; 99% k=2 (indep và ρ̂); k tăng từ ρ≈0.5; p=0.95: 2->3",
+   "printed": [
+    1,
+    2,
+    2,
+    0.5,
+    2,
+    3
+   ],
+   "reproduced_old": [
+    1,
+    2,
+    2,
+    0.5,
+    2,
+    3
+   ],
+   "corrected": [
+    1,
+    2,
+    2,
+    0.5,
+    2,
+    3
+   ],
+   "claim_changes": false,
+   "note": "Không đổi. Table S4: mọi ô k/năng lượng giữ nguyên, chỉ nhãn ρ̂ đổi 0.21 -> 0.26.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "ρ tại đó chứng chỉ D_target=5 bất khả (\\rnRhoInfeasible)",
+   "printed": 0.78,
+   "reproduced_old": 0.78,
+   "corrected": 0.81,
+   "claim_changes": false,
+   "note": "Do p̂ 0.972 -> 0.976.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "TargetingGain vs ActivationCost (gộp, θ triển khai)",
+   "printed": [
+    0.315,
+    0.302
+   ],
+   "reproduced_old": [
+    0.3156,
+    0.303
+   ],
+   "corrected": [
+    0.3682,
+    0.3513
+   ],
+   "claim_changes": false,
+   "note": "Trên 3.713 tái lập 0.3156/0.3030 (làm tròn 0.316/0.303, lệch 0.001 so với in); con số in 0.3148/0.3022 là từ CSV 3.723 có stub. Bản sửa 0.368/0.351 (chênh 0.017): vẫn 'gần break-even', gate vẫn thắng nhẹ.",
+   "is_gate_row": true,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "A2 theo dataset: LASIESTA (q_in, q_out, gain>cost?)",
+   "printed": "không in số; điểm LASIESTA trên Fig. S8",
+   "reproduced_old": [
+    [
+     0.6979,
+     0.7999
+    ],
+    [
+     0.1729,
+     0.1813,
+     false
+    ]
+   ],
+   "corrected": [
+    [
+     0.7494,
+     0.5784
+    ],
+    [
+     0.4032,
+     0.3987,
+     true
+    ]
+   ],
+   "claim_changes": true,
+   "note": "Trên dữ liệu cũ LASIESTA có q_in 0.698 < q_out 0.800 (anti-aligned, nằm DƯỚI đường chéo Fig. S8, gate thua mô hình) — do g_t xáo trộn với score. Sửa: q_in 0.749 > q_out 0.578, gain 0.403 > cost 0.399 (gate thắng). Hình S8 đổi vị trí điểm LASIESTA.",
+   "is_gate_row": true,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "BMC: gain < cost '0.223<0.245'",
+   "printed": [
+    0.223,
+    0.245
+   ],
+   "reproduced_old": [
+    0.2226,
+    0.245
+   ],
+   "corrected": [
+    0.2226,
+    0.245
+   ],
+   "claim_changes": false,
+   "note": "Không đổi (BMC không bị ảnh hưởng).",
+   "is_gate_row": true,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Luật per-event P_g dự đoán miss triển khai 'within 0.01–0.02 per dataset'",
+   "printed": "0.01-0.02",
+   "reproduced_old": {
+    "BMC": 0.011,
+    "CDnet2014": 0.021,
+    "LASIESTA": 0.005
+   },
+   "corrected": {
+    "BMC": 0.011,
+    "CDnet2014": 0.021,
+    "LASIESTA": 0.03
+   },
+   "claim_changes": true,
+   "note": "Sửa: LASIESTA lệch 0.030 > 0.02 -> khoảng thành 0.01–0.03.",
+   "is_gate_row": true,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Deployed gate: activation a≈0.77, certified miss 7.89%",
+   "printed": [
+    0.77,
+    7.89
+   ],
+   "reproduced_old": [
+    0.7685,
+    7.89
+   ],
+   "corrected": [
+    0.7684,
+    9.5
+   ],
+   "claim_changes": false,
+   "note": "7.89% -> 9.50% (tăng 20% tương đối). Số in trực tiếp (Table S2 hàng 1, Fig. S6 caption 0.079 -> 0.095); không đảo kết luận.",
+   "is_gate_row": true,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Table S2 gated miss ≥D_target = 2, 5, 10",
+   "printed": [
+    3.87,
+    0.14,
+    0.0
+   ],
+   "reproduced_old": [
+    3.87,
+    0.14,
+    0.0
+   ],
+   "corrected": [
+    5.28,
+    0.21,
+    0.0
+   ],
+   "claim_changes": false,
+   "note": "0.14% -> 0.21% (vẫn là 2 sự kiện; mẫu số 1466 -> 948).",
+   "is_gate_row": true,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Family π_θ khớp điểm triển khai 'within 0.05 in ratio'",
+   "printed": 0.05,
+   "reproduced_old": 0.043,
+   "corrected": 0.024,
+   "claim_changes": false,
+   "note": "Vẫn < 0.05.",
+   "is_gate_row": true,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "Lợi thế ε(a)/gated trên a∈[0.20,0.80]: min–max, margin max",
+   "printed": [
+    0.96,
+    1.1,
+    1.7
+   ],
+   "reproduced_old": [
+    0.96,
+    1.1,
+    1.7
+   ],
+   "corrected": [
+    0.94,
+    1.06,
+    2.4
+   ],
+   "claim_changes": false,
+   "note": "0.96–1.10 -> 0.94–1.06, margin ≤1.7 -> ≤2.4 điểm; 'marginal' vẫn đúng.",
+   "is_gate_row": true,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Lợi thế tại refresh floor (âm) và đỉnh gộp",
+   "printed": [
+    "<1",
+    0.94
+   ],
+   "reproduced_old": [
+    0.963,
+    [
+     4.79,
+     0.96
+    ]
+   ],
+   "corrected": [
+    0.966,
+    [
+     5.45,
+     0.958
+    ]
+   ],
+   "claim_changes": false,
+   "note": "",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Theo dataset: BMC không bao giờ thắng; CDnet2014/LASIESTA chỉ lớn trên a≈0.94 / 0.88 (vị trí đỉnh)",
+   "printed": [
+    false,
+    0.94,
+    0.88
+   ],
+   "reproduced_old": [
+    false,
+    0.944,
+    0.883
+   ],
+   "corrected": [
+    false,
+    0.944,
+    0.95
+   ],
+   "claim_changes": false,
+   "note": "LASIESTA: đỉnh [3.64, 0.883] -> [8.28, 0.95] (ratio, a): 0.88 -> 0.95.",
+   "is_gate_row": true,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Mật độ trong-sự-kiện ρ_ev (CDnet/LASIESTA/BMC) và ≈76% gộp; abstract '76% to 1%'",
+   "printed": [
+    0.7,
+    0.79,
+    0.97,
+    0.76
+   ],
+   "reproduced_old": [
+    0.7,
+    0.79,
+    0.97,
+    0.77
+   ],
+   "corrected": [
+    0.7,
+    0.79,
+    0.97,
+    0.77
+   ],
+   "claim_changes": false,
+   "note": "Bất biến theo thứ tự (chỉ đếm khung).",
+   "is_gate_row": true,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Leak-then-fix: số miss D≥R (deployed '>'), tỉ lệ, D≥6, fix '>='",
+   "printed": [
+    2,
+    0.14,
+    0,
+    0
+   ],
+   "reproduced_old": [
+    2,
+    0.14,
+    0,
+    0
+   ],
+   "corrected": [
+    2,
+    0.21,
+    0,
+    0
+   ],
+   "claim_changes": false,
+   "note": "Vẫn đúng 2 sự kiện (CDnet lakeSide 6196–6200, BMC 411 1024–1028), không có LASIESTA mới; fix vẫn 0. Chỉ đổi 0.14% -> 0.21%.",
+   "is_gate_row": true,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Gate only vs periodic tại a≈0.25; % certified-class bị miss",
+   "printed": [
+    0.46,
+    0.35,
+    4000,
+    33
+   ],
+   "reproduced_old": [
+    0.4603,
+    0.3499,
+    4000,
+    33
+   ],
+   "corrected": [
+    0.4823,
+    0.4148,
+    4000,
+    33
+   ],
+   "claim_changes": false,
+   "note": "0.460/0.350 -> 0.482/0.415; kết luận 'gate alone strictly worse' giữ.",
+   "is_gate_row": true,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Gate+refresh vs ε tại a≈0.40",
+   "printed": [
+    0.236,
+    0.246
+   ],
+   "reproduced_old": [
+    0.2362,
+    0.2457
+   ],
+   "corrected": [
+    0.2719,
+    0.2847
+   ],
+   "claim_changes": false,
+   "note": "0.236/0.246 -> 0.272/0.285: vẫn dưới frontier.",
+   "is_gate_row": true,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Refresh alone R=3 (a=0.334) vs ε",
+   "printed": [
+    0.291,
+    0.289
+   ],
+   "reproduced_old": [
+    0.2914,
+    0.2888
+   ],
+   "corrected": [
+    0.3375,
+    0.3339
+   ],
+   "claim_changes": false,
+   "note": "0.291/0.289 -> 0.338/0.334.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Reducto-style tại a=0.8 vs ε",
+   "printed": [
+    0.071,
+    0.072
+   ],
+   "reproduced_old": [
+    0.0706,
+    0.0718
+   ],
+   "corrected": [
+    0.0779,
+    0.0828
+   ],
+   "claim_changes": false,
+   "note": "0.071/0.072 -> 0.078/0.083 (giờ rõ ràng dưới frontier trung bình 0.005, 'track the frontier on average' vẫn đúng).",
+   "is_gate_row": true,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Closed runs Glimpse/Reducto; FrameHopper ≤7",
+   "printed": [
+    461,
+    724,
+    7
+   ],
+   "reproduced_old": [
+    461,
+    724,
+    7
+   ],
+   "corrected": [
+    461,
+    724,
+    7
+   ],
+   "claim_changes": false,
+   "note": "Không đổi.",
+   "is_gate_row": true,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Table S5 (a≈0.4): miss / miss(D≥R) / max gap cho 7 policy",
+   "printed": {
+    "periodic": [
+     0.291,
+     0,
+     2
+    ],
+    "gate_only": [
+     0.336,
+     0.229,
+     4000
+    ],
+    "gate_refresh": [
+     0.236,
+     0,
+     4
+    ],
+    "random": [
+     0.3,
+     0.016,
+     22
+    ],
+    "glimpse": [
+     0.345,
+     0.119,
+     492
+    ],
+    "reducto": [
+     0.329,
+     0.072,
+     461
+    ],
+    "framehopper": [
+     0.257,
+     0,
+     3
+    ]
+   },
+   "reproduced_old": {
+    "periodic": [
+     0.291,
+     0.0,
+     2
+    ],
+    "gate_only": [
+     0.336,
+     0.229,
+     4000
+    ],
+    "gate_refresh": [
+     0.236,
+     0.0,
+     4
+    ],
+    "random": [
+     0.3,
+     0.016,
+     22
+    ],
+    "glimpse": [
+     0.345,
+     0.119,
+     492
+    ],
+    "reducto": [
+     0.329,
+     0.072,
+     461
+    ],
+    "framehopper": [
+     0.257,
+     0.0,
+     3
+    ]
+   },
+   "corrected": {
+    "periodic": [
+     0.338,
+     0.0,
+     2
+    ],
+    "gate_only": [
+     0.372,
+     0.258,
+     4000
+    ],
+    "gate_refresh": [
+     0.272,
+     0.0,
+     4
+    ],
+    "random": [
+     0.342,
+     0.02,
+     22
+    ],
+    "glimpse": [
+     0.369,
+     0.083,
+     492
+    ],
+    "reducto": [
+     0.364,
+     0.073,
+     461
+    ],
+    "framehopper": [
+     0.307,
+     0.0,
+     3
+    ]
+   },
+   "claim_changes": false,
+   "note": "Mọi cột miss đổi +0.02–0.05; cột max gap và certificate giữ nguyên; Glimpse và gate-only đổi chỗ ở cuối bảng.",
+   "is_gate_row": true,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Dilution: lợi thế tại mật độ gốc -> ρ=0.011; best-threshold",
+   "printed": [
+    1.09,
+    1.85,
+    2.2
+   ],
+   "reproduced_old": [
+    1.088,
+    1.854,
+    2.172
+   ],
+   "corrected": [
+    1.036,
+    1.811,
+    2.086
+   ],
+   "claim_changes": false,
+   "note": "Tăng đơn điệu vẫn đúng.",
+   "is_gate_row": true,
+   "printed_found_in_FINAL_pdf": null
+  },
+  {
+   "quantity": "Mô hình binary-channel dự đoán cả đường cong 'within ≈0.1'",
+   "printed": 0.1,
+   "reproduced_old": 0.086,
+   "corrected": 0.217,
+   "claim_changes": true,
+   "note": "ĐỔI KẾT LUẬN: sai số lớn nhất 0.086 -> 0.217 (mô hình dự đoán cao hơn thực tế ở mọi mật độ, vì q_out LASIESTA giảm 0.80 -> 0.58 làm kênh gộp 'aligned' hơn). Câu 'within ≈0.1' và Fig. 10 (đường dự đoán) cần sửa.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": true
+  },
+  {
+   "quantity": "Periodic tối ưu: 'random wastes ≈6%, clustered 12–16%'",
+   "printed": "≈6%, 12–16%",
+   "reproduced_old": [
+    0.065,
+    [
+     0.06,
+     0.158
+    ]
+   ],
+   "corrected": [
+    0.064,
+    [
+     0.054,
+     0.114
+    ]
+   ],
+   "claim_changes": false,
+   "note": "Không tái lập được định nghĩa chính xác của '≈6%' và '12–16%'. Đã tính: excess tuyệt đối max (random−periodic) và khoảng (clustered−periodic) trên lưới a của make_figures (seed 42). Random ≈6.5 -> 6.4 điểm; clustered max 15.8 -> 11.4 điểm. Periodic vẫn ≤ random/clustered ở mọi a.",
+   "is_gate_row": false,
+   "printed_found_in_FINAL_pdf": null
+  }
+ ]
+}

@@ -54,7 +54,7 @@ def main():
         check(r[2] == kj(c["Cstar_J"]), f"Table IV C* {k}: {r[2]}")
         check(r[3] == kj(c["No7d_J"]), f"Table IV No-week {k}: {r[3]}")
         check(r[7] == kj(c["radio_J"]["6TiSCH"]), f"Table IV 6TiSCH {k}: {r[7]}")
-        check(r[8] == kj(c["radio_J"]["LoRaWAN"]), f"Table IV LoRaWAN {k}: {r[8]}")
+        check(r[8] == kj(c["fixed_J"]["6TiSCH"]), f"Table IV 6TiSCH fixed {k}: {r[8]}")
     S = (LAT / "supp_a3_tables.tex").read_text(encoding="utf-8")
     keys = order + second
     W = rows_of(S, "tab:s_a3_worst")
@@ -66,6 +66,8 @@ def main():
         check(b[2] == kj(c["Cstar_J"]), f"S17 C* {k}: {b[2]}")
         for i, q in ((3, "BLE"), (4, "6TiSCH"), (5, "LoRaWAN")):
             check(b[i] == kj(c["radio_J"][q]), f"S17 {q} {k}: {b[i]}")
+        for i, q in ((6, "BLE"), (7, "6TiSCH")):
+            check(b[i] == kj(c["fixed_J"][q]), f"S17 fixed {q} {k}: {b[i]}")
     B = rows_of(S, "tab:s_a4b")
     for se, r in zip(SEAS, B[:4]):
         check(re.sub(r"\$.*\$", "", r[7]) == kj(N[f"HCMC|{se}"]["Cstar_J"]), f"S18 2025 {se}: {r[7]}")

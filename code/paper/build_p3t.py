@@ -75,6 +75,10 @@ def main():
     tr, te = J("prereg_score_train.json"), J("prereg_score_test.json")
     energy = json.loads((ROOT / "P0" / "energy_model_40.json").read_text(encoding="utf-8"))["node_classes"]["A_GAP9_HM0360"]
     rad = {(x["site"], x["season"], x["radio"]): x for x in RA["rows"] if abs(x["m"] - 0.25) < 1e-9}
+    AV = J("a5_fixed_panel.json")
+    fix = {(x["site"], x["season"], x["radio"]): x for x in AV["rows"]}
+    GB = J("a5b_deep3_gate.json")
+    gb = {r["quantity"]: r for r in GB["rows"]}
     M, P = {}, {}
 
     def put(k, v, src):
@@ -87,7 +91,8 @@ def main():
     for s, se, _, _ in cells_all:
         x = F5[(s, se)]
         NT["cells"][f"{s}|{se}"] = {"Cstar_J": x["Cstar_J"], "days": x["days"], "No7d_J": W[(s, se)]["L7"]["Cstar_drop"] * EIDLE_J,
-                                    "radio_J": {r: rad[(s, se, r)]["Cstar_J"] for r in ("reg", "BLE", "6TiSCH", "LoRaWAN")}}
+                                    "radio_J": {r: rad[(s, se, r)]["Cstar_J"] for r in ("reg", "BLE", "6TiSCH", "LoRaWAN")},
+                                    "fixed_J": {r: fix[(s, se, r)]["Cstar_fixed_J"] for r in ("BLE", "6TiSCH")}}
     (LATEX / "numbers_tables.json").write_text(json.dumps(NT, indent=1), encoding="utf-8")
     cj = lambda s, se: NT["cells"][f"{s}|{se}"]["Cstar_J"]  # noqa: E731
 
@@ -127,9 +132,38 @@ def main():
     put("ExWp", f"{ex['W_p'] * 1e3:.0f}", "a4_radio.json:rows HCMC SON 6TiSCH W_p")
     put("ExCkJ", f"{ex['Cstar_J'] / 1e3:.2f}", "a4_radio.json:rows HCMC SON 6TiSCH Cstar_J")
     put("ExCaps", str(math.ceil(ex["Cstar_J"] / SUPERCAP_J)), "Cstar_J / 45 J, rounded up (10 F, 3 V supercapacitor)")
-    hr = [F5[("HCMC", se)]["Cstar_J"] / F5[("HCMC", se)]["baselines_J"]["C_avgday"] for se in SEAS]
-    put("FullRatioLo", f"{min(hr):.1f}", "F5_sizing_all.json: HCMC C*/C_avgday, m=0.25, min")
-    put("FullRatioHi", f"{max(hr):.1f}", "F5_sizing_all.json: HCMC C*/C_avgday, m=0.25, max")
+    hr = [round(F5[("HCMC", se)]["Cstar_J"] / 1e3, 2) / round(F5[("HCMC", se)]["baselines_J"]["C_avgday"] / 1e3, 2) for se in SEAS]
+    put("FullRatioLo", f"{min(hr):.1f}", "F5_sizing_all.json: HCMC C*/C_avgday from the two decimals printed in Table IV, min")
+    put("FullRatioHi", f"{max(hr):.1f}", "F5_sizing_all.json: HCMC C*/C_avgday from the two decimals printed in Table IV, max")
+    bf = [round(F5[("HCMC", se)]["Cstar_J"] / 1e3, 2) / round(F5[("HCMC", se)]["baselines_J"]["C_buchli_daily"] / 1e3, 2) for se in SEAS]
+    put("BuFullLo", f"{min(bf):.1f}", "F5_sizing_all.json: HCMC C*/C_buchli from the two decimals printed in Table IV, min")
+    put("BuFullHi", f"{max(bf):.1f}", "F5_sizing_all.json: HCMC C*/C_buchli from the two decimals printed in Table IV, max")
+    # A5: registered panel kept
+    for r, n, d in (("6TiSCH", "Six", 2), ("BLE", "Ble", 3)):
+        q = AV["summary"][f"{r}_primary17"]
+        put(f"Av{n}Min", f"{q['ratio_min']:.{d}f}", f"a5_fixed_panel.json:summary.{r}_primary17.ratio_min")
+        put(f"Av{n}Med", f"{q['ratio_median']:.{d}f}", f"a5_fixed_panel.json:summary.{r}_primary17.ratio_median")
+        put(f"Av{n}Max", f"{q['ratio_max']:.{d}f}", f"a5_fixed_panel.json:summary.{r}_primary17.ratio_max")
+        z = AV["summary"][f"{r}_second8"]
+        put(f"Av{n}SecMin", f"{z['ratio_min']:.{d}f}", f"a5_fixed_panel.json:summary.{r}_second8.ratio_min")
+        put(f"Av{n}SecMax", f"{z['ratio_max']:.{d}f}", f"a5_fixed_panel.json:summary.{r}_second8.ratio_max")
+    s6 = AV["summary"]["6TiSCH_primary17"]
+    assert s6["cell_max"] == "HCMC JJA" and s6["cell_min"] == "SetupF ALL" and not s6["cells_lost_balance"], "A5 text names these cells"
+    assert not AV["summary"]["BLE_primary17"]["cells_lost_balance"]
+    put("AvNviol", str(AV["n_LB_gt_TS"]), "a5_fixed_panel.json:n_LB_gt_TS")
+    put("AvNcases", str(AV["n_with_bounds"]), "a5_fixed_panel.json:n_with_bounds")
+    put("AvMaxLB", f"{AV['max_LB_lo_over_TS']:.4f}", "a5_fixed_panel.json:max_LB_lo_over_TS")
+    # N3: maxima on the primary product; N10: largest difference between the A3 base and Table IV
+    prim_rows = [x for x in Rg.values() if x["site"] in ("HCMC", "Madrid-MSG", "Uppsala-MSG")]
+    put("MaxOutPrim", f"{max(x['C*/C_avgday']['max'] for x in prim_rows):.1f}", "a3_per_cell_ranges.json: C*/C_avgday max, primary outdoor cells")
+    upp = [x for x in Rg.values() if x["site"] == "Uppsala-MSG"]
+    put("MaxThreeUppPrim", f"{max(x['C*/C_3day']['max'] for x in upp):.1f}", "a3_per_cell_ranges.json: C*/C_3day max, Uppsala-MSG")
+    put("PartialDayMax", f"{100 * C17['a3_vs_f5']['max_abs_rel']:.1f}", "a4_count17.json:a3_vs_f5.max_abs_rel (both m)")
+    # N5: the Holm family on 17 cells
+    put("nHolmHthree", str(2 * C17["holm17"]["n_cells"]), "a4_count17.json:holm17.n_cells x 2")
+    put("nHolmHfourd", str(C17["holm17"]["n_tests"] - 2 * C17["holm17"]["n_cells"]), "a4_count17.json:holm17.n_tests minus 2 n_cells")
+    put("FloorFiveOld", f"{D3['earlier_corpus']['eps_star']['0.2000']:.3f}", "a4_deep3_impact.json:earlier_corpus.eps_star[0.2]")
+    put("FloorFiveNew", f"{D3['corrected_corpus']['eps_star']['0.2000']:.3f}", "a4_deep3_impact.json:corrected_corpus.eps_star[0.2]")
     put("ThreeDaykJ", f"{F5[('HCMC', 'DJF')]['baselines_J']['C_3day'] / 1e3:.2f}", "F5_sizing_all.json:baselines_J.C_3day")
     assert re.search(r"\\newcommand\{\\AiiMaxLBTSreg\}\{" + re.escape(f"{score['H4b']['max']:.3f}") + "}", "".join(f.read_text(encoding="utf-8") for d in (LATEX, LATEX.parent / "v3") if d.exists() for f in d.glob("numbers*.tex") if f.name != "numbers_a4.tex")), "AiiMaxLBTSreg"
 
@@ -191,14 +225,11 @@ def main():
     (LATEX / "numbers_a4_provenance.json").write_text(json.dumps(P, indent=1), encoding="utf-8")
 
     # Table IV
-    head = (r"Site & & $C^*$ & \shortstack{No worst-\\income week} & Other & Avg-day & Buchli & 6TiSCH & \shortstack{LoRa-\\WAN}\\\midrule")
+    head = (r"Site & & $C^*$ & \shortstack{No worst-\\income week} & Other & Avg-day & Buchli & 6TiSCH & \shortstack{6TiSCH,\\fixed\\panel}\\\midrule")
     L = [r"\begin{table}[!t]\centering\caption{Storage for the reference node over the full trace ($m=0.25$, $K=8$; kJ; one slot = one frame period of "
-         r"0.1\,s, 10\,fps). Seasons last \SeasonDays{} days. Indoor rows give the trace length. No worst-income week: $C^*$ with the 7-day window of "
-         r"least net income removed (amendment A3, post hoc; Table~S14). Other: $C^*$ from the second satellite product, a sensitivity (Table~S8); "
-         r"-- where only one product exists (Himawari-9 only, indoor). 6TiSCH and LoRaWAN: $C^*$ with one report per activation (amendment A4, post hoc; "
-         r"Table~S17); BLE changes $C^*$ by a factor of \kBle. LoRaWAN is an energy-only sensitivity (Section~\ref{sec:sizing}). The 3-day rule needs "
-         r"\ThreeDaykJ{} kJ in every cell. Block-bootstrap intervals are not shown because they break the worst spell (supplement, Tables~S9--S10). "
-         r"Kansal's mean-rate condition is omitted (it oversizes by \kmeanInvLo--\kmeanInvHi{} times). Descriptive, not pre-registered}\label{tab:sizing}",
+         r"0.1\,s, 10\,fps). Seasons last \SeasonDays{} days; indoor rows give the trace length. No worst-income week: amendment A3 (Table~S14). Other: second "
+         r"satellite product (Table~S8). 6TiSCH: one report per activation, panel rescaled (A4); fixed panel: registered panel kept (A5; Table~S17). The 3-day "
+         r"rule needs \ThreeDaykJ{} kJ in every cell. Block-bootstrap intervals: Tables~S9--S10. Descriptive, not pre-registered}\label{tab:sizing}",
          r"\footnotesize\setlength{\tabcolsep}{1pt}", r"\begin{tabular}{@{}llrrrrrrr@{}}\toprule", head]
     for s, se, name, lab in primary():
         x = F5[(s, se)]
@@ -208,7 +239,7 @@ def main():
         lab2 = lab if s in dict(SITES) else f"{x['days']:.0f}\\,d"
         name = name if s in dict(SITES) else f"Indoor {lab}"
         L.append(f"{name} & {lab2} & {kj(cj(s, se))} & {kj(NT['cells'][f'{s}|{se}']['No7d_J'])} & {ot} & {kj(b['C_avgday'])} & {kj(b['C_buchli_daily'])} & "
-                 f"{kj(rad[(s, se, '6TiSCH')]['Cstar_J'])} & {kj(rad[(s, se, 'LoRaWAN')]['Cstar_J'])}\\\\")
+                 f"{kj(rad[(s, se, '6TiSCH')]['Cstar_J'])} & {kj(fix[(s, se, '6TiSCH')]['Cstar_fixed_J'])}\\\\")
     L.append(r"\bottomrule\end{tabular}\end{table}")
     (LATEX / "sizing_table.tex").write_text("\n".join(L) + "\n", encoding="utf-8")
     days = [F5[(s, se)]["days"] for s, _ in SITES for se in SEAS]
@@ -224,7 +255,7 @@ def main():
             for s, se, n, lab in prim + sec]
     o = [table(r"Worst-spell sensitivity (amendment A3, post hoc; reference node, $m=0.25$, full trace). $C^*$ in kJ, the value of Table~\ref{tab:s_a4_radio} and of Table~IV; the "
                r"ratios are $C^*$ with the worst window of 1, 3 or 7 days removed over $C^*$. A3 removes whole days, so for setups C and D its base drops a final partial day "
-               r"(difference at most 0.3\,\% at $m=0.25$). Last column: first day of the worst 7-day window." + second_note +
+               r"(difference at most \PartialDayMax\,\% over both values of $m$). Last column: first day of the worst 7-day window." + second_note +
                r" Source: \texttt{results/a3\_worst\_spell.json}", "tab:s_a3_worst", "@{}llrrrrr@{}", r"Site & & $C^*$ & $-1$\,d & $-3$\,d & $-7$\,d & Start", rows, sepn)]
     cols = ("C*/C_avgday", "C*/C_buchli_daily", "C*/C_kansal_mean", "C*/C_3day")
 
@@ -250,12 +281,13 @@ def main():
         lb, ts = q["C_LB_lo"], q["C_TS_exact_hi"]
         wp = "--" if q["W_p"] is None else f"{q['W_p'] * 1e3:.0f}"
         rows.append([n, lab, kj(cj(s, se)), kj(rad[(s, se, "BLE")]["Cstar_J"]), kj(rad[(s, se, "6TiSCH")]["Cstar_J"]), kj(rad[(s, se, "LoRaWAN")]["Cstar_J"]),
+                     kj(fix[(s, se, "BLE")]["Cstar_fixed_J"]), kj(fix[(s, se, "6TiSCH")]["Cstar_fixed_J"]),
                      "--" if lb is None else f"{lb * EIDLE_J / 1e3:.2f}", "--" if ts is None else f"{ts * EIDLE_J / 1e3:.2f}", wp])
-    o.append(table(r"Storage with report energy in $r$ (amendment A4, post hoc; reference node, $K=8$, $m=0.25$; kJ). $C^*$: registered $r$, as Table~IV. BLE, 6TiSCH, LoRaWAN: $C^*$ with one report per "
-                   r"activation and the panel rescaled to the demand. $C_{\mathrm{LB}}$, $C_{\mathrm{TS}}$: lower bracket and verified feasible capacity at $\eps=\eps^*(1/8)$, registered $r$. "
+    o.append(table(r"Storage with report energy in $r$ (amendments A4 and A5, post hoc; reference node, $K=8$, $m=0.25$; kJ). $C^*$: registered $r$, as Table~IV. BLE, 6TiSCH, LoRaWAN: $C^*$ with one report per "
+                   r"activation and the panel rescaled to the demand. BLE fix., 6T fix.: the registered panel is kept. $C_{\mathrm{LB}}$, $C_{\mathrm{TS}}$: lower bracket and verified feasible capacity at $\eps=\eps^*(1/8)$, registered $r$. "
                    r"$W_p$: implied panel in mW at the registered $r$ (horizontal, constant efficiency; no temperature, MPPT or regulator loss). LoRaWAN is an energy-only sensitivity (its "
-                   r"Class~A task exceeds the activation period)." + second_note + r" Source: \texttt{results/a4\_radio.json}", "tab:s_a4_radio", "@{}llrrrrrrr@{}",
-                   r"Site & & $C^*$ & BLE & 6TiSCH & LoRaWAN & $C_{\mathrm{LB}}$ & $C_{\mathrm{TS}}$ & $W_p$", rows, sepn))
+                   r"Class~A task exceeds the activation period)." + second_note + r" Sources: \texttt{results/a4\_radio.json}, \texttt{results/a5\_fixed\_panel.json}", "tab:s_a4_radio", "@{}llrrrrrrrrr@{}",
+                   r"Site & & $C^*$ & BLE & 6TiSCH & LoRaWAN & BLE fix. & 6T fix. & $C_{\mathrm{LB}}$ & $C_{\mathrm{TS}}$ & $W_p$", rows, sepn))
     rows = []
     br = {(x["year"], x["season"], x["m"]): x["Cstar_J"] for x in B["rows"]}
     for m, mm_lab, key in ((0.25, "0.25", "m0.25"), (1.0, "1", "m1.0")):
@@ -291,7 +323,26 @@ def main():
              (r"$\eps^*(1/8)$", "not printed", f"{E['0.1250']:.3f}", f"{Cn['0.1250']:.3f}", "--"),
              (r"Floor / exponential form, $R=5$", r"$\approx$6", f"{e['eps_star']['0.2000'] / e['exp_closed_form_R5']:.1f}", f"{c['eps_star']['0.2000'] / c['exp_closed_form_R5']:.1f}", "yes"),
              ("Bernoulli minus floor, $a=1/5$", r"$\approx$0.06", f"{e['bernoulli_miss']['0.2000'] - E['0.2000']:.3f}", f"{c['bernoulli_miss']['0.2000'] - Cn['0.2000']:.3f}", "yes"),
-             ("Gate results (Sec.~VII-D of the article)", "printed", "not recomputed", "not recomputed", "not measured")]
+             ]
+
+    def g(prefix):
+        m_ = [v for k, v in gb.items() if k.startswith(prefix)]
+        assert len(m_) == 1, prefix
+        return m_[0]
+    c_ = g("Deployed gate")
+    b_ = g("Lợi thế ε(a)/gated")
+    t_ = g("TargetingGain")
+    l_ = g("Leak-then-fix")
+    p_ = g("Block-permutation test")
+    x_ = g("Latency D≥R")
+    m_ = g("Mô hình binary-channel")
+    rowsd += [("Deployed gate: certified miss (\\%)", f"{c_['printed'][1]}", f"{c_['reproduced_old'][1]}", f"{c_['corrected'][1]:.2f}", "number changes"),
+              (r"$\eps(a)$/gated, $a\in[0.2,0.8]$", f"{b_['printed'][0]}--{b_['printed'][1]:.2f}", f"{b_['reproduced_old'][0]}--{b_['reproduced_old'][1]:.2f}", f"{b_['corrected'][0]}--{b_['corrected'][1]:.2f}", "yes (marginal)"),
+              ("Gain vs cost, deployed gate", f"{t_['printed'][0]} vs {t_['printed'][1]}", f"{t_['reproduced_old'][0]:.3f} vs {t_['reproduced_old'][1]:.3f}", f"{t_['corrected'][0]:.3f} vs {t_['corrected'][1]:.3f}", "yes (near break-even)"),
+              ("Leak: misses with $D\\ge R$; share (\\%)", f"{l_['printed'][0]}; {l_['printed'][1]}", f"{l_['reproduced_old'][0]}; {l_['reproduced_old'][1]}", f"{l_['corrected'][0]}; {l_['corrected'][1]}", "yes"),
+              ("Block-permutation $p$ at $L=R$", f"{p_['printed'][2]}", f"{p_['reproduced_old'][2]}", f"{p_['corrected'][2]}", "no: no longer rejected"),
+              (r"Latency law, $\chi^2$ test", x_["printed"][1], x_["reproduced_old"][1], x_["corrected"][1], "no: now rejected"),
+              ("Channel model, largest error", r"$\approx$" + str(m_["printed"]), f"{m_['reproduced_old']}", f"{m_['corrected']}", "no: above the printed bound")]
     Ld = [r"\begin{center}\footnotesize\begin{tabular}{@{}lllll@{}}\toprule", r"Quantity & Article & Earlier, recomputed & Corrected & Conclusion holds?\\\midrule"]
     Ld += [" & ".join(x) + r"\\" for x in rowsd]
     Ld.append(r"\bottomrule\end{tabular}\end{center}")
