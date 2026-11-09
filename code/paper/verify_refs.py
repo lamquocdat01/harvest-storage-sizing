@@ -88,8 +88,8 @@ def main():
     for e in bib:
         doi = e.get("doi", "")
         if not doi:                      # IEEEtran build (make_bib default/v2): DOI printed through `note`
-            m_note = re.search(r"doi\.org/([^}\s]+)", e.get("note", ""))
-            doi = m_note.group(1) if m_note else ""
+            m_note = re.search(r"doi\.org/([^}\s]+)|\\doi\{([^}]+)\}", e.get("note", ""))
+            doi = (m_note.group(1) or m_note.group(2)) if m_note else ""
         r = {"key": e["key"], "doi": doi, "url": e.get("url", ""), "resolves": "", "registry": "", "title_match": "", "year_bib": e.get("year", ""),
              "year_registry": "", "year_ok": "", "family_ok": "", "container_registry": "", "retraction_flag": "", "arxiv_only": "", "preprint_lt_6m": "",
              "cited": "yes" if e["key"] in num else "no", "render_no": num.get(e["key"], ""), "id_on_page": ""}

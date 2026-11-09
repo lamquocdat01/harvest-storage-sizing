@@ -10,6 +10,7 @@
 \input{numbers_a2.tex}
 \input{numbers_v3.tex}
 \input{numbers_a3.tex}
+\input{numbers_a4.tex}
 \newcommand{\eps}{\varepsilon}
 \newcommand{\lt}{\tilde{\ell}}
 \newcommand{\E}{\mathbb{E}}
@@ -21,7 +22,7 @@
 \date{}
 \begin{document}
 \maketitle
-Results are numbered as in the main paper. Every number in this supplement is generated from the result files of the repository (\repoURL); file names are given in the captions. Tables S1--S4 concern the two amendments and the exploratory check, Table S13 positions the paper against related work, and Tables S14--S17 hold amendment A3 and the TRAIN rerun; the remaining tables and figures are the pre-registered stages.
+Results are numbered as in the main paper. Every number in this supplement is generated from the result files of the repository (\repoURL); file names are given in the captions. Tables S1--S4 concern the first two amendments and the exploratory check, Table S13 positions the paper against related work, Tables S14--S16 hold amendment A3, Tables S17--S18 amendments A4 and A4b, and Table S19 the TRAIN rerun; the remaining tables and figures are the pre-registered stages. This supplement is supplementary material outside the review-copy page count.
 
 \input{supp_p3r_tables.tex}
 
@@ -30,16 +31,23 @@ The detection dump of the event corpus stores LASIESTA frames in the text order 
 
 One clause of check A1-5(a), ``clearly above the $\pm1$-frame offsets'', was not met as written by the hit rate (\AoneHit{} at offset 0 against at most \AoneHitPm{} at $\pm1$): a binary hit barely changes between consecutive frames. The mean best intersection-over-union peaks at offset 0 (\AoneIoUz{} against \AoneIoUm{} and \AoneIoUp) and is higher at 0 in \AoneSeqM{} and \AoneSeqP{} of \AoneNseq{} sequences. This graded measure was chosen after the hit-rate result was seen; the choice is disclosed in a note frozen before any simulation (\texttt{prereg/A1\_NOTE\_01\_gt\_offset.md}). Table~S2 gives the duration law before and after the correction and Table~S1 the predictions on both versions; the main text reports the corrected version only.
 
-The corpus of our earlier article (IoT-J 2026, cited in the main paper) is this earlier build: its LASIESTA events were cut on the text order of the file names. The correction raises the mean duration $\E[D]$ from \VoneED{} to \ED{} frames and the floor $\eps^*(1/8)$ from \VoneEpsEight{} to \epsKeight{}; Table~S2 lists the other statistics of the duration law.
+The corpus of our earlier article (IoT-J 2026, cited in the main paper) is this earlier build: its LASIESTA events were cut on the text order of the file names. The correction raises the mean duration $\E[D]$ from \VoneED{} to \ED{} frames and the floor $\eps^*(1/8)$ from \VoneEpsEight{} to \epsKeight{}; Table~S2 lists the other statistics of the duration law. The earlier build was in error, and the table below gives the effect on the article. Quantities whose definition coincides with this project's are recomputed on both builds; the earlier-build column reproduces the printed values, except for one activation that the article prints only as $a\approx0.40$, which is left out. The ordering conclusions do not depend on the numbers that change: the median stays 2, the tail stays long, the exponential closed form still underestimates the miss by a large factor, and a Bernoulli schedule still misses more than the floor. The gate results of the article need its per-frame scores and timeline replay, and were not re-measured.
 
-\section{Lemma 4: proof and check}
+\input{supp_deep3_table.tex}
+
+\section{Proofs moved from the main text}
+\textbf{Lemma 1.} Onsets $s\in(\tau_i,\tau_{i+1}]$ are $g_i$ positions. For each, the first activation at or after $s$ is $\tau_{i+1}$, at distance $k\in\{0,\dots,g_i-1\}$, and the event is caught iff $D>k$. Summing $P(D>k)$ over $k$ gives $\phi(g_i)$; averaging over the uniform onset gives the claim. $\square$
+
+\textbf{Corollary 1.} The inequality is Theorem~1. By Lemma~1, the blocks contribute their own gaps except one gap per block, which ends in the next block instead of wrapping; each gap contributes $\phi(g)/T\in[0,\E[D]/T]$. Lemma~2 applied to each block gives $\sum_j(n_j/T)\Psi(a_j)$. $\square$
+
+\section{Lemma 5: proof and check}
 \textbf{Setting.} Let $L\le U$ on $\{0,\dots,J\}$ with $L_0=U_0=0$ and $L_J=U_J$, and let $\tilde L_j=\max_{i\le j}L_i$, $\tilde U_j=\min_{i\ge j}U_i$, assumed $\tilde L\le\tilde U$. Every non-decreasing $Y$ with $L\le Y\le U$ lies in $[\tilde L,\tilde U]$, since $Y_j\ge Y_i\ge L_i$ for $i\le j$ and $Y_j\le Y_i\le U_i$ for $i\ge j$. Let $Y^*$ be the unique minimiser of $\sum_j(\Delta Y_j)^2$ over $\mathcal{T}=\{Y:\tilde L\le Y\le\tilde U,\ Y_0=0,\ Y_J=U_J\}$, which is convex.
 
 \textbf{Contact property.} For $0<j<J$ the partial derivative is $2(\Delta Y^*_j-\Delta Y^*_{j+1})$. By the optimality conditions, if $\tilde L_j<Y^*_j<\tilde U_j$ then $\Delta Y^*_j=\Delta Y^*_{j+1}$; at an upper contact ($\tilde L_j<Y^*_j=\tilde U_j$), $\Delta Y^*_j\le\Delta Y^*_{j+1}$; at a lower contact ($\tilde L_j=Y^*_j<\tilde U_j$), $\Delta Y^*_j\ge\Delta Y^*_{j+1}$. The slope of $Y^*$ therefore increases only where $Y^*$ touches $\tilde U$ and decreases only where it touches $\tilde L$; where $\tilde L_j=\tilde U_j$ every feasible path passes through the same point.
 
 \textbf{Optimality for every convex $f$.} Let $f$ be convex, $\lambda_j=f'_+(\Delta Y^*_j)$ (non-decreasing in its argument), $Y\in\mathcal{T}$ and $Z=Y-Y^*$, so $Z_0=Z_J=0$. By the supporting-line inequality and summation by parts,
 \[\sum_jf(\Delta Y_j)-\sum_jf(\Delta Y^*_j)\ \ge\ \sum_j\lambda_j\Delta Z_j\ =\ \sum_{j=1}^{J-1}(\lambda_j-\lambda_{j+1})Z_j .\]
-A term is non-zero only where the slope of $Y^*$ changes. Where it increases, $\lambda_j-\lambda_{j+1}\le0$ and $Y^*_j=\tilde U_j\ge Y_j$, so $Z_j\le0$; where it decreases, $\lambda_j-\lambda_{j+1}\ge0$ and $Y^*_j=\tilde L_j\le Y_j$, so $Z_j\ge0$. Every term is non-negative. Taking $f=-\Psi$ gives Lemma~4 for every concave $\Psi$. Taking $f(x)=(-x)^+$ and the non-decreasing feasible path $\tilde L$ shows $Y^*$ is non-decreasing; $f(x)=(x-\kappa)^+$ shows that $Y^*$ respects an increment cap $\kappa$ whenever some feasible path does. $\square$
+A term is non-zero only where the slope of $Y^*$ changes. Where it increases, $\lambda_j-\lambda_{j+1}\le0$ and $Y^*_j=\tilde U_j\ge Y_j$, so $Z_j\le0$; where it decreases, $\lambda_j-\lambda_{j+1}\ge0$ and $Y^*_j=\tilde L_j\le Y_j$, so $Z_j\ge0$. Every term is non-negative. Taking $f=-\Psi$ gives Lemma~5 for every concave $\Psi$. Taking $f(x)=(-x)^+$ and the non-decreasing feasible path $\tilde L$ shows $Y^*$ is non-decreasing; $f(x)=(x-\kappa)^+$ shows that $Y^*$ respects an increment cap $\kappa$ whenever some feasible path does. $\square$
 
 \textbf{Relation to the cited works.} The energy-tunnel papers~[Tutuncuoglu and Yener, IEEE TWC 2012; Yang and Ulukus, IEEE TCOM 2012] establish the tightest-string structure for throughput with a strictly concave power--rate function, with a finite battery (two-sided tunnel) in the first and a one-sided harvesting curve in the second. Neither statement covers the monotone hull needed when idle consumption makes the lower bound non-monotone, a piecewise-linear $\Psi$, or the rate cap; hence the direct proof above.
 
@@ -80,7 +88,7 @@ Table~S4 summarises the per-case check (\texttt{checks/KANSAL\_CHECK\_40.csv}). 
 
 \textbf{Storage dynamics.} The simulator uses 1-min sub-steps of $n=600$ slots with constant harvest and rate inside a sub-step, where storage is monotone, so every constraint is checked exactly at sub-step boundaries. The granularity of one activation (cost $r-1$ at once) is covered by adding $r-1$ to fluid storage needs; checked against slot-level simulation at 10\,fps. Cyclic steady state: the cycle is repeated from full storage until the storage at its end equals that at its start ($10^{-6}$ relative, at most 60 cycles).
 
-\textbf{Lemma 3.} The main text uses the fluid relaxation only. As evidence, the integer greedy equals exhaustive search over $\{0,1\}^T$ ($T\le14$) in 150 random cases; no integer-level optimality claim is made.
+\textbf{Lemma 4.} The main text uses the fluid relaxation only. As evidence, the integer greedy equals exhaustive search over $\{0,1\}^T$ ($T\le14$) in 150 random cases; no integer-level optimality claim is made.
 
 \section{Tables of the pre-registered stages}
 \input{supp_tables.tex}
@@ -88,7 +96,7 @@ Table~S4 summarises the per-case check (\texttt{checks/KANSAL\_CHECK\_40.csv}). 
 \section{Positioning against related work}
 Table~\ref{tab:s_related} positions the paper against the closest works cited in Section~II of the main paper.
 \begin{table}[H]\centering
-\caption{Positioning (\checkmark: yes; $\circ$: partly; --: no, or not stated in the work; n.s.: not stated)}\label{tab:s_related}
+\caption{Positioning (\checkmark: yes; $\circ$: partly; --: no, or not stated in the work; n.s.: not stated; $^{a}$: read from the abstract only, see Threats (xii) of the main paper)}\label{tab:s_related}
 \footnotesize\setlength{\tabcolsep}{2pt}
 \begin{tabular}{@{}lccccccl@{}}\toprule
 Work & Energy & Events with & Finite & Closed-form & Sizing for & Real & Objective\\
@@ -98,8 +106,8 @@ Kansal et al.\ (TECS 2007) & $(\rho,\sigma)$ envelope & -- & \checkmark & \check
 Zhang et al.\ (TWC 2013) & Markov & -- & \checkmark & \checkmark & \checkmark & -- & event loss, delay\\
 Tunc and Akar (PEVA 2017) & Markov fluid & -- & \checkmark & \checkmark & $\circ$ & -- & loss, latency\\
 Jaggi et al.\ (WINET 2009) & stochastic & $\circ$ & asymptotic & $\circ$ & -- & -- & event capture\\
-Ren et al.\ (TPDS 2014) & stochastic & n.s. & n.s. & -- & -- & -- & event capture\\
-Ren and Cheng (PPNA 2015) & stochastic & n.s. & \checkmark & -- & -- & -- & event capture\\
+Ren et al.$^{a}$ (TPDS 2014) & stochastic & n.s. & n.s. & -- & -- & -- & event capture\\
+Ren and Cheng$^{a}$ (PPNA 2015) & stochastic & n.s. & \checkmark & -- & -- & -- & event capture\\
 Yau et al.\ (TOSN 2010) & none & \checkmark & -- & \checkmark & -- & -- & monitoring\\
 P and Deepak (MCAP 2026) & stochastic & -- & \checkmark & \checkmark & -- & -- & blocking, depletion\\
 Yan et al.\ (IoT-J 2024) & stochastic & -- & \checkmark & \checkmark & $\circ$ & -- & throughput\\
@@ -114,16 +122,25 @@ This work & det.\ trace & \checkmark & \checkmark & \checkmark & \checkmark & \c
 \section{Post-hoc sizing sensitivities (amendment A3) and the TRAIN rerun}
 Amendment A3 was written, hashed and tagged (\texttt{prereg-40-a3}) after every TEST result was seen and before any A3 quantity was computed. It adds three descriptive quantities requested by review and changes no prediction, threshold or verdict.
 
-\textbf{Worst-spell sensitivity (Table~S14).} On the full-year cells of the reference node ($r=14.3$, $\lt=0.036$, $K=8$, $m=0.25$), the run of $L$ consecutive days with the smallest net income is removed from the cyclic day index, the remaining days are concatenated and $C^*$ is recomputed with the panel unchanged. $L=7$ days is the primary length, the block length of the registered bootstrap; $L=1$ and $L=3$ are secondary. Over the \AiiiWn{} cells the ratio has median \AiiiWAllMed{} (range \AiiiWAllMin--\AiiiWAllMax).
+\textbf{Worst-spell sensitivity (Table~S14).} On the full-year cells of the reference node ($r=14.3$, $\lt=0.036$, $K=8$, $m=0.25$), the run of $L$ consecutive days with the smallest net income is removed from the cyclic day index, the remaining days are concatenated and $C^*$ is recomputed with the panel unchanged. $L=7$ days is the primary length, the block length of the registered bootstrap; $L=1$ and $L=3$ are secondary. Over the \nCellsSS{} site--season cells the ratio has median \WorstMedS{} (range \WorstMinS--\WorstMaxS).
 
 \textbf{Per-cell ranges (Table~S15).} For each sizing rule and each cell, the table gives the median, minimum and maximum of $C^*$ over the rule across the $(r,\lt,m)$ combinations of the cell (TEST).
 
-\textbf{Train-to-test margin (Table~S16).} The panel is scaled on the TRAIN months only and kept for the TEST months, and $k=C_{\mathrm{TEST}}/C_{\mathrm{TRAIN}}$ for periodic operation at $a=1/8$. Over the \AiiiKn{} cells at $m=0.25$, $k$ has median \AiiiKMed{} and 90th percentile \AiiiKNinety; in \AiiiKInf{} of the cells the TRAIN panel cannot sustain the rate on the TEST months at any capacity. At $m=1$ the median is \AiiiKMedMone{} and the 90th percentile \AiiiKNinetyMone{} (\AiiiKInfMone{} infinite).
+\textbf{Train-to-test margin (Table~S16).} The panel is scaled on the TRAIN months only and kept for the TEST months, and $k=C_{\mathrm{TEST}}/C_{\mathrm{TRAIN}}$ for periodic operation at $a=1/8$. Over the \nCellsSS{} site--season cells at $m=0.25$, $k$ has median \KMedS{}. It exceeds 2 in \KGtTwoS{} cells, and in \KInfS{} further cell the TRAIN panel cannot sustain the rate on the TEST months at any capacity.
 
-\textbf{TRAIN rerun (Table~S17).} Amendment A1 reruns TRAIN on the corrected corpus as a sensitivity analysis only; no number of the paper comes from it and no threshold was moved. \TrainPass{} of \TrainNall{} predictions pass on TRAIN and \TrainNsame{} have the same verdict as on TEST (different: \TrainDiff). Under amendment A2 on TRAIN, \AiiTrainViol{} cells have $C_{\mathrm{LB}}>C_{\mathrm{TS}}$ (largest ratio \AiiTrainMax).
+\textbf{TRAIN rerun (Table~S19).} Amendment A1 reruns TRAIN on the corrected corpus as a sensitivity analysis only; no number of the paper comes from it and no threshold was moved. \TrainPass{} of \TrainNall{} predictions pass on TRAIN and \TrainNsame{} have the same verdict as on TEST (different: \TrainDiff). Under amendment A2 on TRAIN, \AiiTrainViol{} cells have $C_{\mathrm{LB}}>C_{\mathrm{TS}}$ (largest ratio \AiiTrainMax).
+
+\section{Report energy and inter-annual range (amendments A4 and A4b)}
+Amendments A4 and A4b were written, hashed and tagged (\texttt{prereg-40-a4}) after every TEST result was seen and before any of their quantities was computed. They add descriptive quantities requested by review and change no prediction, threshold or verdict.
+
+\textbf{Report energy (Table~S17).} An activation pays $r=14.3+E_{\mathrm{rep}}/e_{\mathrm{idle}}$, with one report on every activation. The registered value holds no report energy, since the measured loop of its source has no transmission stage. $E_{\mathrm{rep}}$ uses the models of Van Leemput et al.\ (main paper, reference on feasibility) for one 8-byte uplink report, one hop, no retransmission. LoRaWAN Class~A, Eq.~(9)--(11), Table~VI: $166\,\mathrm{mJ}+134\,\mathrm{mW}\cdot T_{\mathrm{TX}}$ at SF7, 125\,kHz, coding rate 4/5, giving \ErepLora\,mJ and $r=\rLora$. BLE Mesh, Eq.~(15)--(16), Table~VII: \ErepBle\,mJ, $r=\rBle$. 6TiSCH on CC2538 at 2.4\,GHz, Eq.~(22), Table~VIII: \ErepSix\,mJ, $r=\rSix$. The panel is rescaled at each $r$ by the registered definition, so $C^*$ scales with the mean demand and the factor is the same in every cell (\kBle, \kSix{} and \kLora). The registered panel at $m=0.25$ has a margin of \PanelMarginQ\,mJ per activation. The LoRaWAN Class~A task lasts \TaskLora\,s (Eq.~(13) of that reference), longer than the activation period of \ActPeriod\,s at $K=8$, so one LoRaWAN report per activation is an energy-only sensitivity. Across the \AivNcases{} cases ($m\in\{0.25,1\}$, four values of $r$, both products), \AivNviol{} have $C_{\mathrm{LB}}>C_{\mathrm{TS}}$ (largest ratio \AivMaxLB).
+
+\textbf{Counting on \nCellsSS{} cells.} The primary product of Madrid and Uppsala is MSG, chosen for its finer native step; SARAH-3 is a sensitivity. Holm's correction on the \nCellsSS{} cells covers \nHolmS{} tests, all rejected (largest $p=\pMaxBootS$). Adverse counts use either product, so that the choice of the primary product removes no adverse cell. At $m=1$ the factor $k$ has median \KMedMoneS, exceeds 2 in \KGtTwoMoneS{} cells and is infinite in \KInfMoneS.
+
+\textbf{Inter-annual range (Table~S18).} GHI of Ho Chi Minh City for 2020--2024, from the same archive, model and step as the 2025 trace, with the 2025 pipeline. At $m=0.25$ the seasonal factor max/min over the six years is \AivbLo--\AivbHi; the largest at $m=1$ is \AivbHiMone. The worst year needed up to \AivbOverFive{} times the capacity of 2025. The panel is rescaled each year, so this is the variability of the worst spell at a matched mean harvest.
 
 \input{supp_a3_tables.tex}
 
 \section{Pre-registration and code}
-PREREG v1 (H1--H7) is frozen by SHA-256 and the git tag \texttt{prereg-40-v1}; the exploratory appendix v1.1 (E1--E3) is a separate commit registered after TEST and before the exploratory stage was run. Amendments A1 (data correction), A2 (sizing brackets) and A3 (post-hoc sensitivities) are frozen in \texttt{prereg/AMENDMENT\_LOG.md} with the tags \texttt{prereg-40-a1}, \texttt{prereg-40-a2} and \texttt{prereg-40-a3}. TRAIN was explored with an earlier two-pass cyclic simulation; the frozen code iterates to the cyclic steady state, which affects only policies in energy deficit.
+PREREG v1 (H1--H7) is frozen by SHA-256 and the git tag \texttt{prereg-40-v1}; the exploratory appendix v1.1 (E1--E3) is a separate commit registered after TEST and before the exploratory stage was run. Amendments A1 (data correction), A2 (sizing brackets), A3 (post-hoc sensitivities) and A4 with A4b (report energy, counting on 17 cells, inter-annual range) are frozen in \texttt{prereg/AMENDMENT\_LOG.md} with the tags \texttt{prereg-40-a1}, \texttt{prereg-40-a2}, \texttt{prereg-40-a3} and \texttt{prereg-40-a4}. TRAIN was explored with an earlier two-pass cyclic simulation; the frozen code iterates to the cyclic steady state, which affects only policies in energy deficit.
 \end{document}

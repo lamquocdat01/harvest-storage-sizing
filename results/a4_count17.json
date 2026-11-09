@@ -1,0 +1,325 @@
+{
+ "amendment": "A4 section 5",
+ "primary_sites": [
+  "HCMC",
+  "Madrid-MSG",
+  "Uppsala-MSG",
+  "SetupB",
+  "SetupC",
+  "SetupD",
+  "SetupE",
+  "SetupF"
+ ],
+ "holm17": {
+  "n_cells": 17,
+  "n_tests": 38,
+  "n_rejected": 38,
+  "all_rejected": true,
+  "max_p": 1.58128612676633e-06,
+  "ts_cells_primary": [
+   "HCMC SON",
+   "Madrid-MSG DJF",
+   "Uppsala-MSG DJF",
+   "SetupC ALL"
+  ]
+ },
+ "hf17": {
+  "dmiss_min": 0.13678540483770518,
+  "dmiss_max": 0.23497196338872006,
+  "dC_rel_min": -0.9259809830172686,
+  "dC_rel_max": -0.5496738395695259,
+  "ts_over_per": {
+   "HCMC SON": 0.17951171875,
+   "Madrid-MSG DJF": 0.0744677734375,
+   "Uppsala-MSG DJF": 0.176552734375,
+   "SetupC ALL": 0.0557275390625
+  }
+ },
+ "rule_medians": {
+  "HCMC|primary": {
+   "C*/C_avgday": {
+    "n": 256,
+    "median": 1.7112562426387805
+   },
+   "C*/C_buchli_daily": {
+    "n": 256,
+    "median": 2.5155291245212466
+   },
+   "C*/C_kansal_mean": {
+    "n": 256,
+    "median": 0.2620591074797611
+   },
+   "C*/C_3day": {
+    "n": 256,
+    "median": 0.3140698794282843
+   }
+  },
+  "HCMC|both": {
+   "C*/C_avgday": {
+    "n": 256,
+    "median": 1.7112562426387805
+   },
+   "C*/C_buchli_daily": {
+    "n": 256,
+    "median": 2.5155291245212466
+   },
+   "C*/C_kansal_mean": {
+    "n": 256,
+    "median": 0.2620591074797611
+   },
+   "C*/C_3day": {
+    "n": 256,
+    "median": 0.3140698794282843
+   }
+  },
+  "Madrid|primary": {
+   "C*/C_avgday": {
+    "n": 256,
+    "median": 2.414664709359336
+   },
+   "C*/C_buchli_daily": {
+    "n": 224,
+    "median": 1.5528566789294698
+   },
+   "C*/C_kansal_mean": {
+    "n": 256,
+    "median": 0.22365755373350593
+   },
+   "C*/C_3day": {
+    "n": 256,
+    "median": 0.4695443651067006
+   }
+  },
+  "Madrid|both": {
+   "C*/C_avgday": {
+    "n": 512,
+    "median": 2.4547710590700107
+   },
+   "C*/C_buchli_daily": {
+    "n": 448,
+    "median": 1.5646599416989524
+   },
+   "C*/C_kansal_mean": {
+    "n": 512,
+    "median": 0.22365755373350593
+   },
+   "C*/C_3day": {
+    "n": 512,
+    "median": 0.4552939566009572
+   }
+  },
+  "Madrid|second": {
+   "C*/C_avgday": {
+    "n": 256,
+    "median": 2.4547710590700107
+   },
+   "C*/C_buchli_daily": {
+    "n": 224,
+    "median": 1.5764631622996634
+   },
+   "C*/C_kansal_mean": {
+    "n": 256,
+    "median": 0.23908823811624846
+   },
+   "C*/C_3day": {
+    "n": 256,
+    "median": 0.450161194476444
+   }
+  },
+  "indoor|primary": {
+   "C*/C_avgday": {
+    "n": 320,
+    "median": 15.508947140456943
+   },
+   "C*/C_buchli_daily": {
+    "n": 320,
+    "median": 1.1028468545978631
+   },
+   "C*/C_kansal_mean": {
+    "n": 320,
+    "median": 0.3194059413026093
+   },
+   "C*/C_3day": {
+    "n": 320,
+    "median": 1.69300756270554
+   }
+  },
+  "indoor|both": {
+   "C*/C_avgday": {
+    "n": 320,
+    "median": 15.508947140456943
+   },
+   "C*/C_buchli_daily": {
+    "n": 320,
+    "median": 1.1028468545978631
+   },
+   "C*/C_kansal_mean": {
+    "n": 320,
+    "median": 0.3194059413026093
+   },
+   "C*/C_3day": {
+    "n": 320,
+    "median": 1.69300756270554
+   }
+  },
+  "Uppsala|primary": {
+   "C*/C_avgday": {
+    "n": 256,
+    "median": 5.1249950884232085
+   },
+   "C*/C_buchli_daily": {
+    "n": 256,
+    "median": 1.2338852703269325
+   },
+   "C*/C_kansal_mean": {
+    "n": 256,
+    "median": 0.30930956572221835
+   },
+   "C*/C_3day": {
+    "n": 256,
+    "median": 0.7911594319152726
+   }
+  },
+  "Uppsala|both": {
+   "C*/C_avgday": {
+    "n": 512,
+    "median": 5.3288491975513725
+   },
+   "C*/C_buchli_daily": {
+    "n": 512,
+    "median": 1.2263238198654163
+   },
+   "C*/C_kansal_mean": {
+    "n": 512,
+    "median": 0.35797692953225313
+   },
+   "C*/C_3day": {
+    "n": 512,
+    "median": 0.8256099291697777
+   }
+  },
+  "Uppsala|second": {
+   "C*/C_avgday": {
+    "n": 256,
+    "median": 6.714324077659585
+   },
+   "C*/C_buchli_daily": {
+    "n": 256,
+    "median": 1.1821379201880027
+   },
+   "C*/C_kansal_mean": {
+    "n": 256,
+    "median": 0.3709740843641509
+   },
+   "C*/C_3day": {
+    "n": 256,
+    "median": 1.058397520250728
+   }
+  }
+ },
+ "worst17": {
+  "n": 17,
+  "median": 0.8056443808489686,
+  "min": 0.5112935336583341,
+  "max": 1.0000000000007723,
+  "n_unchanged": 3
+ },
+ "k17": {
+  "m0.25": {
+   "n": 17,
+   "median_primary": 1.0369677630573926,
+   "either_product": {
+    "n_gt2_finite": 3,
+    "n_inf": 1,
+    "cells_gt2": [
+     "HCMC DJF",
+     "Uppsala-MSG DJF",
+     "Uppsala-MSG JJA"
+    ],
+    "cells_inf": [
+     "Uppsala-MSG SON"
+    ]
+   },
+   "primary_only": {
+    "n_gt2_including_inf": 3,
+    "n_inf": 0
+   },
+   "share_gt1_primary": 0.5882352941176471,
+   "largest_finite": 3.965492596275273
+  },
+  "m1.0": {
+   "n": 17,
+   "median_primary": 0.9273499554861682,
+   "either_product": {
+    "n_gt2_finite": 2,
+    "n_inf": 0,
+    "cells_gt2": [
+     "Uppsala-MSG DJF",
+     "Uppsala-MSG JJA"
+    ],
+    "cells_inf": []
+   },
+   "primary_only": {
+    "n_gt2_including_inf": 0,
+    "n_inf": 0
+   },
+   "share_gt1_primary": 0.47058823529411764,
+   "largest_finite": 1.6198329416973956
+  }
+ },
+ "avgday_per_cell_primary": {
+  "HCMC": {
+   "n": 4,
+   "min": 1.498128827694349,
+   "max": 2.6107099627382286
+  },
+  "Madrid": {
+   "n": 4,
+   "min": 1.5366768079736295,
+   "max": 6.2639745956708115
+  },
+  "Uppsala": {
+   "n": 4,
+   "min": 3.500692924403876,
+   "max": 20.871666263387258
+  },
+  "indoor": {
+   "n": 5,
+   "min": 6.19581542239031,
+   "max": 39.232689665776235
+  }
+ },
+ "a3_vs_f5": {
+  "n_differ_gt_1e-9": 3,
+  "max_abs_rel": 0.005005840277275353,
+  "cells_differ": [
+   {
+    "site": "SetupC",
+    "season": "ALL",
+    "m": 0.25,
+    "F5_J": 34245.159556173574,
+    "A3_J": 34229.102142149095,
+    "rel_diff": -0.00046889587412024536,
+    "days": 271
+   },
+   {
+    "site": "SetupD",
+    "season": "ALL",
+    "m": 0.25,
+    "F5_J": 22651.665127298013,
+    "A3_J": 22591.448767383954,
+    "rel_diff": -0.0026583635055371646,
+    "days": 199
+   },
+   {
+    "site": "SetupD",
+    "season": "ALL",
+    "m": 1.0,
+    "F5_J": 12027.523957600062,
+    "A3_J": 11967.316093737214,
+    "rel_diff": -0.005005840277275353,
+    "days": 199
+   }
+  ]
+ }
+}

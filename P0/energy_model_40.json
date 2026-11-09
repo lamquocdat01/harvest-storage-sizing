@@ -1,0 +1,112 @@
+{
+  "_meta": {
+    "topic": "40_Intermittent_Power_Certificates",
+    "task": "T05 energy model",
+    "created": "2026-10-08",
+    "access_date_all_sources": "2026-10-08",
+    "convention": "Per slot energy E_slot(a) = e_idle + a*e_act + l_slot, a in {0,1}; e_act is the INCREMENTAL energy of one detector invocation above idle; r = (e_idle + e_act)/e_idle. Dimensionless: e(a) = 1 + a(r-1) in units of e_idle.",
+    "units": "SI (W, J, s) unless key says otherwise",
+    "see": "P0/ENERGY_MODEL_40.md for exact quotes, confidence and caveats"
+  },
+  "node_classes": {
+    "A_GAP9_HM0360": {
+      "description": "Tiny camera MCU node: GreenWaves GAP9 + Himax HM0360 + nRF MCU, TinyissimoYOLOv1.3 on NE16",
+      "P_idle_W": 0.00248,
+      "e_act_J": {"central": 0.0033, "low": 0.0029, "high": 0.0044,
+                  "notes": "low = GAP9-rail loop 3.05 mJ minus idle*t_loop; central = system 62.9 mW * 56.45 ms - idle*t_loop; high = central + init 0.89 mJ (cold wake)"},
+      "t_act_s": 0.05645,
+      "stages_mJ": {"capture": 1.17, "demosaic": 0.21, "inference": 1.59, "postproc": 0.001, "init_system": 0.89, "loop_avg_GAP9_rail": 3.05},
+      "source": {"doi": "10.1007/978-3-031-91989-3_17", "read_from": "https://arxiv.org/abs/2311.01057v3", "where": "Table 3 (System demonstrator: energy consumption measurement) + Sec. 5.3", "confidence": "medium-high"}
+    },
+    "A_alt_ESP32S3_OV2640": {
+      "description": "ESP32-S3 (240 MHz, ESP-NN) + OV2640, TFLM person detection; DATASHEET-DERIVED, not a measured system",
+      "P_idle_W": 0.0029,
+      "P_idle_breakdown_W": {"esp32s3_light_sleep": 0.000792, "psram_8MB_octal_light_sleep": 0.000462, "ov2640_pwdn_standby_at_2.8V": 0.00168},
+      "e_act_J": {"central": 0.030, "low": 0.021, "high": 0.0312},
+      "e_act_breakdown_mJ": {"inference_54ms_at_239_290mW": [12.9, 15.7], "camera_one_frame_125mW_over_1/15s": 8.3, "cpu_WAITI_during_capture_109mW_67ms": 7.2},
+      "t_act_s": 0.121,
+      "sources": [
+        {"url": "https://www.espressif.com/sites/default/files/documentation/esp32-s3_datasheet_en.pdf", "where": "Datasheet v2.2, Table 5-9 (Modem-sleep, 240 MHz) and Table 5-10 (Light-sleep 240 uA, Deep-sleep 7-8 uA)"},
+        {"url": "https://github.com/espressif/esp-nn", "where": "README > Performance > Model-level performance: Person Detection ESP32-S3 240 MHz, 54 ms with ESP-NN"},
+        {"url": "https://www.uctronics.com/download/cam_module/OV2640DS.pdf", "where": "OmniVision OV2640 datasheet v1.6 (2006), Key Specifications p.1 (Active 125 mW UXGA YUV 15 fps; Standby 600 uA) and Table 6 (IDDS-PWDN 600/1200 uA)"}
+      ],
+      "confidence": "low-medium (composition of datasheet typicals)"
+    },
+    "B_OrinNano_15W": {
+      "description": "Jetson Orin Nano 8GB (dev kit / Super), 15 W nvpmodel, YOLO-class detector, TensorRT",
+      "P_idle_W": {"central": 5.308, "low": 4.0, "high": 5.663},
+      "e_act_J": {"central": 0.040, "low": 0.012, "high": 0.15},
+      "t_act_s": 0.0069,
+      "sources": [
+        {"ref": "Jahanifar et al., AgriJetsonBench, arXiv:2608.00927v1 (preprint, NO DOI)", "where": "Table 10 (Nano 15 W idle 5.308 W avg, external board input) and Table 11 (YOLO11s INT8 640: 145.82 FPS, 11.12 W avg, dynamic 5.81 W)", "confidence": "medium (preprint)"},
+        {"doi": "10.3390/electronics14030638", "where": "Table 4 + Sec. 4: Orin Nano YOLOv8s FP16 7.836 W, 1558 inferences/min, tegrastats", "confidence": "medium"},
+        {"doi": "10.1016/j.neucom.2026.133820", "read_from": "https://arxiv.org/abs/2605.00146v1", "where": "Table 6 (Orin Nano total 6.01-6.71 W, dynamic 2.09-2.55 W) and Table 7 (dyn 12.03 mJ, total 32.41 mJ per inference)", "confidence": "medium"},
+        {"url": "https://docs.nvidia.com/jetson/archives/r36.4/DeveloperGuide/SD/PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html", "where": "NVP Model Clock Configuration for Jetson Orin Nano 8GB (15W: 6 cores 1510.4 MHz, GPU 624.75 MHz; 7W: 4 cores 960 MHz, GPU 408 MHz)"}
+      ]
+    },
+    "B_OrinNano_7W": {
+      "description": "Same, 7 W nvpmodel. DERIVED: e_act scaled by FPS ratio and ~1/2 power; idle assumed ~= 15 W idle",
+      "P_idle_W": {"central": 5.3, "low": 4.0, "high": 5.7},
+      "e_act_J": {"central": 0.048, "low": 0.014, "high": 0.18},
+      "t_act_s": 0.0166,
+      "sources": [
+        {"doi": "10.1007/s11554-025-01682-2", "where": "Table 6 (YOLOv8s int8: 165.24 fps @15 W vs 68.69 fps @7 W) + Sec. 5: '15-watt power mode achieves faster inference while consuming, on average, twice as much power'"}
+      ],
+      "confidence": "low (no direct idle/active measurement in 7 W mode found)"
+    }
+  },
+  "derived": {
+    "formula": "e_idle = P_idle*T_slot; r = 1 + e_act/e_idle; P_avg(K) = P_idle + e_act/(K*T_slot); E_day = 86400*P_avg",
+    "A_GAP9_HM0360": {
+      "10fps": {"e_idle_mJ": 0.248, "r": 14.3, "r_range": [12.7, 18.7], "P_avg_mW": {"1": 35.5, "4": 10.7, "8": 6.61, "16": 4.54, "32": 3.51}, "E_day_J": {"1": 3065, "4": 927, "8": 571, "16": 393, "32": 303}},
+      "30fps": {"e_idle_mJ": 0.0827, "r": 40.9, "r_range": [36.1, 54.2], "P_avg_mW": {"1": 101.5, "4": 27.2, "8": 14.9, "16": 8.67, "32": 5.57}, "E_day_J": {"1": 8768, "4": 2353, "8": 1283, "16": 749, "32": 482}, "note": "K=1 infeasible at 30 fps (t_act 56 ms > 33 ms)"}
+    },
+    "A_alt_ESP32S3_OV2640": {
+      "10fps": {"e_idle_mJ": 0.29, "r": 104, "r_range": [73, 109], "P_avg_mW": {"1": 303, "4": 77.9, "8": 40.4, "16": 21.7, "32": 12.3}, "note": "K=1 infeasible (t_act ~121 ms)"},
+      "30fps": {"e_idle_mJ": 0.0967, "r": 311, "r_range": [218, 324], "P_avg_mW": {"1": 903, "4": 228, "8": 115, "16": 59.2, "32": 31.0}}
+    },
+    "B_OrinNano_15W": {
+      "10fps": {"e_idle_mJ": 530.8, "r": 1.075, "r_range": [1.023, 1.283], "P_avg_W": {"1": 5.71, "4": 5.41, "8": 5.36, "16": 5.33, "32": 5.32}, "E_day_Wh": {"1": 137, "4": 130, "8": 129, "16": 128, "32": 128}},
+      "30fps": {"e_idle_mJ": 176.9, "r": 1.226, "r_range": [1.068, 1.848], "P_avg_W": {"1": 6.51, "4": 5.61, "8": 5.46, "16": 5.38, "32": 5.35}, "E_day_Wh": {"1": 156, "4": 135, "8": 131, "16": 129, "32": 128}}
+    },
+    "B_OrinNano_7W": {
+      "10fps": {"r": 1.091, "r_range": [1.026, 1.34]},
+      "30fps": {"r": 1.272, "r_range": [1.079, 2.019]}
+    }
+  },
+  "harvest_and_storage": {
+    "converter_eta": {
+      "bq25570_boost_charger": {"value_range": [0.75, 0.92], "central_indoor_10uA_to_100uA": 0.80, "source": "https://www.ti.com/lit/ds/symlink/bq25570.pdf", "where": "SLUSBH2G, Sec. 6.7 Figures 1-7 (charger efficiency); Features: buck 'High Efficiency up to 93%'"},
+      "bq25570_buck": {"value_max": 0.93, "source": "same, Features p.1"},
+      "bq24650_mppt_buck": {"value_range": [0.84, 0.95], "central_LiFePO4_4S": 0.94, "source": "https://www.ti.com/lit/ds/symlink/bq24650.pdf", "where": "SLUSA75B, Figure 23 Efficiency vs Output Voltage (VCC = 25 V, ICHG 1-2 A)"}
+    },
+    "supercap_leakage_AVX_SCC_3V": {
+      "DCL_max_uA_at_72h_rated_V_25C": {"1F": 6, "2F": 10, "5F": 15, "10F": 30, "25F": 60, "50F": 75},
+      "source": "https://www.farnell.com/datasheets/3179427.pdf",
+      "where": "KYOCERA AVX '3.0V SCC Series' datasheet, RATINGS & PART NUMBER REFERENCE table, column 'DCL Max @ 72 Hrs (uA)'; DCL MEASUREMENT @ 25C procedure",
+      "derived_10F_at_3V": {"leak_power_uW_max": 90, "J_per_day": 7.8, "pct_of_stored_per_day": 17.3}
+    },
+    "LiFePO4_self_discharge": {
+      "value_pct_per_month": 3.5, "source": "https://batterymegastore.b2bwave.com/uploads/8bec04a8/product_files/productfiles/407/tn-power-12v-7.2ah-lithium-battery-data-sheet.pdf",
+      "where": "TN Power 12.8 V 7.2 Ah LiFePO4 datasheet: 'Self Discharge 3.5% per month at 25OC'",
+      "derived_100Wh": {"mW": 4.9}
+    },
+    "outdoor_PV": {
+      "panel": "Voltaic Systems P102C 2 W: Peak Power 2.2 W, 136 x 112 mm, cells 19%",
+      "module_efficiency": 0.144,
+      "source": "https://voltaicsystems.com/2-watt-panel/",
+      "STC_reference": "1 kW/m^2 AM1.5G <-> 100 klux, DOI 10.3390/en7031500 p.1503",
+      "example_daily_Wh": {"1W_panel_5PSH_derate0.8_eta0.85": 3.4, "2.2W_panel": 7.5, "50W_panel_eta0.94": 188},
+      "note": "5 kWh/m^2/day (5 peak-sun-hours) and derate 0.8 are SCENARIO ASSUMPTIONS, to be replaced by NSRDB GHI traces"
+    },
+    "indoor_PV": {
+      "panel": "Panasonic AM-1815 a-Si, 58.1 x 48.6 mm (28.2 cm^2)",
+      "Iope_at_200lx_FL_uA": 45, "Vope_V": 3.0, "P_200lx_uW": 135, "density_200lx_uW_per_cm2": 4.8,
+      "Iope_at_500lx_uA_read_from_loglog_plot": 115, "P_500lx_uW": 345,
+      "source": "https://panasonic.net/electricworks/amorton/assets/pdf/spec_PDF/indoor/AM-1815.pdf",
+      "where": "Rev. 2019/4/26, p.3 'Dependence of Output on Temperature at 200Lx' (Iope ~45 uA @25C, Vope 3.0 V); p.1 'Dependence of Output on Illumination' (log-log)",
+      "example_daily_J_500lx_8h_eta0.8": 7.9,
+      "EnHANTS_units": "trace files in uW/cm^2 (https://enhants.ee.columbia.edu/indoor-irradiance-meas); conversion P = eta_PV,indoor * A * irradiance, eta_PV,indoor UNVERIFIED (sweep 5-10%)"
+    }
+  }
+}
