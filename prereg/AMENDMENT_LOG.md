@@ -180,3 +180,95 @@ The paper labels all A3 numbers as post hoc and descriptive, in the sizing secti
 ### 8. What the analyst had seen (disclosure)
 
 Every v2 TEST number and every A2 TEST number, including Table IV, the block-bootstrap sensitivity (Tables S9–S10), the group-level medians of the sizing rules, and E3 (a constant rate sized on TRAIN had outages in about half of the TEST cases). None of the three A3 quantities had been computed: no C\* with a window removed, no per-cell summary of the rule ratios and no C_TEST/C_TRAIN.
+
+## A4 (09-11-2026): post-hoc report-energy sensitivity and counting on 17 cells
+
+*Written and hashed before any A4 code exists and before any A4 number is computed. Tag: `prereg-40-a4`. Sections A1, A2 and A3 above are unchanged. Decision source: CP3b items 1, 2, 4, 5 and 11, after the round-2 review `P3S/R2_REVIEW_40_v2.md` (F1, M1, M3, M4, M10).*
+
+### 1. Status: post hoc, descriptive
+
+A4 is a sensitivity analysis added after every v2 TEST, A2 and A3 result was seen. It has no pass criterion. It changes no prediction, threshold, grid, seed, verdict or earlier number, and no A4 quantity may be used to re-score anything. Table III keeps its registered counting.
+
+### 2. Report energy in r
+
+r := (E_det + E_rep) / e_idle, where E_det is the detector energy of one activation slot and E_rep is the energy of sending one report. Worst case: **one report on every activation**. The schedule therefore stays event-independent, and the storage need is an upper bound for any rule that reports less often. Every theorem is unchanged, because r is only a parameter.
+
+The registered value r_reg = 14.3 (reference node, e_idle = 0.248 mJ, so E_det = r_reg × e_idle = 3.546 mJ) is the baseline. The measured loop of its source (capture, demosaic, inference, post-processing, `P0/ENERGY_MODEL_40.md`) has no transmission stage, so r_reg absorbs **0 mJ** of report energy per activation. Reported in addition: the report energy per activation that the registered panel margin at m = 0.25 and at m = 1 could pay without changing the panel, from the energy balance at a = 1/8.
+
+r_radio = r_reg + E_rep / e_idle. E_rep comes from reference [2] (Van Leemput et al., IEEE IoT-J 2023, doi 10.1109/JIOT.2023.3263543, read from the Ghent University repository copy, submitted version, `lit/sources/radio/`). One uplink report with an 8-byte application payload (the fixed payload of the LoRaWAN measurement that [2] builds on), one hop, no retransmission:
+
+- **LoRaWAN Class A**, Eq. (9)–(11) and Table VI (SODAQ ExpLoRer, 2.7 V, 14 dBm, sleep between tasks so no start-up energy): E_rep = 166 mJ + 134 mW × T_TX, with T_TX from Eq. (9)–(10) at SF7, 125 kHz, coding rate 4/5, 8 preamble symbols, explicit header, no low-data-rate optimisation, PL = 8.
+- **BLE Mesh low-power node**, Eq. (15)–(16) and Table VII (nRF52840, 1.8 V, 4 dBm, three advertising channels): E_rep = 6.2 µJ + 16.4 mW × 3 T_TX, with T_TX = 8 (PL + 18) / R and R = 1 Mbit/s, PL = 8. The periodic poll task of Eq. (17) is not per activation and is left out.
+- **6TiSCH leaf node**, Eq. (22) and Table VIII (OpenMote, CC2538 at 2.4 GHz, 3.3 V): E_rep = 336.5 µJ + 0.174 µJ × S_TX with S_TX = 38 + 8 = 46 bytes.
+
+Energies are taken at the voltages of [2]; no regulator loss is added. Recorded for each radio: E_rep, r_radio, and whether the radio task fits the activation period of 0.8 s at K = 8. The task lengths of [2] are 2.2 s + T_TX for LoRaWAN Class A (Eq. 13), 24.3 ms + 3 T_TX for BLE (Eq. 20) and one 15-ms slot for 6TiSCH. A radio whose task does not fit is reported as an **energy-only sensitivity, not a schedulable configuration**, in the main text.
+
+### 3. Cells and products
+
+Primary cells: **17 site–season cells** = HCMC 4 (Himawari-9), Madrid 4 and Uppsala 4 with the **MSG** product, indoor 5. MSG is primary because it has the finer native step (15 min against 30 min for SARAH-3) and is the first listed product of the registered site table. The second product is a sensitivity: the 8 SARAH-3 cells are run identically and reported separately.
+
+Counts of adverse outcomes use **either product**: a site–season cell counts if either of its products shows the outcome, so that choosing a primary product cannot remove an adverse cell. The medians use the primary product, with the value on the other product in brackets where the text gives a Madrid or Uppsala median.
+
+### 4. Quantities
+
+Reference node l = 0.036, K = 8, a = 1/8, slot 0.1 s, full-trace series (`split = all`, as Table IV). For each cell, each r in {r_reg, r_BLE, r_6TiSCH, r_LoRaWAN} and m = 0.25 (primary) and m = 1.0 (secondary):
+
+- the panel is rescaled at each r by the registered definition `traces.scale_panel` (mean harvest = (1 + m)(1 + l + (r − 1)/8));
+- **C\*** = `energy.C_periodic` on the full series, which equals C_per at ε = ε\*(1/8); at r_reg it must reproduce `results/F5_sizing_all.json` (relative difference ≤ 10⁻⁹) or the run stops;
+- **C_LB^lo, C_LB^hi** and **C_TS^exact** at ε = ε\*(1/8) + 10⁻⁹ with the law of `split = all` and the A2 functions (`P3R/run_a2_sizing.py`: `lb_bounds`, `ts_exact_hi`, relative tolerance 0.01);
+- C\*(r_radio)/C\*(r_reg), in J and in e_idle;
+- the implied panel: P_mean = (1 + m)(1 + l + (r − 1)/8) e_idle / 0.1 s and W_p = P_mean × 1000 / mean(GHI), for outdoor cells. This assumes a horizontal panel with constant conversion efficiency, so module efficiency cancels; no temperature, MPPT or regulator loss is included.
+
+Output `results/a4_radio.json`, including `a_eps`, the trace length in days and the mean GHI.
+
+### 5. Counting on 17 cells (read-only; no simulation)
+
+From existing result files, written to `results/a4_count17.json`:
+
+- (a) Holm's correction (`bootstrap.holm`, α = 0.05) on the p-values of `results/boot_test.json` restricted to the 17 primary cells: 17 × 2 sign tests plus the taut-string test of the primary cells among the six bootstrap cells.
+- (b) Harvest-following ranges (`dmiss`, `dC_rel`) over the 17 cells.
+- (c) Sizing-rule ratio medians per site from `results/summary_test.json` `main.baselines`, for the primary cells and for the second product, computed like the registered group medians.
+- (d) A3 recounted: worst-spell ratio over the 17 cells; k = C_TEST/C_TRAIN over the 17 cells (median) and the adverse counts by the either-product rule of §3: number of site–season cells with k > 2 and with k infinite; per-cell ranges of A3 §4 for the primary cells.
+- (e) One source for Tables IV and S14–S18: C\* of Table IV stays `results/F5_sizing_all.json`. A3 removed a final partial day, so its base value can differ for the indoor traces; the difference is recorded per cell.
+
+### 6. Consequence for the earlier article (read-only)
+
+For reference [14] (Deep3): the quantities of [14] whose definition coincides with this project's (E[D], median, CV, maximum and ε\*(a) = E[(1 − aD)^+] at the activations printed in [14], and the miss of a Bernoulli schedule E[(1 − a)^D]) are computed with the `events` module on both the earlier corpus (3,713 events, `results/_v1_corpus3713/event_corpus_40.csv`) and the corrected corpus (3,170). The earlier-corpus column must reproduce the values printed in [14] to the printed precision; a mismatch is reported as a definition mismatch and that row becomes "not recomputed". Quantities that need the per-frame gate scores or the timeline replay of [14] are marked "not recomputed". Output `P3T/DEEP3_IMPACT_40.md`.
+
+### 7. What will be run
+
+`code/sim40/a4_sensitivity.py` (parts `radio`, `count17`, `deep3`), one process, inside 08:00–23:00, with at least 7 GB of free RAM at the start of each step; m = 1.0 only if the window allows. Existing result files are not overwritten; `grid_ckpt_v2` is not written. Code added: that module, its tests on synthetic data, `code/a4b_fetch_hcmc.py`; no existing module of `code/sim40/` changes. `code/paper/build_tgcn.py` may change, since it only typesets.
+
+### 8. Reporting
+
+All A4 numbers are labelled post hoc and descriptive in the sizing section and in Threats to Validity. A value that is unfavourable, including a radio whose task does not fit the activation period, is reported as computed.
+
+### 9. What the analyst had seen (disclosure)
+
+Every v2 TEST, A2 and A3 number, including the per-cell k values, among them that the only infinite k of A3 is a SARAH-3 cell (which is why §3 uses the either-product rule for adverse counts). Before writing this amendment the analyst worked out E_rep from [2] by hand: about 171 mJ (LoRaWAN), 0.016 mJ (BLE), 0.34 mJ (6TiSCH), hence r of about 703, 14.4 and 15.7, and saw that the LoRaWAN task is longer than the activation period. The analyst read the headline statistics of [14]. No C\*, bound or schedule at any r_radio had been computed, and no value of §5 or §6 had been computed except those already printed in the manuscript and in A1 §7.
+
+## A4b (09-11-2026): post-hoc inter-annual sensitivity, one site
+
+*Written and hashed with A4, before any data of this section was downloaded. Tag: `prereg-40-a4`. Decision source: CP3b item 6, review item M5.*
+
+### 1. Status
+
+Post hoc, descriptive; no pass criterion; changes no verdict and no earlier number.
+
+### 2. Data
+
+Ho Chi Minh City, the same request as the 2025 file (`code/p0_fetch_irradiance.py`): latitude 10.80, longitude 106.70, Open-Meteo satellite archive, `models=jma_jaxa_himawari`, `hourly=shortwave_radiation`, `temporal_resolution=native`, quarterly requests, for the calendar years 2020–2024. No e-mail or key in any parameter. Files `HCMC_jma_jaxa_himawari_<year>.csv` in `$THS_DATASETS/OpenMeteo_HCMC_2020_2024/` with `DATA_SOURCES.md` (URLs, SHA-256, licence CC BY 4.0). Free space on drive D is checked and logged first. A year or season the archive does not serve at that step is reported as missing and is not filled from another product. The satellite changed from Himawari-8 to Himawari-9 during this period; this is noted in the reporting.
+
+### 3. Quantities
+
+The 2025 pipeline: gaps interpolated up to one hour, zero-order hold to 1-min sub-steps, a season = the months of that calendar year in the climatological order (DJF = December, January, February of the same year, as for 2025), cyclic. Panel scaled for each year–season by the registered definition at m = 0.25 and m = 1. Reference node r_reg. C\* per year × 4 seasons (J), and the same for 2025 from the 2025 file (must equal `results/F5_sizing_all.json`, relative difference ≤ 10⁻⁹, or the run stops). Per season: minimum, maximum and max/min over the years; over seasons: the largest max/min. Because the panel is rescaled every year, this measures the variability of the worst spell at a matched mean harvest, not the shortfall of a fixed panel in a dark year; the reporting says so. Output `results/a4b_interannual.json`.
+
+### 4. What will be run
+
+`code/a4b_fetch_hcmc.py`, then part `a4b` of `code/sim40/a4_sensitivity.py`, under the guards of A4 §7, before part `radio`.
+
+### 5. What the analyst had seen
+
+No irradiance of 2020–2024 and no inter-annual statistic.
+
+*SHA-256 of the A4 + A4b text above, as appended (from the blank line before "## A4 (09-11-2026)" through the line before this note, with its final newline): `d7d1b7da2ac53b7cd2e59f1b36319efd08a4a8958bdf064a647d70b573681a1f`. The hash of the whole file is in `AMENDMENT_LOG.sha256`.*
