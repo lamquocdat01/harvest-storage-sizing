@@ -272,3 +272,56 @@ The 2025 pipeline: gaps interpolated up to one hour, zero-order hold to 1-min su
 No irradiance of 2020–2024 and no inter-annual statistic.
 
 *SHA-256 of the A4 + A4b text above, as appended (from the blank line before "## A4 (09-11-2026)" through the line before this note, with its final newline): `d7d1b7da2ac53b7cd2e59f1b36319efd08a4a8958bdf064a647d70b573681a1f`. The hash of the whole file is in `AMENDMENT_LOG.sha256`.*
+
+## A5 (09-11-2026): post-hoc fixed-panel sensitivity of the report energy
+
+*Written and hashed before any A5 code exists and before any A5 number is computed. Tag: `prereg-40-a5`. Sections A1–A4b above are unchanged. Decision source: CP3c item 3, after the round-3 review `P3T/R2_REVIEW_40_v3.md` (§2, N9).*
+
+### 1. Status: post hoc, descriptive
+
+A5 is a sensitivity analysis added after every earlier result was seen. It has no pass criterion. It changes no prediction, threshold, grid, seed, verdict or earlier number, and no A5 quantity may be used to re-score anything. Table III is unchanged.
+
+### 2. Definition
+
+The panel stays at the size registered for r_reg = 14.3 at m = 0.25 (`traces.scale_panel(g, 14.3, 0.036, 0.25)` on the full-trace cell, as Table IV), and is not rescaled. The node then pays the A4 report energy: r_BLE and r_6TiSCH of `results/a4_radio.json` (one report on every activation). LoRaWAN is not run: at a = 1/8 its demand exceeds the registered panel's mean income, by A4 §2 (margin 1.34 mJ per activation against 171 mJ).
+
+Reference node l = 0.036, K = 8, a = 1/8, slot 0.1 s, `split = all`. Cells: the 17 primary site–season cells of A4 §3, with the 8 SARAH-3 cells run identically and reported separately. For each cell and each radio:
+
+- **C\*_fixed** = `energy.C_periodic(h, 600, r_radio, 0.036, 1/8)`, the capacity at ε = ε\*(1/8), infinite if the cycle has a net deficit. At r_reg the same code path must reproduce `results/F5_sizing_all.json` (relative difference ≤ 10⁻⁹) or the run stops.
+- **C_LB^lo, C_LB^hi** and **C_TS^exact** at ε = ε\*(1/8) + 10⁻⁹ with the A2 functions, as in A4 §4.
+- The ratio C\*_fixed / C\*_reg, and the ratio C\*_fixed / C\*_rescaled (A4 value at the same radio).
+- The energy balance: mean income minus demand per slot, and whether the cell has lost it.
+
+Reported per radio over the 17 cells, and separately over the 8 sensitivity cells: minimum, median and maximum ratio; the cells that lost energy balance, printed by name; the number of cases with C_LB^lo > C_TS^exact. Output `results/a5_fixed_panel.json`.
+
+### 3. Reporting
+
+All A5 numbers are labelled post hoc and descriptive. An unfavourable result, including a cell that loses energy balance, is printed as computed.
+
+## A5b (09-11-2026): reproduction of the gate results of the earlier article on the corrected corpus
+
+*Written and hashed with A5, before this rerun. Tag: `prereg-40-a5`. Decision source: CP3c item 1. This is a reproduction of reference [14] (doi 10.1109/JIOT.2026.3740931), not a new experiment of this project, and it changes nothing in this project's results.*
+
+### 1. What is reproduced
+
+The corpus-dependent gate results of [14]: the gain–cost decomposition at the deployed gate (Sec. VI, Thm. 9); the operating family against the frontier (Sec. VII-D, Fig. 2 and Table S5 inputs, per-dataset peaks); ablation and baselines at equal energy (Sec. VII-E, Table S5); event density and the alignment–density law (Sec. VII-F, Fig. 3, Fig. S8); the certification table and the leak-then-fix witness (Sec. VII, Table S2, Fig. S6). Also the other corpus-dependent statistics that the same batch produces (Sec. V, Tables S1, S3, S4). **The hardware energy measurements of [14] (Jetson Orin Nano on INA3221, ESP32-S3 on INA219) do not depend on the corpus and are not rerun.**
+
+### 2. Code and inputs
+
+The Deep3 code as copied by the audit of topic 17 on 27-09-2026 (`17_Sim2Real_Certification/legacy/audit_B0_deep3_pa/deep3/`, runs `run_old` = 3,713 events and `run_corr` = 3,170 events, protocol and seeds of the article: run_all 42, A1 7, A5/A6 20260916, B1 3, B2 21). Folder 17, the Deep3 folders and repository, and #05 are **read only**. The two runs are copied to `$THS_DATASETS/_derived/40/deep3_rerun/`; in the copy the absolute paths are rewritten to the copy and nothing else changes, and the rewrite is logged. `cfs/` and `scripts/` are checked file by file against the published Deep3 repository.
+
+The inputs are the processed files of those runs. In `run_corr` the LASIESTA rows come from the gate re-run of 27-09-2026 on time-ordered detections; CDnet 2014 and BMC rows are the published ones. The gate pass on LASIESTA is not re-executed here: the audit validated it by reproducing all 936 published LASIESTA event outcomes in text order.
+
+### 3. What will be compared
+
+The batch `run_batch.sh` of the audit (run_all phases 1–2, sim_phase, analyze_mdep, analyze_relcorr, analyze_detector, sweep_tau, analyze_alignment, analyze_activation, check_thm4_and_integrity, b1_ablation_sota, b2_dilution), for both runs, one process at a time. Every numeric value in the output JSON files is compared with the audit's outputs (absolute tolerance 10⁻⁹). If they agree, the 67 rows of `17_Sim2Real_Certification/results/b0_deep3_impact.json` are adopted; a value that differs is printed and the rerun value is used. Rows the audit marks as not reproducible on 3,713 events stay marked. Printed values are checked against the FINAL manuscript and supplement PDFs of [14] in this machine. A step that cannot run is reported as "not reproducible from available code" with the reason. Output `results/a5b_deep3_gate.json`, `P3U/DEEP3_IMPACT_40_v2.md`.
+
+### 4. What will be run
+
+`code/sim40/a5_sensitivity.py`, `P3U/setup_deep3_rerun.py`, `P3U/run_a5_chain.py` (one process; each step starts inside 08:00–23:00 with at least 7 GB free), `P3U/a5b_compare.py`. Existing result files are not overwritten; `grid_ckpt_v2` is not written. No existing module of `code/sim40/` changes.
+
+### 5. What the analyst had seen (disclosure)
+
+For A5: every earlier number of this project, the panel margin of A4 and the round-3 review's expectation that C\* rises by a cell-dependent factor. No C\* at a fixed panel with a radio had been computed. For A5b: the full table of the 27-09-2026 audit (`17_Sim2Real_Certification/notes/_b0_deep3_section.md`), including its corrected gate values and its list of conclusions that change. The rerun therefore reproduces known numbers and is not blind.
+
+*SHA-256 of the A5 + A5b text above, as appended (from the blank line before "## A5 (09-11-2026)" through the line before this note, with its final newline): `5d48dfbd74f19a1fd7f91ed583ac8d7d955c559d2de9bea23b28e4c00a115307`. The hash of the whole file is in `AMENDMENT_LOG.sha256`.*
