@@ -65,4 +65,4 @@ LASIESTA file names are not zero-padded (`1.bmp`, `10.bmp`, `100.bmp`, …). `co
 
 ## Tags
 
-`prereg-40-v1`, `prereg-40-a1` … `prereg-40-a5` freeze the pre-registration and its amendments before the runs they govern. `v3.0.0-tgcn` is the state accompanying the manuscript.
+`prereg-40-v1`, `prereg-40-a1` … `prereg-40-a5` freeze the pre-registration and its amendments before the runs they govern. `v3.0.1-tgcn` is the state accompanying the manuscript.
