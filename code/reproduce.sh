@@ -8,7 +8,7 @@ W="${1:-3}"
 cd "$(dirname "${BASH_SOURCE[0]}")"
 # corpus: rebuilt from the detection dump if present (LASIESTA in time order, amendment A1); the comparison with the
 # earlier corpus runs only where that file exists. Without the dump, results/event_corpus_40.csv (released) is used.
-if [ -d "${THS_DATASETS:-D:/Datasets}/_derived/detections_cpu_yolo26s" ]; then
+if [ -d "${THS_DATASETS:-datasets}/_derived/detections_cpu_yolo26s" ]; then
   python -m sim40.events
 fi
 for st in main frontier gate throttle; do python -m sim40.run_grid --split test --stage $st --workers "$W"; done

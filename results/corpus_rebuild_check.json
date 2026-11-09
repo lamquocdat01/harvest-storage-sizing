@@ -1,7 +1,7 @@
 {
  "rule": "event = maximal run of consecutive frames with >= 1 detection box; datasets CDnet2014, LASIESTA, BMC",
  "frame_order": "time; LASIESTA re-ordered by the number in the file name (amendment A1)",
- "detections_root": "D:\\Datasets\\_derived\\detections_cpu_yolo26s",
+ "detections_root": "<local path>",
  "n_videos": 121,
  "n_events": 3170,
  "n_frames_total": 166589,
@@ -18,7 +18,7 @@
  "event_corpus_40_csv_sha256": "299caebc690fb6f40c7de4be5b24cb334de2ffcc62cc01bc06f53221b59b39d3",
  "F_D_hash": "917151434d622e98a95f85b3a38f1ad5f88e2185014f651eafb279924ba0fe23",
  "reference": {
-  "path": "D:\\THS Programing\\09.05 Certifiable worst-case\\certifiable-frame-skipping\\data\\processed\\events_gated.csv",
+  "path": "<local path>",
   "sha256": "8fade8f15bbb4f09ec27cb25a355af92750c618017c04e4d5d7b1917bb7cf29d",
   "sha_expected": "8fade8f15bbb4f09ec27cb25a355af92750c618017c04e4d5d7b1917bb7cf29d",
   "sha_ok": true,

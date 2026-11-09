@@ -16,7 +16,7 @@ import time
 import urllib.request
 from pathlib import Path
 
-ROOT = Path(os.environ.get("THS_DATASETS", r"D:\Datasets")) / "OpenMeteo_HCMC_2020_2024"
+ROOT = Path(os.environ.get("THS_DATASETS", "datasets")) / "OpenMeteo_HCMC_2020_2024"
 YEARS = range(2020, 2025)
 API = "https://satellite-api.open-meteo.com/v1/archive"
 LAT, LON, MODEL = 10.80, 106.70, "jma_jaxa_himawari"
@@ -37,8 +37,8 @@ def fetch(start, end):
 
 
 def download():
-    free = shutil.disk_usage("D:\\").free / 2**30
-    print(f"free space on D: {free:.1f} GB (rule: > 1.5 x size + 20 GB; expected size < 0.05 GB)")
+    free = shutil.disk_usage(".").free / 2**30
+    print(f"free space: {free:.1f} GB (rule: > 1.5 x size + 20 GB; expected size < 0.05 GB)")
     if free < 20.1:
         sys.exit("not enough free space")
     ROOT.mkdir(parents=True, exist_ok=True)
@@ -76,7 +76,7 @@ def write_sources():
          "- **Source:** Open-Meteo Satellite Radiation API, https://satellite-api.open-meteo.com/v1/archive",
          f"- **Request:** latitude={LAT}, longitude={LON}, models={MODEL}, hourly=shortwave_radiation, temporal_resolution=native; "
          "quarterly requests; no e-mail or key.",
-         "- **Same request as the 2025 file** in `D:\\Datasets\\OpenMeteo_SatRad\\` (`code/p0_fetch_irradiance.py`).",
+         "- **Same request as the 2025 file** in `$THS_DATASETS/OpenMeteo_SatRad/` (`code/p0_fetch_irradiance.py`).",
          "- **Licence:** CC BY 4.0 (Open-Meteo). Attribution: Open-Meteo; satellite data JMA/JAXA Himawari.",
          "- **Note:** the satellite changed from Himawari-8 to Himawari-9 within this period.",
          f"- **Downloaded:** {time.strftime('%Y-%m-%d %H:%M')} ICT by `code/a4b_fetch_hcmc.py`. Size {size / 2**20:.1f} MB.", "",

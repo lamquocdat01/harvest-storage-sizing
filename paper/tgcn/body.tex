@@ -194,7 +194,7 @@ The results combine into a procedure that a fleet planner runs per site before d
 \item Do not rely on threshold throttling to soften outages; add storage or panel. Spending the spill with a predictive duty cycle helped in the exploratory analysis of Section~\ref{sec:throttle}; this step is exploratory; no bound covers it.
 \item Before adding a content-based gate, check its cue cost against the boundary of Proposition~\ref{prop:gate}.
 \end{enumerate}
-\noindent\emph{Worked example.} Take the reference node in Ho Chi Minh City in September--November, reporting over 6TiSCH ($r=\rSix$, $K=8$, $m=0.25$). Its mean harvested power is \ExPmean\,mW, which needs a panel of \ExWp\,mW$_p$. The third step gives $C^*=\ExCkJ$\,kJ, about \ExCaps{} supercapacitors of 10\,F at 3\,V. The fourth step applies: for the registered $r$ the worst season of 2020--2025 needed \AivbWorstkJ\,kJ, against \AivbFivekJ\,kJ for the worst season of 2025 alone.
+\noindent\emph{Worked example.} Take the reference node in Ho Chi Minh City in September--November, reporting over 6TiSCH ($r=\rSix$, $K=8$, $m=0.25$). Its mean harvested power is \ExPmean\,mW, which needs a panel of \ExWp\,mW$_p$. The third step gives $C^*=\ExCkJ$\,kJ (\ExCkJFixed\,kJ with the panel held fixed), about \ExCaps{} supercapacitors of 10\,F at 3\,V. The fourth step applies: for the registered $r$ the worst season of 2020--2025 needed \AivbWorstkJ\,kJ, against \AivbFivekJ\,kJ for the worst season of 2025 alone.
 
 \begin{proposition}[Gate boundary]\label{prop:gate}
 Let periodic operation at rate $a_{\mathrm{per}}$ be exactly sustained at capacity $C^*_{\mathrm{per}}>0$. A gate that activates at long-run rate $\rho\,a_{\mathrm{per}}$, spread over time, and pays $c$ per slot empties storage at $C^*_{\mathrm{per}}$ iff $c>c^*(\rho)=(1-\rho)a_{\mathrm{per}}(r-1)$.
@@ -218,3 +218,7 @@ The author used AI assistants by Anthropic. Claude Opus 5.5 was used for draftin
 
 \bibliographystyle{IEEEtran}
 \bibliography{refs}
+
+\begin{IEEEbiographynophoto}{Dat Lam Quoc}
+is a researcher with the FPT School of Business and Technology (FSB), FPT University, Ho Chi Minh City, Viet Nam. Research interests include energy-aware sensing and edge inference. ORCID 0009-0004-5432-9343.
+\end{IEEEbiographynophoto}

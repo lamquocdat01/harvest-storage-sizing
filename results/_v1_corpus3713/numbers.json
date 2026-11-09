@@ -2,7 +2,7 @@
  "split": "test",
  "corpus": {
   "rule": "event = maximal run of consecutive frames with >= 1 detection box; datasets CDnet2014, LASIESTA, BMC",
-  "detections_root": "D:\\Datasets\\_derived\\detections_cpu_yolo26s",
+  "detections_root": "<local path>",
   "n_videos": 121,
   "n_events": 3713,
   "n_frames_total": 166589,
@@ -13,7 +13,7 @@
   },
   "event_corpus_40_csv_sha256": "6f135f9fa0383621da991b666c1fe2629604ca287ff0f9e08a77566f663721ac",
   "reference": {
-   "path": "D:\\THS Programing\\09.05 Certifiable worst-case\\certifiable-frame-skipping\\data\\processed\\events_gated.csv",
+   "path": "<local path>",
    "sha256": "8fade8f15bbb4f09ec27cb25a355af92750c618017c04e4d5d7b1917bb7cf29d",
    "sha_expected": "8fade8f15bbb4f09ec27cb25a355af92750c618017c04e4d5d7b1917bb7cf29d",
    "sha_ok": true,

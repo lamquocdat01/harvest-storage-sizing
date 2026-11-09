@@ -132,6 +132,7 @@ def main():
     put("ExWp", f"{ex['W_p'] * 1e3:.0f}", "a4_radio.json:rows HCMC SON 6TiSCH W_p")
     put("ExCkJ", f"{ex['Cstar_J'] / 1e3:.2f}", "a4_radio.json:rows HCMC SON 6TiSCH Cstar_J")
     put("ExCaps", str(math.ceil(ex["Cstar_J"] / SUPERCAP_J)), "Cstar_J / 45 J, rounded up (10 F, 3 V supercapacitor)")
+    put("ExCkJFixed", f"{fix[('HCMC', 'SON', '6TiSCH')]['Cstar_fixed_J'] / 1e3:.2f}", "a5_fixed_panel.json:rows HCMC SON 6TiSCH Cstar_fixed_J")
     hr = [round(F5[("HCMC", se)]["Cstar_J"] / 1e3, 2) / round(F5[("HCMC", se)]["baselines_J"]["C_avgday"] / 1e3, 2) for se in SEAS]
     put("FullRatioLo", f"{min(hr):.1f}", "F5_sizing_all.json: HCMC C*/C_avgday from the two decimals printed in Table IV, min")
     put("FullRatioHi", f"{max(hr):.1f}", "F5_sizing_all.json: HCMC C*/C_avgday from the two decimals printed in Table IV, max")

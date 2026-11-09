@@ -17,7 +17,7 @@ TOPIC = CODE.parent
 RES = TOPIC / "results"
 FIGS = RES / "figs"
 
-DS = Path(os.environ.get("THS_DATASETS", r"D:\Datasets"))
+DS = Path(os.environ.get("THS_DATASETS", "datasets"))
 SAT = DS / "OpenMeteo_SatRad"
 ENH = DS / "EnHANTS" / "extracted"
 DET = DS / "_derived" / "detections_cpu_yolo26s"
@@ -26,8 +26,7 @@ CKPT = DS / "_derived" / "40" / "grid_ckpt_v2"   # large dumps off the Drive-syn
 
 # events_gated.csv of the 09.05 repo: READ ONLY, used only to compare with the corpus rebuilt here
 # (events.py; it carries the earlier LASIESTA frame index). Never copied, never imported.
-LEGACY_EVENTS = Path(r"D:\THS Programing\09.05 Certifiable worst-case\certifiable-frame-skipping"
-                     r"\data\processed\events_gated.csv")
+LEGACY_EVENTS = DS / "legacy" / "events_gated.csv"
 LEGACY_EVENTS_SHA = "8fade8f15bbb4f09ec27cb25a355af92750c618017c04e4d5d7b1917bb7cf29d"
 
 TAU = 0.1                      # slot length (s)

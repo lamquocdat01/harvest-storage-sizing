@@ -30,7 +30,7 @@ from . import config as cfg
 DATASETS = ("CDnet2014", "LASIESTA", "BMC")
 OUT_CSV = cfg.RES / "event_corpus_40.csv"
 # topic 17 (B0, 27-09-2026): the same correction, built there from frame_scores. READ ONLY, compared if present.
-TOPIC17_CORRECTED = Path(r"D:\PhD Program\02. Working\17_Sim2Real_Certification\results\events_durations_corrected.csv")
+TOPIC17_CORRECTED = cfg.DS / "legacy" / "events_durations_corrected.csv"
 TOPIC17_COUNTS = {"BMC": 261, "CDnet2014": 2516, "LASIESTA": 393}
 
 

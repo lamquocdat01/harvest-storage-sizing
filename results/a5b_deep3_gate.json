@@ -25,7 +25,7 @@
      "first": [
       [
        "/protocol/source",
-       "'D:\\\\PhD Program\\\\02. Working\\\\17_Sim2Real_Certification\\\\code\\\\b0_impact\\\\deep3\\\\run_old\\\\data\\\\processed\\\\events_gated.csv' vs 'D:\\\\Datasets\\\\_derived\\\\40\\\\deep3_rerun\\\\run_old\\\\data\\\\processed\\\\events_gated.csv'"
+       "'<local path>' vs '<local path>'"
       ]
      ]
     },
@@ -35,7 +35,7 @@
      "first": [
       [
        "/protocol/source",
-       "'D:\\\\PhD Program\\\\02. Working\\\\17_Sim2Real_Certification\\\\code\\\\b0_impact\\\\deep3\\\\run_old\\\\data\\\\processed\\\\frame_scores.parquet' vs 'D:\\\\Datasets\\\\_derived\\\\40\\\\deep3_rerun\\\\run_old\\\\data\\\\processed\\\\frame_scores.parquet'"
+       "'<local path>' vs '<local path>'"
       ]
      ]
     },
@@ -77,7 +77,7 @@
      "first": [
       [
        "/protocol/source",
-       "'D:\\\\PhD Program\\\\02. Working\\\\17_Sim2Real_Certification\\\\code\\\\b0_impact\\\\deep3\\\\run_corr\\\\data\\\\processed\\\\events_gated.csv' vs 'D:\\\\Datasets\\\\_derived\\\\40\\\\deep3_rerun\\\\run_corr\\\\data\\\\processed\\\\events_gated.csv'"
+       "'<local path>' vs '<local path>'"
       ]
      ]
     },
@@ -87,7 +87,7 @@
      "first": [
       [
        "/protocol/source",
-       "'D:\\\\PhD Program\\\\02. Working\\\\17_Sim2Real_Certification\\\\code\\\\b0_impact\\\\deep3\\\\run_corr\\\\data\\\\processed\\\\frame_scores.parquet' vs 'D:\\\\Datasets\\\\_derived\\\\40\\\\deep3_rerun\\\\run_corr\\\\data\\\\processed\\\\frame_scores.parquet'"
+       "'<local path>' vs '<local path>'"
       ]
      ]
     },
