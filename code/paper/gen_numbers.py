@@ -18,7 +18,7 @@ import numpy as np
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 RES = ROOT / "results"
 LATEX = ROOT / "submission_package" / "IoTJ" / "latex"
-REPO_URL = r"\url{https://github.com/lamquocdat01/harvest-certified-detection}"
+REPO_URL = r"\url{https://github.com/lamquocdat01/harvest-storage-sizing}"
 
 PROV_OUT = None          # None -> RES / "numbers_provenance.json"; build_v2.py writes its own file
 MAC: dict[str, str] = {}
